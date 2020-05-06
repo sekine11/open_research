@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
     t.integer "user_id", null: false
     t.string "subject", null: false
     t.text "content", null: false
-    t.integer "status", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
@@ -119,12 +119,12 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
 
   create_table "project_informations", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "poject_id", null: false
+    t.integer "project_id", null: false
     t.string "subject", null: false
-    t.string "content", null: false
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["poject_id"], name: "index_project_informations_on_poject_id"
+    t.index ["project_id"], name: "index_project_informations_on_project_id"
     t.index ["user_id"], name: "index_project_informations_on_user_id"
   end
 
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
     t.integer "user_id", null: false
     t.string "subject", null: false
     t.text "content", null: false
-    t.integer "status", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
