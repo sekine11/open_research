@@ -43,7 +43,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <% current_user.project_members.each do |pro| %>
                   <% project = Project.find(pro.project_id) %>
-                  <%= link_to project.name, project_path(project), class: "dropdown-item" %>
+                  <%= link_to project.name, laboratory_project_path(:laboratory_id => project.laboratory_id, :id => project.id), class: "dropdown-item" %>
                 <% end %>
               </div>
             </li>
@@ -52,8 +52,8 @@
                 アカウント
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                <a class="dropdown-item" href="#">会員情報</a>
-                <a class="dropdown-item" href="#">ログアウト</a>
+                <%= link_to "会員情報", edit_user_registration_path, class: "dropdown-item" %>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
               </div>
             </li>
           </ul>
@@ -94,8 +94,8 @@
 
     </header>
 
-    <div class="container min-vh">
-      <div class="row mt-2">
+    <div class="container-fluid">
+      <div class="row py-2 shadow-sm bg-light">
         <% if request.url.include?("laboratories") %>
           <%= render "share/labheader" %>
         <% elsif request.url.include?("projects/:id") %>
@@ -104,9 +104,14 @@
           <%= render "share/subheader" %>
         <% end %>
       </div>
+    </div>
+
+    <div class="container-fluid min-vh">
+      <div class="row pt-4 d-block">
 
       <%= yield %>
 
+      </div>
     </div>
 
     <footer class="bg-secondary mt-4 py-4">
