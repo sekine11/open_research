@@ -1,0 +1,10 @@
+ja:
+  enums:
+    question:
+      status:
+        accepting: 受付中
+        completed: 解決済み
+    discussion:
+      status:
+        active: 活動中
+        inactive: 終了
