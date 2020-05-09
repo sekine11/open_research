@@ -13,8 +13,8 @@ class User < ApplicationRecord
 
   # アソシエーション
   has_many :questions
-  has_many :question_favorites
-  has_many :question_comments
+  has_many :ques_favorites
+  has_many :ques_comments
   has_many :discussions
   has_many :discuss_favorites
   has_many :discuss_comments

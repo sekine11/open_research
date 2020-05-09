@@ -13,7 +13,7 @@ class ProtocolsController < ApplicationController
     if params[:tag]
       @protocols = Protocol.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:page]).per(20)
     else
-      @protocols = Protocol.all.order(created_at: "DESC")
+      @protocols = Protocol.all.order(created_at: "DESC").page(params[:page]).per(20)
     end
     @rank_protocols = Protocol.all.order(created_at: "DESC")
   end
@@ -26,7 +26,7 @@ class ProtocolsController < ApplicationController
     @protocol = Protocol.new(protocol_params)
     @protocol.user_id = current_user.id
     if @protocol.save
-      redirect_to @protocol, notice: "プロトコールを共有しました"
+      redirect_to @protocol, notice: "質問を投稿しました"
     else
       @protocol = Protocol.new
       render "new"
@@ -36,7 +36,7 @@ class ProtocolsController < ApplicationController
   def update
     @protocol = Protocol.find(params[:id])
     if @protocol.update(protocol_params)
-      redirect_to @protocol, notice: "プロトコールを編集しました"
+      redirect_to @protocol, notice: "質問を編集しました"
     else
       render "edit"
     end
