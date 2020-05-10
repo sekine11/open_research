@@ -1,2 +1,16 @@
-<h1>Laboratories#new</h1>
-<p>Find me in app/views/laboratories/new.html.erb</p>
+<div class="row m-4">
+
+<%= form_with(model: @laboratory, local: true, html: { class: "col-12 col-md-8 offset-md-2 mt-3" }) do |f| %>
+
+	<div class="form-group">
+		<%= f.label :name, "研究室名" %>
+		<%= f.text_field :name, class: "form-control" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.submit "ラボを作成", class: "btn btn-success" %>
+	</div>
+
+<% end %>
+
+</div>
