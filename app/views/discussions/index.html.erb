@@ -13,7 +13,7 @@
 					<div class="col-12 flex justify-content-between align-items-center">
 						<h3 class="h5 font-weight-bold"><%= link_to discussion.subject.truncate(35), discussion_path(discussion), class: "text-body link" %></h3>
 						<% if discussion.status_i18n == "活動中" %>
-							<p class="font-weight-bold bg-info p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
+							<p class="font-weight-bold bg-success p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
 						<% else %>
 							<p class="font-weight-bold bg-secondary p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
 						<% end %>

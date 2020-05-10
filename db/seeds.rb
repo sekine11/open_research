@@ -37,7 +37,7 @@ end
 	QuesComment.create!(
 		user_id: rand(1..50),
 		question_id: rand(1..10),
-		comment: "テスト" * 20
+		content: "テスト" * 20
 		)
 
 end
@@ -57,7 +57,8 @@ end
 10.times do
 
 	Laboratory.create!(
-		name: "テスト大学テスト研究室#{rand(1..99)}"
+		name: "テスト大学テスト研究室#{rand(1..99)}",
+		user_id: rand(1..50)
 		)
 
 end

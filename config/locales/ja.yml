@@ -8,3 +8,8 @@ ja:
       status:
         active: 活動中
         inactive: 終了
+    lab_task:
+      status:
+        incomplete: 未完了
+        progress: 進行中
+        complete: 完了

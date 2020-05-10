@@ -30,6 +30,11 @@
                 ラボ
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <%= link_to "新しいラボを作る", new_laboratory_path, class: "dropdown-item" %>
+                <% current_user.laboratory.each do |lab| %>
+                  <% labo = Laboratory.find(lab.id) %>
+                  <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
+                <% end %>
                 <% current_user.lab_members.each do |lab| %>
                   <% labo = Laboratory.find(lab.laboratory_id) %>
                   <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
@@ -96,13 +101,7 @@
 
     <div class="container-fluid">
       <div class="row py-2 shadow-sm bg-light">
-        <% if request.url.include?("laboratories") %>
-          <%= render "share/labheader" %>
-        <% elsif request.url.include?("projects/:id") %>
-          Hello
-        <% else %>
-          <%= render "share/subheader" %>
-        <% end %>
+        <%= render "share/subheader" %>
       </div>
     </div>
 

@@ -21,15 +21,16 @@ class User < ApplicationRecord
   has_many :protocols
   has_many :protocol_favorites
   has_many :lab_members
+  has_many :laboratory
   has_many :lab_tasks
   has_many :lab_informations
-  has_many :lab_informations_checks
-  has_many :lab_informations_comments
+  has_many :lab_information_checks
+  has_many :lab_information_comments
   has_many :project_members
   has_many :project_tasks
   has_many :project_informations
-  has_many :project_informations_checks
-  has_many :project_informations_comments
+  has_many :project_information_checks
+  has_many :project_information_comments
 
   def update_without_current_password(params, *options)
     params.delete(:current_password)
