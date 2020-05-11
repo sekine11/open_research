@@ -17,8 +17,39 @@
 //= require popper
 //= require bootstrap
 //= require bootstrap-sprockets
+//= require moment
+//= require fullcalendar
+//= require fullcalendar/lang/ja
+//= require tempusdominus-bootstrap-4.js
 //= require_tree .
 
+// tooltipの設定
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+// fullcalendar
+function eventCalendar() {
+  return $('#calendar').fullCalendar({
+  	header: {
+  		left: 'prev,next today',
+        center: 'title',
+        right: 'month agendaWeek agendaDay'
+  	},
+  	firstDay: 1,
+  	titleFormat: 'M月',
+  	timeFormat: 'H:mm',
+  	// eventsのjsonのパス
+  	events: location.pathname + '.json',
+  	// eventをクリックしたときにモーダルで詳細を表示
+  	eventClick: function(info) {
+  		console.log(info.id);
+      jQuery(`#event${info.id}`).modal('toggle');
+    },
+  });
+};
+function clearCalendar() {
+  $('#calendar').html('');
+};
+$(document).on('turbolinks:load', eventCalendar);
+$(document).on('turbolinks:before-cache', clearCalendar);

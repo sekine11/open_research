@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   	resource :ques_favorites, only: [:create, :destroy]
   end
   resources :laboratories, only: [:new, :show, :edit, :update, :create] do
+    resources :events, only: [:create, :destroy]
   	resources :lab_tasks, only: [:create, :destroy, :update]
   	resources :lab_members, only: [:new, :index, :create, :update, :destroy]
   	resources :lab_informations do
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
   	resources :projects, only: [:new, :show, :edit, :update, :create, :destroy] do
   		resources :project_tasks, only: [:create, :destroy, :update]
   		resources :project_members, only: [:new, :index, :create, :update, :destroy]
-  		resources :project_informations, only: [:new, :show, :edit, :update, :create, :destroy] do
+  		resources :project_informations, only: [:new, :show, :create, :destroy] do
   			resources :project_information_comments, only: [:create, :destroy]
   			resource :project_information_checks, only: [:create, :destroy]
   		end
