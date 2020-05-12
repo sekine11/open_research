@@ -19,8 +19,33 @@
  @import 'font-awesome';
  @import "tempusdominus-bootstrap-4.css";
 
+ body {
+ 	font-family: "Open Sans", "Helvetica Neue", Helvetica, "Arial", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+ }
+
+ .top-image {
+ 	background-repeat: no-repeat;
+ 	background-position: center;
+ 	background-image: url("top.jpg");
+ 	background-size: cover;
+ 	min-height: calc(100vh - 88px);
+ 	position: relative;
+ }
+ .top-image::after {
+	content: '';
+	background-color: rgba(0,0,0,.5);
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+ }
+ .top-content {
+ 	z-index: 9999;
+ }
+
  .min-vh {
- 	min-height: calc( 100vh - 237px );
+ 	min-height: calc( 100vh - 213px );
  }
  .link:hover {
  	opacity: 0.8;
@@ -35,16 +60,16 @@
  	background-color: rgba(255,193,7,0.6);
  }
  .vh-20 {
- 	height: 20vh;
+ 	min-height: 20vh;
  }
  .vh-40 {
- 	height: 40vh;
+ 	min-height: 40vh;
  }
  .vh-60 {
- 	height: 60vh;
+ 	min-height: 60vh;
  }
  .vh-80 {
- 	height: 80vh;
+ 	min-height: 80vh;
  }
  .discussion-subject {
  	background-color: rgba(23,162,184,0.6);
@@ -61,4 +86,59 @@
  .fc-event-container {
  	cursor: pointer;
  	color: var(--light);
+ }
+
+ // bootstrap4 color
+
+ .bg-blue {
+ 	background-color: var(--blue);
+ }
+ .bg-indigo {
+ 	background-color: var(--indigo);
+ }
+ .bg-purple {
+ 	background-color: var(--purple);
+ }
+ .bg-pink {
+ 	background-color: var(--pink);
+ }
+ .bg-red {
+ 	background-color: var(--red);
+ }
+ .bg-orange {
+ 	background-color: var(--orange);
+ }
+ .bg-yellow {
+ 	background-color: var(--yellow);
+ }
+ .bg-green {
+ 	background-color: var(--green);
+ }
+ .bg-teal {
+ 	background-color: var(--teal);
+ }
+ .bg-cyan {
+ 	background-color: var(--cyan);
+ }
+
+ .hr-top {
+ 	margin: 0 0 5rem 0;
+ 	border: 0;
+ 	border-top: 1px solid rgba(0,0,0,.1);
+ }
+ .hr-middle {
+ 	margin: 5rem 0;
+ 	border: 0;
+ 	border-top: 1px solid rgba(0,0,0,.1);
+ }
+ .hr-bottom {
+ 	margin: 5rem 0 0 0;
+ 	border: 0;
+ 	border-top: 1px solid rgba(0,0,0,.1);
+ }
+ .font-weight-middle {
+ 	font-weight: 480;
+ }
+ .about-text {
+ 	line-height: 2.5;
  }

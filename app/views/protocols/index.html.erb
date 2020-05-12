@@ -8,22 +8,7 @@
 	</div>
 	<div class="col-7">
 		<main class="">
-			<% @protocols.each do |protocol| %>
-				<div class="border-top border-bottom p-3 row">
-					<h3 class="col-12 h5 mb-1 font-weight-bold"><%= link_to protocol.subject.truncate(30), protocol_path(protocol), class: "text-body link" %></h3>
-					<div class="col-12 mb-1">
-						<% protocol.protocol_counts.each do |tag| %>
-							<span class="badge badge-pill badge-danger mx-1"><%= tag.name %></span>
-						<% end %>
-					</div>
-					<div class="col-12">
-						<div class="row">
-							<span class="col-12 col-md-6 text-dark">投稿者：<%= protocol.user.public_name %></span>
-							<span class="col-12 col-md-6 text-dark">お気に入り数：<%= protocol.protocol_favorites.count %></span>
-						</div>
-					</div>
-				</div>
-			<% end %>
+			<%= render "share/protocols", protocols: @protocols %>
 		</main>
 	</div>
 	<div class="col-3">
@@ -34,14 +19,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% i = 1 %>
-				<% @rank_protocols.first(10).each do |protocol| %>
-					<tr>
-						<th><%= i %></th>
-						<td><%= protocol.subject.truncate(15) %></td>
-					</tr>
-					<% i += 1 %>
-				<% end %>
+				<%= render "share/ranking", rank_items: @rank_protocols %>
 			</tbody>
 		</table>
 	</div>

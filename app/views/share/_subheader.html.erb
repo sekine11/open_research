@@ -1,18 +1,22 @@
-		<div class="col-4">
-			<div class="d-block d-md-flex d-lg-flex justify-content-center align-items-center text-center">
-				<%= link_to "質問へ", questions_path, class: "text-warning font-weight-bold mr-1" %>
-				<%= link_to "質問をしてみる", new_question_path, class: "btn btn-warning" %>
+	<div class="container">
+		<div class="row">
+			<div class="col-4">
+				<div class="text-left">
+					<%= link_to "質問へ", questions_path, class: "text-warning font-weight-bold" %>
+					<%= link_to "質問をする", new_question_path, class: "btn btn-warning" %>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="text-center">
+					<%= link_to "議論へ", discussions_path, class: "text-info font-weight-bold" %>
+					<%= link_to "議論を始める", new_discussion_path, class: "btn btn-info" %>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="text-right">
+					<%= link_to "プロトコールへ", protocols_path, class: "text-danger font-weight-bold" %>
+					<%= link_to "共有する", new_protocol_path, class: "btn btn-danger" %>
+				</div>
 			</div>
 		</div>
-		<div class="col-4">
-			<div class="d-block d-md-flex d-lg-flex justify-content-center align-items-center text-center">
-				<%= link_to "議論へ", discussions_path, class: "text-info font-weight-bold mr-1" %>
-				<%= link_to "議論を始める", new_discussion_path, class: "btn btn-info" %>
-			</div>
-		</div>
-		<div class="col-4">
-			<div class="d-block d-md-flex d-lg-flex justify-content-center align-items-center text-center">
-				<%= link_to "プロトコールへ", protocols_path, class: "text-danger font-weight-bold mr-1" %>
-				<%= link_to "共有してみる", new_protocol_path, class: "btn btn-danger" %>
-			</div>
-		</div>
+	</div>

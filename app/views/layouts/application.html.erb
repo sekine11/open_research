@@ -26,14 +26,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item mr-4">
-              <%= link_to "お気に入り", home_path, class: "nav-link font-weight-bold" %>
+              <%= link_to "お気に入り", favorites_path, class: "nav-link font-weight-bold" %>
             </li>
             <li class="nav-item dropdown mr-4">
               <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 ラボ
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <%= link_to "新しいラボを作る", new_laboratory_path, class: "dropdown-item" %>
+                <%= link_to "新しくラボを作る", new_laboratory_path, class: "dropdown-item" %>
                 <% current_user.laboratory.each do |lab| %>
                   <% labo = Laboratory.find(lab.id) %>
                   <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
@@ -101,24 +101,27 @@
       <% end %>
 
     </header>
-
-    <div class="container-fluid">
-      <div class="row py-2 shadow-sm bg-light">
-        <%= render "share/subheader" %>
+    
+    <% if request.url != "http://localhost:3000/" %>
+      <div class="container-fluid">
+        <div class="row py-2 shadow-sm bg-light">
+          <%= render "share/subheader" %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="container-fluid min-vh">
-      <div class="row pt-4 d-block">
+      <div class="row d-block">
 
-      <%= yield %>
+        <%= yield %>
 
       </div>
     </div>
-
-    <footer class="bg-secondary mt-4 py-4">
-      <p class="text-white text-center m-0">OpenResearch</p>
-    </footer>
+    <% if request.url != "http://localhost:3000/" %>
+      <footer class="bg-secondary py-4">
+        <p class="text-white text-center m-0">OpenResearch</p>
+      </footer>
+    <% end %>
 
   </body>
 </html>
