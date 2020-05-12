@@ -3,7 +3,7 @@ class CreateQuesComments < ActiveRecord::Migration[5.2]
     create_table :ques_comments do |t|
       t.references :user, null: false, foreign_key: true
       t.references :question, null: false, foreign_key: true
-      t.string :content, null: false
+      t.string :comment, null: false
 
       t.timestamps
     end
