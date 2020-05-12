@@ -79,3 +79,4 @@ gem 'font-awesome-sass', '~> 5.4.1' # font-awesome使用
 gem 'fullcalendar-rails' # fullcalender関連
 gem 'momentjs-rails' # fullcalender関連
 gem "bootstrap4-datetime-picker-rails" # 日時選択の為に導入
+gem 'ransack' # 検索に使用

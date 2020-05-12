@@ -11,9 +11,19 @@ class ProtocolsController < ApplicationController
 
   def index
     if params[:tag]
+      if params[:q] != nil
+        @q = Protocol.ransack(params[:q].split)
+      else
+        @q = Protocol.ransack(params[:q])
+      end
       @protocols = Protocol.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:page]).per(20)
     else
-      @protocols = Protocol.all.order(created_at: "DESC").page(params[:page]).per(20)
+      if params[:q] != nil
+        @q = Protocol.ransack(params[:q].split)
+      else
+        @q = Protocol.ransack(params[:q])
+      end
+      @protocols = @q.result(distinct: true).order(created_at: "DESC").page(params[:page]).per(20)
     end
     @rank_protocols = Protocol.all.order(created_at: "DESC")
   end

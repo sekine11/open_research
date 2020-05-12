@@ -11,9 +11,19 @@ class QuestionsController < ApplicationController
 
   def index
     if params[:tag]
+      if params[:q] != nil
+        @q = Question.ransack(params[:q].split)
+      else
+        @q = Question.ransack(params[:q])
+      end
       @questions = Question.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:page]).per(20)
     else
-      @questions = Question.all.order(created_at: "DESC").page(params[:page]).per(20)
+      if params[:q] != nil
+        @q = Question.ransack(params[:q].split)
+      else
+        @q = Question.ransack(params[:q])
+      end
+      @questions = @q.result(distinct: true).order(created_at: "DESC").page(params[:page]).per(20)
     end
     @rank_questions = Question.all.order(created_at: "DESC")
   end
