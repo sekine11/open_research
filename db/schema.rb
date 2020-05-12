@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_071448) do
+ActiveRecord::Schema.define(version: 2020_05_06_082833) do
 
   create_table "discuss_comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -39,18 +39,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_071448) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "laboratory_id", null: false
-    t.string "title", null: false
-    t.datetime "start", null: false
-    t.datetime "end", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["laboratory_id"], name: "index_events_on_laboratory_id"
-    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "lab_information_checks", force: :cascade do |t|
@@ -106,10 +94,8 @@ ActiveRecord::Schema.define(version: 2020_05_10_071448) do
 
   create_table "laboratories", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_laboratories_on_user_id"
   end
 
   create_table "project_information_checks", force: :cascade do |t|
@@ -194,7 +180,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_071448) do
   create_table "ques_comments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "question_id", null: false
-    t.string "content", null: false
+    t.string "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_ques_comments_on_question_id"
