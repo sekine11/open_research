@@ -1,8 +1,5 @@
 <div class="row m-4">
 	<div class="col-12 col-md-9">
-		<div class="keywords vh-40 bg-dark mb-4">
-			aaaaaaaaaa
-		</div>
 		<div class="all-contents">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 			  <li class="nav-item">
@@ -17,13 +14,37 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 			  <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
-			  	<%= render "share/questions", questions: @questions %>
+			  	<% if current_user.ques_favorites == [] %>
+			  		<div class="border-bottom p-3 row">
+						<p>まだお気に入りに登録している質問がありません。</p>
+						<p>お気に入りしましょう</p>
+						<%= link_to "質問を見に行く", questions_path, class: "btn btn-warning" %>
+					</div>
+			  	<% else %>
+			  		<%= render "share/questions", questions: @questions %>
+			  	<% end %>
 			  </div>
 			  <div class="tab-pane fade" id="discussions" role="tabpanel" aria-labelledby="discussions-tab">
-			  	<%= render "share/discussions", discussions: @discussions %>
+			  	<% if current_user.discuss_favorites == [] %>
+			  		<div class="border-bottom p-3 row">
+						<p>まだお気に入りに登録している議論がありません。</p>
+						<p>お気に入りしましょう</p>
+						<%= link_to "質問を見に行く", discussions_path, class: "btn btn-info" %>
+					</div>
+			  	<% else %>
+				  	<%= render "share/discussions", discussions: @discussions %>
+			  	<% end %>
 			  </div>
 			  <div class="tab-pane fade" id="protocols" role="tabpanel" aria-labelledby="protocols-tab">
-			  	<%= render "share/protocols", protocols: @protocols %>
+			  	<% if current_user.protocol_favorites == [] %>
+			  		<div class="border-bottom p-3 row">
+						<p>まだお気に入りに登録しているプロトコルがありません。</p>
+						<p>お気に入りしましょう</p>
+						<%= link_to "質問を見に行く", protocols_path, class: "btn btn-danger" %>
+					</div>
+			  	<% else %>
+			  		<%= render "share/protocols", protocols: @protocols %>
+			  	<% end %>
 			  </div>
 			</div>
 		</div>

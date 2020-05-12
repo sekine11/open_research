@@ -8,31 +8,7 @@
 	</div>
 	<div class="col-7">
 		<main class="">
-			<% @discussions.each do |discussion| %>
-				<div class="border-top border-bottom p-3 row">
-					<div class="col-12 flex justify-content-between align-items-center">
-						<h3 class="h5 font-weight-bold"><%= link_to discussion.subject.truncate(35), discussion_path(discussion), class: "text-body link" %></h3>
-						<% if discussion.status_i18n == "活動中" %>
-							<p class="font-weight-bold bg-success p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
-						<% else %>
-							<p class="font-weight-bold bg-secondary p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
-						<% end %>
-					</div>
-					<div class="col-12 mb-2 mt-n1">
-						<% discussion.discussion_counts.each do |tag| %>
-							<span class="badge badge-pill badge-info mx-1"><%= tag.name %></span>
-						<% end %>
-					</div>
-					<div class="col-12 flex justify-content-between align-items-center">
-						<div class="">
-							<span class="text-dark mr-2">投稿者：<%= discussion.user.public_name %></span>
-							<span class="text-dark mr-2">コメント数：<%= discussion.discuss_comments.count %></span>
-							<span class="text-dark">お気に入り数：<%= discussion.discuss_favorites.count %></span>
-						</div>
-						<span class="text-dark font-weight-bold">ああああ</span>
-					</div>
-				</div>
-			<% end %>
+			<%= render "share/discussions", discussions: @discussions %>
 		</main>
 	</div>
 	<div class="col-3">
@@ -43,14 +19,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% i = 1 %>
-				<% @rank_discussions.first(10).each do |discussion| %>
-					<tr>
-						<th class="text-center"><%= i %></th>
-						<td><%= discussion.subject.truncate(15) %></td>
-					</tr>
-					<% i += 1 %>
-				<% end %>
+				<%= render "share/ranking", rank_items: @rank_discussions %>
 			</tbody>
 		</table>
 	</div>

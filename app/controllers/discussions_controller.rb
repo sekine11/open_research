@@ -13,7 +13,7 @@ class DiscussionsController < ApplicationController
     if params[:tag]
       @discussions = Discussion.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:page]).per(20)
     else
-      @discussions = Discussion.all.order(created_at: "DESC").page(params[:page]).per(20)
+      @discussions = Discussion.all.order(updated_at: "DESC").page(params[:page]).per(20)
     end
     @rank_discussions = Discussion.all.order(created_at: "DESC")
   end
