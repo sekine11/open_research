@@ -1,0 +1,9 @@
+<% if discussion.favorited_by?(current_user) %>
+	<%= link_to discussion_discuss_favorites_path(discussion), remote: true, method: :delete, class: "btn btn-light" do %>
+		<i class="fas fa-heart text-danger"></i>
+	<% end %>
+<% else %>
+	<%= link_to discussion_discuss_favorites_path(discussion), remote: true, method: :post,  class: "btn btn-light" do %>
+		<i class="far fa-heart"></i>
+	<% end %>
+<% end %>

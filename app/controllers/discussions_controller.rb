@@ -46,11 +46,7 @@ class DiscussionsController < ApplicationController
   def update
     if params[:status]
       @discussion = Discussion.find(params[:id])
-      if @discussion.update(status: params[:status])
-        redirect_to @discussion, notice: "議論を「終了」にしました"
-      else
-        render "edit"
-      end
+      @discussion.update(status: params[:status])
     else
       @discussion = Discussion.find(params[:id])
       if @discussion.update(discussion_params)
