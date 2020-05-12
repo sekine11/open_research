@@ -1,0 +1,29 @@
+<div class="row m-4">
+	<div class="col-2 list-group">
+		<% Question.all.tags_on(:questions).each do |tag| %>
+			<%= link_to questions_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
+				<%= tag.name %> <span class="badge badge-pill badge-warning"><%= Question.all.tagged_with(tag).count %></span>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="col-7">
+		<main class="">
+			<%= render "share/questions", questions: @questions %>
+		</main>
+	</div>
+	<div class="col-3">
+		<table class="table">
+			<thead class="bg-warning">
+				<tr>
+					<th class="text-center text-dark" colspan="2">人気のプロトコール</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render "share/ranking", rank_items: @rank_questions %>
+			</tbody>
+		</table>
+	</div>
+	<div class="pagination justify-content-center my-4 col-12">
+		<%= paginate @questions, class: "" %>
+	</div>
+</div>
