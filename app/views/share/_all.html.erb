@@ -1,0 +1,42 @@
+<div class="all-contents">
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link active" id="questions-tab" data-toggle="tab" href="#questions" role="tab" aria-controls="questions" aria-selected="true">質問</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="discussions-tab" data-toggle="tab" href="#discussions" role="tab" aria-controls="discussions" aria-selected="false">議論</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="protocols-tab" data-toggle="tab" href="#protocols" role="tab" aria-controls="protocols" aria-selected="false">プロトコル</a>
+	  </li>
+	</ul>
+	<div class="tab-content" id="myTabContent">
+	  <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+	  	<% if @questions == [] %>
+	  		<div class="alert alert-danger m-2" role="alert">
+			  該当の質問はありません。
+			</div>
+	  	<% else %>
+	  		<%= render "share/questions", questions: @questions %>
+	  	<% end %>
+	  </div>
+	  <div class="tab-pane fade" id="discussions" role="tabpanel" aria-labelledby="discussions-tab">
+	  	<% if @discussions == [] %>
+	  		<div class="alert alert-danger m-2" role="alert">
+			  該当の議論はありません。
+			</div>
+	  	<% else %>
+	  		<%= render "share/discussions", discussions: @discussions %>
+	  	<% end %>
+	  </div>
+	  <div class="tab-pane fade" id="protocols" role="tabpanel" aria-labelledby="protocols-tab">
+	  	<% if @protocols == [] %>
+	  		<div class="alert alert-danger m-2" role="alert">
+			  該当のプロトコルはありません。
+			</div>
+	  	<% else %>
+	  		<%= render "share/protocols", protocols: @protocols %>
+	  	<% end %>
+	  </div>
+	</div>
+</div>

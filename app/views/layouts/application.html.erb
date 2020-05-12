@@ -65,10 +65,10 @@
               </div>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <%= form_with(url: search_path, method: :get, local: true, html: { class: "form-inline my-2 my-lg-0" }) do |f| %>
+            <%= f.text_field :q, class: "form-control mr-sm-2", placeholder: "検索" %>
+            <%= f.submit "検索", class: "btn btn-success" %>
+          <% end %>
         </div>
       </nav>
 
@@ -112,6 +112,43 @@
 
     <div class="container-fluid min-vh">
       <div class="row d-block">
+        <% if request.url.include?("protocols") %>
+          <% if @protocol.nil? %>
+            <div class="max-vw-100 protocol-subject shadow text-light flex justify-content-between align-items-center">
+              <h2 class="h3 p-3 m-0">Protocols</h2>
+              <div class="search px-3">
+                <%= search_form_for @q, url: protocols_path, html: { class: "flex" } do |f| %>
+                  <%= f.search_field :subject_or_content_cont, class: "form-control mr-1", placeholder: "検索" %>
+                  <%= f.submit "検索", class: "btn btn-success" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% elsif request.url.include?("discussions") %>
+          <% if @discussion.nil? %>
+            <div class="max-vw-100 discussion-subject shadow text-light flex justify-content-between align-items-center">
+              <h2 class="h3 p-3 m-0">Discussions</h2>
+              <div class="search px-3">
+                <%= search_form_for @q, url: discussions_path, html: { class: "flex" } do |f| %>
+                  <%= f.search_field :subject_or_content_cont, class: "form-control mr-1", placeholder: "検索" %>
+                  <%= f.submit "検索", class: "btn btn-success" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% elsif request.url.include?("questions") %>
+          <% if @question.nil? %>
+            <div class="max-vw-100 question-subject shadow text-light flex justify-content-between align-items-center">
+              <h2 class="h3 p-3 m-0">Questions</h2>
+              <div class="search px-3">
+                <%= search_form_for @q, url: questions_path, html: { class: "flex" } do |f| %>
+                  <%= f.search_field :subject_or_content_cont, class: "form-control mr-1", placeholder: "検索" %>
+                  <%= f.submit "検索", class: "btn btn-success" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
 
         <%= yield %>
 
