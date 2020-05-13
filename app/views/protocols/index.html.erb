@@ -8,7 +8,9 @@
 	</div>
 	<div class="col-7">
 		<main class="">
-			<%= render "share/protocols", protocols: @protocols %>
+			<div id="protocols">
+				<%= render "share/protocols", protocols: @protocols %>
+			</div>
 		</main>
 	</div>
 	<div class="col-3">
@@ -22,8 +24,5 @@
 				<%= render "share/ranking", rank_items: @rank_protocols %>
 			</tbody>
 		</table>
-	</div>
-	<div class="pagination justify-content-center my-4 col-12">
-		<%= paginate @protocols, class: "" %>
 	</div>
 </div>
