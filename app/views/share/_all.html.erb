@@ -12,30 +12,30 @@
 	</ul>
 	<div class="tab-content" id="myTabContent">
 	  <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
-	  	<% if @questions == [] %>
+	  	<% if questions == [] %>
 	  		<div class="alert alert-danger m-2" role="alert">
 			  該当の質問はありません。
 			</div>
 	  	<% else %>
-	  		<%= render "share/questions", questions: @questions %>
+	  		<div id="questions"><%= render "share/questions", questions: questions %></div>
 	  	<% end %>
 	  </div>
 	  <div class="tab-pane fade" id="discussions" role="tabpanel" aria-labelledby="discussions-tab">
-	  	<% if @discussions == [] %>
+	  	<% if discussions == [] %>
 	  		<div class="alert alert-danger m-2" role="alert">
 			  該当の議論はありません。
 			</div>
 	  	<% else %>
-	  		<%= render "share/discussions", discussions: @discussions %>
+	  		<div id="discussions"><%= render "share/discussions", discussions: discussions %></div>
 	  	<% end %>
 	  </div>
 	  <div class="tab-pane fade" id="protocols" role="tabpanel" aria-labelledby="protocols-tab">
-	  	<% if @protocols == [] %>
+	  	<% if protocols == [] %>
 	  		<div class="alert alert-danger m-2" role="alert">
 			  該当のプロトコルはありません。
 			</div>
 	  	<% else %>
-	  		<%= render "share/protocols", protocols: @protocols %>
+	  		<div id="protocols"><%= render "share/protocols", protocols: protocols %></div>
 	  	<% end %>
 	  </div>
 	</div>

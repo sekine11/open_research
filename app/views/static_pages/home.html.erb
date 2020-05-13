@@ -3,7 +3,9 @@
 		<div class="keywords vh-40 bg-dark mb-4">
 			aaaaaaaaaa
 		</div>
-		<%= render "share/all" %>
+		<div id="all-contents" class="all-contents">
+			<%= render "share/all", questions: @questions, discussions: @discussions, protocols: @protocols %>
+		</div>
 	</div>
 	<div class="col-12 col-md-3">
 		<table class="table">

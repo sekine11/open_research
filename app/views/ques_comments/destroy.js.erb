@@ -1,0 +1,2 @@
+$('#comments-count').html("<%= j(render 'questions/comments_count', question: @question ) %>");
+$('#comments').html("<%= j(render 'questions/comments', question: @question, ques_comment: @ques_comment ) %>");

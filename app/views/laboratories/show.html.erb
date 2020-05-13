@@ -18,52 +18,13 @@
 						<th colspan="4">ラボタスク</th>
 					</tr>
 				</thead>
-				<tbody class="border-bottom">
-					<% @lab_tasks.each do |task| %>
-						<tr>
-							<td>
-								<% if task.status_i18n == "未完了" %>
-									<div class="alert-danger btn btn-sm">
-										<%= task.status_i18n %>
-									</div>
-								<% elsif task.status_i18n == "進行中" %>
-									<div class="alert-warning btn btn-sm">
-										<%= task.status_i18n %>
-									</div>
-								<% else %>
-									<div class="alert-success btn btn-sm">
-										<%= task.status_i18n %>
-									</div>
-								<% end %>
-							</td>
-							<td class="align-middle font-weight-bold"><%= task.content %></td>
-							<td class="align-middle"><%= task.created_at.strftime("%m/%d %H:%M") %></td>
-							<td class="text-right">
-								<%= link_to laboratory_lab_task_path(@laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm", 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
-								<i class="fas fa-spinner"></i>
-								<% end %>
-								<%= link_to laboratory_lab_task_path(@laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm", 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
-								<i class="fas fa-check"></i>
-								<% end %>
-								<%= link_to laboratory_lab_task_path(@laboratory,task), method: :delete, class: "btn alert-danger btn-sm", 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
-								<i class="fas fa-trash-alt"></i>
-								<% end %>
-							</td>
-						</tr>
-					<% end %>
+				<tbody id="tasks" class="border-bottom">
+					<%= render "laboratories/tasks", lab_tasks: @lab_tasks %>
 				</tbody>
 			</table>
-			<%= form_with(model: @lab_task, url: laboratory_lab_tasks_path(@laboratory), local: true, html: { class: "w-100" }) do |f| %>
-
-				<div class="form-group">
-					<%= f.text_field :content,  class: "form-control" %>
-				</div>
-
-				<div class="form-group text-right">
-					<%= f.submit "タスクを追加", class: "btn btn-success btn-sm" %>
-				</div>
-
-			<% end %>
+			<div id="task-form">
+				<%= render "laboratories/task_form", lab_task: @lab_task, laboratory: @laboratory %>
+			</div>
 		</div>
 		<div class="col-12">
 			<table class="table">
@@ -136,7 +97,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-	        <%= link_to "削除", laboratory_event_path(@laboratory,event), method: :delete, data: { dismiss: "modal" },  class: "btn btn-danger" %>
+	        <%= link_to "削除", laboratory_event_path(@laboratory,event), method: :delete, remote: true,  class: "btn btn-danger" %>
 	      </div>
 	    </div>
 	  </div>
@@ -144,44 +105,8 @@
 <% end %>
 <div class="modal fade" id="new-event" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">予定の新規登録</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<%= form_with(model: @event, url: laboratory_events_path(@laboratory), local: true) do |f| %>
-
-		<div class="form-group">
-	      	<div class="input-group" data-target-input="nearest">
-			    <%= f.text_field :start, id: "start", class: "form-control datepicker", data: { target: '#start' }, placeholder: "開始時刻" %>
-			    <div class="input-group-append" data-target="#start" data-toggle="datetimepicker">
-			        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-			    </div>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="input-group" data-target-input="nearest">
-			    <%= f.text_field :end, id: "end", class: "form-control datepicker", data: { target: '#end'}, placeholder: "終了時刻" %>
-			    <div class="input-group-append" data-target="#end" data-toggle="datetimepicker">
-			        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-			    </div>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<%= f.text_field :title, class: "form-control", placeholder: "予定を入力" %>
-		</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <%= f.submit "予定を作成", data: { dismiss: "modal" }, class: "btn btn-success" %>
-
-		<% end %>
-      </div>
+    <div id="newevent" class="modal-content">
+      <%= render "laboratories/new_event", event: @event, laboratory: @laboratory %>
     </div>
   </div>
 </div>

@@ -46,11 +46,7 @@ class QuestionsController < ApplicationController
   def update
   	if params[:status]
   		@question = Question.find(params[:id])
-	    if @question.update(status: params[:status])
-	      redirect_to @question, notice: "質問を「解決済み」にしました"
-	    else
-	      render "edit"
-	    end
+	    @question.update(status: params[:status])
   	else
 	    @question = Question.find(params[:id])
 	    if @question.update(question_params)
