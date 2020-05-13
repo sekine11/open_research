@@ -4,9 +4,9 @@ class StaticPagesController < ApplicationController
 	end
 
 	def home
-		@protocols = Protocol.all.order(updated_at: "DESC").page(params[:page]).per(20)
-		@discussions = Discussion.all.order(updated_at: "DESC").page(params[:page]).per(20)
-		@questions = Question.all.order(updated_at: "DESC").page(params[:page]).per(20)
+		@protocols = Protocol.order(updated_at: "DESC").limit(20).page(params[:page]).per(20)
+		@discussions = Discussion.order(updated_at: "DESC").limit(20).page(params[:page]).per(20)
+		@questions = Question.order(updated_at: "DESC").limit(20).page(params[:page]).per(20)
 		@rank_protocols = Protocol.all.order(created_at: "DESC")
 		@rank_discussions = Discussion.all.order(created_at: "DESC")
 		@rank_questions = Question.all.order(created_at: "DESC")

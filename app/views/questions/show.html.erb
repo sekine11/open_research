@@ -2,24 +2,20 @@
 	<div class="flex justify-content-between px-4 pt-3 pb-1">
 		<div class="">
 			<h3 class="font-weight-bold text-light"><%= @question.subject %></h3>
-			<span class="badge badge-light">お気に入り数：<%= @question.ques_favorites.count %></span>
-			<span class="badge badge-light">コメント数：<%= @question.ques_comments.count %></span>
+			<span id="favorites-count" class="badge badge-light">
+				<%= render 'questions/favorites_count', question: @question %>
+			</span>
+			<span id="comments-count" class="badge badge-light">
+				<%= render 'questions/comments_count', question: @question %>
+			</span>
 		</div>
-		<div>
-			<% if @question.status == "accepting" %>
-				<%= link_to "「解決済み」にする", question_path(:id => @question.id, :status => "completed"), method: :put, class: "btn btn-light font-weight-bold" %>
-			<% else %>
-				<%= link_to "「受付中」に戻す", question_path(:id => @question.id, :status => "accepting"), method: :put, class: "btn btn-secondary font-weight-bold" %>
-			<% end %>
-			<% if @question.favorited_by?(current_user) %>
-				<%= link_to question_ques_favorites_path(@question), method: :delete, class: "btn btn-light" do %>
-					<i class="fas fa-heart text-danger"></i>
-				<% end %>
-			<% else %>
-				<%= link_to question_ques_favorites_path(@question), method: :post, class: "btn btn-light" do %>
-					<i class="far fa-heart"></i>
-				<% end %>
-			<% end %>
+		<div class="flex">
+			<div id="status">
+				<%= render 'questions/status', question: @question %>
+			</div>
+			<div id="favorite">
+				<%= render 'questions/favorite', question: @question %>
+			</div>
 		</div>
 	</div>
 	<div class="flex justify-content-between px-4 pb-3">
@@ -42,32 +38,7 @@
 <div class="row m-4 pb-4 border-bottom">
 	<%= @question.content %>
 </div>
-<div class="row m-4 border-bottom">
-	<%= form_with(model: @ques_comment, url: question_ques_comments_path(@question), local: true, html: { class: "col-12" }) do |f| %>
-
-		<div class="form-group">
-			<%= f.text_area :content, class: "form-control" %>
-		</div>
-
-		<div class="form-group text-right">
-			<%= f.submit "コメント", class: "btn btn-success" %>
-		</div>
-
-	<% end %>
+<div id="comments">
+	<%= render 'questions/comments', question: @question, ques_comment: @ques_comment %>
 </div>
-	<% @question.ques_comments.order(created_at: "DESC").each do |comment| %>
-		<div class="m-4 border-bottom">
-			<div class="flex justify-content-between mb-4">
-				<div class="flex align-items-center">
-					<%= attachment_image_tag(comment.user, :image, :fill, 50, 50, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", size: "50x50") %>
-					<p class="m-0 mr-4 font-weight-bold text-dark"><%= comment.user.public_name %></p>
-					<p class="m-0 font-weight-bold text-dark"><%= comment.created_at %></p>
-				</div>
-				<div>
-					<%= link_to "削除", question_ques_comment_path(@question,comment), method: :delete, class: "btn btn-danger" %>
-				</div>
-			</div>
-			<p class="mb-4"><%= comment.content %></p>
-		</div>
-	<% end %>
 </div>

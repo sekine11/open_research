@@ -1,12 +1,12 @@
 class LabInformationCommentsController < ApplicationController
   def create
-  	laboratory = Laboratory.find(params[:laboratory_id])
-  	lab_information = LabInformation.find(params[:lab_information_id])
+  	@laboratory = Laboratory.find(params[:laboratory_id])
+  	@lab_information = LabInformation.find(params[:lab_information_id])
   	comment = LabInformationComment.new(lab_information_comment_params)
   	comment.user_id = current_user.id
-  	comment.lab_information_id = lab_information.id
+  	comment.lab_information_id = @lab_information.id
   	comment.save
-  	redirect_to laboratory_lab_information_path(laboratory,lab_information)
+    @comment = LabInformationComment.new
   end
 
   def destroy

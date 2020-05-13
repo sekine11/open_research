@@ -1,18 +1,17 @@
 class EventsController < ApplicationController
   def create
-  	laboratory = Laboratory.find(params[:laboratory_id])
+  	@laboratory = Laboratory.find(params[:laboratory_id])
   	event = Event.new(event_params)
   	event.user_id = current_user.id
   	event.laboratory_id = params[:laboratory_id]
   	event.save
-  	redirect_to laboratory
+    @event = Event.new
   end
 
   def destroy
-  	laboratory = Laboratory.find(params[:laboratory_id])
-  	event = Event.find(params[:id])
-  	event.destroy
-  	redirect_to laboratory
+  	@laboratory = Laboratory.find(params[:laboratory_id])
+  	@event = Event.find(params[:id])
+  	@event.destroy
   end
 
   private

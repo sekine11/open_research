@@ -16,14 +16,14 @@ class DiscussionsController < ApplicationController
       else
         @q = Discussion.ransack(params[:q])
       end
-      @discussions = Discussion.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:page]).per(20)
+      @discussions = Discussion.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     else
       if params[:q] != nil
         @q = Discussion.ransack(params[:q].split)
       else
         @q = Discussion.ransack(params[:q])
       end
-      @discussions = @q.result(distinct: true).order(updated_at: "DESC").page(params[:page]).per(20)
+      @discussions = @q.result(distinct: true).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
     end
     @rank_discussions = Discussion.all.order(created_at: "DESC")
   end
@@ -46,11 +46,7 @@ class DiscussionsController < ApplicationController
   def update
     if params[:status]
       @discussion = Discussion.find(params[:id])
-      if @discussion.update(status: params[:status])
-        redirect_to @discussion, notice: "議論を「終了」にしました"
-      else
-        render "edit"
-      end
+      @discussion.update(status: params[:status])
     else
       @discussion = Discussion.find(params[:id])
       if @discussion.update(discussion_params)

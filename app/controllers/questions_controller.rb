@@ -16,14 +16,14 @@ class QuestionsController < ApplicationController
       else
         @q = Question.ransack(params[:q])
       end
-      @questions = Question.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:page]).per(20)
+      @questions = Question.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:question_page]).per(20)
     else
       if params[:q] != nil
         @q = Question.ransack(params[:q].split)
       else
         @q = Question.ransack(params[:q])
       end
-      @questions = @q.result(distinct: true).order(created_at: "DESC").page(params[:page]).per(20)
+      @questions = @q.result(distinct: true).order(created_at: "DESC").page(params[:question_page]).per(20)
     end
     @rank_questions = Question.all.order(created_at: "DESC")
   end
@@ -46,11 +46,7 @@ class QuestionsController < ApplicationController
   def update
   	if params[:status]
   		@question = Question.find(params[:id])
-	    if @question.update(status: params[:status])
-	      redirect_to @question, notice: "質問を「解決済み」にしました"
-	    else
-	      render "edit"
-	    end
+	    @question.update(status: params[:status])
   	else
 	    @question = Question.find(params[:id])
 	    if @question.update(question_params)

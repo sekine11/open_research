@@ -6,9 +6,9 @@ class SearchController < ApplicationController
 		else
 			q = params[:q]
 		end
-		@protocols = Protocol.ransack(subject_or_content_cont_any: q).result(distinct: true)
-		@discussions = Discussion.ransack(subject_or_content_cont_any: q).result(distinct: true)
-		@questions = Question.ransack(subject_or_content_cont_any: q).result(distinct: true)
+		@protocols = Protocol.ransack(subject_or_content_cont_any: q).result(distinct: true).page(params[:protocol_page]).per(20)
+		@discussions = Discussion.ransack(subject_or_content_cont_any: q).result(distinct: true).page(params[:discussion_page]).per(20)
+		@questions = Question.ransack(subject_or_content_cont_any: q).result(distinct: true).page(params[:question_page]).per(20)
 		@rank_protocols = Protocol.all.order(created_at: "DESC")
 		@rank_discussions = Discussion.all.order(created_at: "DESC")
 		@rank_questions = Question.all.order(created_at: "DESC")
