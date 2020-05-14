@@ -23,4 +23,9 @@
 		</div>
 	</div>
 <% end %>
-<div class="flex justify-content-center mt-4"><%= paginate discussions, remote: true, param_name: :discussion_page %></div>
+
+<% if request.url != "http://localhost:3000/home" %>
+<div class="flex justify-content-center mt-4">
+	<%= paginate discussions, remote: true, param_name: :discussion_page %>
+</div>
+<% end %>

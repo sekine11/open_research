@@ -11,15 +11,12 @@ class ProtocolsController < ApplicationController
 
   def index
     if params[:tag]
-      if params[:q] != nil
-        @q = Protocol.ransack(params[:q].split)
-      else
-        @q = Protocol.ransack(params[:q])
-      end
+      @q = Protocol.ransack(params[:q])
       @protocols = Protocol.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:protocol_page]).per(20)
     else
       if params[:q] != nil
-        @q = Protocol.ransack(params[:q].split)
+        params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
+        @q = Protocol.ransack(params[:q])
       else
         @q = Protocol.ransack(params[:q])
       end

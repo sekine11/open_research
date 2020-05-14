@@ -118,7 +118,7 @@
               <h2 class="h3 p-3 m-0">Protocols</h2>
               <div class="search px-3">
                 <%= search_form_for @q, url: protocols_path, html: { class: "flex" } do |f| %>
-                  <%= f.search_field :subject_or_content_cont, class: "form-control mr-1", placeholder: "プロトコルの検索" %>
+                  <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "プロトコルの検索" %>
                   <%= f.submit "検索", class: "btn btn-success" %>
                 <% end %>
               </div>
@@ -130,7 +130,7 @@
               <h2 class="h3 p-3 m-0">Discussions</h2>
               <div class="search px-3">
                 <%= search_form_for @q, url: discussions_path, html: { class: "flex" } do |f| %>
-                  <%= f.search_field :subject_or_content_cont, class: "form-control mr-1", placeholder: "議論の検索" %>
+                  <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "議論の検索" %>
                   <%= f.submit "検索", class: "btn btn-success" %>
                 <% end %>
               </div>
@@ -142,7 +142,7 @@
               <h2 class="h3 p-3 m-0">Questions</h2>
               <div class="search px-3">
                 <%= search_form_for @q, url: questions_path, html: { class: "flex" } do |f| %>
-                  <%= f.search_field :subject_or_content_cont, class: "form-control mr-1", placeholder: "質問の検索" %>
+                  <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "質問の検索" %>
                   <%= f.submit "検索", class: "btn btn-success" %>
                 <% end %>
               </div>

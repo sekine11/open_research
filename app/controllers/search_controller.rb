@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
 	def index
 		if params[:q] != nil
-			q = params[:q].split
+			q = params[:q].split(/\p{blank}|\s|\t/)
 		else
 			q = params[:q]
 		end
