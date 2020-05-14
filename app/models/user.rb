@@ -33,6 +33,10 @@ class User < ApplicationRecord
   has_many :project_information_checks
   has_many :project_information_comments
 
+  def active_for_authentication?
+    super && status == true
+  end
+
   def update_without_current_password(params, *options)
     params.delete(:current_password)
 

@@ -83,7 +83,7 @@
             <p class="mb-4">退会する場合は、「退会する」をクリックしてください。</p>
             <div class="">
               <%= link_to "退会しない", home_path, class: "btn btn-success" %>
-              <%= link_to "退会する", user_registration_path, method: :delete, class: "btn btn-danger" %>
+              <%= link_to "退会する", hide_path, method: :put, class: "btn btn-danger" %>
             </div>
           </div>
         </div>
