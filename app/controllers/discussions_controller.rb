@@ -11,19 +11,16 @@ class DiscussionsController < ApplicationController
 
   def index
     if params[:tag]
-      if params[:q] != nil
-        @q = Discussion.ransack(params[:q].split)
-      else
-        @q = Discussion.ransack(params[:q])
-      end
+      @q = Discussion.ransack(params[:q])
       @discussions = Discussion.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     else
       if params[:q] != nil
-        @q = Discussion.ransack(params[:q].split)
+        params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
+        @q = Discussion.ransack(params[:q])
       else
         @q = Discussion.ransack(params[:q])
       end
-      @discussions = @q.result(distinct: true).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
+      @discussions = @q.result(distinct: true).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     end
     @rank_discussions = Discussion.all.order(created_at: "DESC")
   end

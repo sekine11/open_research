@@ -11,15 +11,12 @@ class QuestionsController < ApplicationController
 
   def index
     if params[:tag]
-      if params[:q] != nil
-        @q = Question.ransack(params[:q].split)
-      else
-        @q = Question.ransack(params[:q])
-      end
+      @q = Question.ransack(params[:q])
       @questions = Question.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:question_page]).per(20)
     else
       if params[:q] != nil
-        @q = Question.ransack(params[:q].split)
+        params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
+        @q = Question.ransack(params[:q])
       else
         @q = Question.ransack(params[:q])
       end

@@ -1,0 +1,56 @@
+<div class="row m-4">
+	<div class="col-12 col-md-9">
+		<div id="all-contents" class="all-contents">
+			<%= render "share/all", questions: @questions, discussions: @discussions, protocols: @protocols %>
+		</div>
+	</div>
+	<div class="col-12 col-md-3">
+		<table class="table">
+			<thead class="bg-success">
+				<tr>
+					<th class="text-center text-light" colspan="2">人気のタグ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% i = 1 %>
+				<% @tags.each do |tag| %>
+					<tr>
+						<th><%= i %></th>
+						<td><%= tag.name %></td>
+					</tr>
+					<% i += 1 %>
+				<% end %>
+			</tbody>
+		</table>
+		<table class="table">
+			<thead class="bg-warning">
+				<tr>
+					<th class="text-center text-light" colspan="2">人気の質問</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render "share/ranking", rank_items: @rank_questions %>
+			</tbody>
+		</table>
+		<table class="table">
+			<thead class="bg-info">
+				<tr>
+					<th class="text-center text-light" colspan="2">人気の議論</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render "share/ranking", rank_items: @rank_discussions %>
+			</tbody>
+		</table>
+		<table class="table">
+			<thead class="bg-danger">
+				<tr>
+					<th class="text-center text-light" colspan="2">人気のプロトコル</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render "share/ranking", rank_items: @rank_protocols %>
+			</tbody>
+		</table>
+	</div>
+</div>
