@@ -69,7 +69,7 @@ end
 		user_id: rand(1..50),
 		laboratory_id: rand(1..20),
 		content: "テストタスク#{rand(1..99)}",
-		status: rand(0..2)
+		status: "incomplete"
 		)
 
 end
