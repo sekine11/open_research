@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_082833) do
+ActiveRecord::Schema.define(version: 2020_05_14_082921) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+  end
 
   create_table "discuss_comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -39,6 +48,18 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "laboratory_id", null: false
+    t.string "title", null: false
+    t.datetime "start", null: false
+    t.datetime "end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_events_on_laboratory_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "lab_information_checks", force: :cascade do |t|
@@ -94,8 +115,10 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
 
   create_table "laboratories", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_laboratories_on_user_id"
   end
 
   create_table "project_information_checks", force: :cascade do |t|
@@ -180,7 +203,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
   create_table "ques_comments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "question_id", null: false
-    t.string "comment", null: false
+    t.string "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_ques_comments_on_question_id"
@@ -244,6 +267,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_082833) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "status", default: true, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

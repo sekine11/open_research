@@ -1,2 +1,112 @@
-<h1>Laboratories#show</h1>
-<p>Find me in app/views/laboratories/show.html.erb</p>
+<div class="max-vw-100 bg-dark shadow text-light">
+	<h2 class="h3 p-3"><%= @laboratory.name %></h2>
+</div>
+<div class="container">
+	<div class="row my-4">
+		<div class="col-5 mb-4">
+			<div id="calendar"></div>
+			<div class="text-right w-100 mt-2">
+				<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-event">
+				  予定を登録
+				</button>
+			</div>
+		</div>
+		<div class="col-7 mb-4">
+			<table class="table table-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th colspan="4">ラボタスク</th>
+					</tr>
+				</thead>
+				<tbody id="tasks" class="border-bottom">
+					<%= render "laboratories/tasks", lab_tasks: @lab_tasks %>
+				</tbody>
+			</table>
+			<div id="task-form">
+				<%= render "laboratories/task_form", lab_task: @lab_task, laboratory: @laboratory %>
+			</div>
+		</div>
+		<div class="col-12">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th class="align-middle" colspan="2">お知らせ</th>
+						<th class="text-right" colspan="2"><%= link_to "お知らせを投稿", new_laboratory_lab_information_path(@laboratory), class: "btn btn-info btn-sm" %></th>
+					</tr>
+				</thead>
+				<tbody class="">
+					<% @laboratory.lab_informations.order(created_at: "DESC").each do |information| %>
+						<tr>
+							<td>
+								<%= link_to laboratory_lab_information_path(@laboratory,information) ,class: "font-weight-bold text-body link" do %>
+									<%= information.subject %>
+								<% end %>
+							</td>
+							<td>
+								<div class="">
+									<span class="badge badge-info">確認済み：<%= information.lab_information_checks.count %></span>
+									<span class="badge badge-success">コメント数：<%= information.lab_information_comments.count %></span>
+								</div>
+							</td>
+							<td>投稿者：<%= information.user.private_name %></td>
+							<td class="text-right"><%= information.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+						</tr>
+					<% end %>
+						<tr>
+							<td class="text-right" colspan="4"><%= link_to "過去分を確認", laboratory_lab_informations_path(@laboratory) %></td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+
+<% @events.each do |event| %>
+	<div class="modal fade" id="event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalCenterTitle">予定の確認</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body pb-0">
+	      	<table class="table">
+	      		<tbody class="border-bottom">
+	      			<tr>
+	      				<td>投稿者</td>
+	      				<td><%= event.user.private_name %></td>
+	      			</tr>
+	      			<tr>
+	      				<td>開始時刻</td>
+	      				<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
+	      			</tr>
+	      			<tr>
+	      				<td>終了時刻</td>
+	      				<td><%= event.end.strftime("%Y/%m/%d %H:%M") %></td>
+	      			</tr>
+	      			<tr>
+	      				<td>内容</td>
+	      				<td><%= event.title %></td>
+	      			</tr>
+	      		</tbody>
+	      	</table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+	        <%= link_to "削除", laboratory_event_path(@laboratory,event), method: :delete, remote: true,  class: "btn btn-danger" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<% end %>
+<div class="modal fade" id="new-event" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div id="newevent" class="modal-content">
+      <%= render "laboratories/new_event", event: @event, laboratory: @laboratory %>
+    </div>
+  </div>
+</div>

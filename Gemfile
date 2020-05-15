@@ -75,3 +75,9 @@ gem 'kaminari' # ページネーション
 gem 'enum_help' # 日本語化
 gem 'acts-as-taggable-on', '~> 6.0' # タグ管理
 gem 'dotenv-rails' # 環境変数の格納
+gem 'font-awesome-sass', '~> 5.4.1' # font-awesome使用
+gem 'fullcalendar-rails' # fullcalender関連
+gem 'momentjs-rails' # fullcalender関連
+gem "bootstrap4-datetime-picker-rails" # 日時選択の為に導入
+gem 'ransack' # 検索に使用
+gem 'rails_admin' # 管理者

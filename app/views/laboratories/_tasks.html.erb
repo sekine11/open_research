@@ -1,0 +1,12 @@
+<% lab_tasks.each do |task| %>
+	<tr>
+		<td id="task-status-<%= task.id %>">
+			<%= render "laboratories/task_status", task: task %>
+		</td>
+		<td class="align-middle font-weight-bold"><%= task.content %></td>
+		<td class="align-middle"><%= task.created_at.strftime("%m/%d %H:%M") %></td>
+		<td id="task-update-<%= task.id %>" class="text-right">
+			<%= render "laboratories/task_update", task: task, laboratory: @laboratory %>
+		</td>
+	</tr>
+<% end %>

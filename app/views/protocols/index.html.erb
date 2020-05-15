@@ -1,2 +1,28 @@
-<h1>Protocols#index</h1>
-<p>Find me in app/views/protocols/index.html.erb</p>
+<div class="row m-4">
+	<div class="col-2 list-group">
+		<% Protocol.all.tags_on(:protocols).each do |tag| %>
+			<%= link_to protocols_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
+				<%= tag.name %> <span class="badge badge-pill badge-danger"><%= Protocol.all.tagged_with(tag).count %></span>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="col-7">
+		<main class="">
+			<div id="protocols">
+				<%= render "share/protocols", protocols: @protocols %>
+			</div>
+		</main>
+	</div>
+	<div class="col-3">
+		<table class="table">
+			<thead class="bg-danger">
+				<tr>
+					<th class="text-center text-light" colspan="2">人気のプロトコール</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render "share/ranking", rank_items: @rank_protocols %>
+			</tbody>
+		</table>
+	</div>
+</div>
