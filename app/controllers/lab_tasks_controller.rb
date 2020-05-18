@@ -6,12 +6,14 @@ class LabTasksController < ApplicationController
   end
 
   def create
-  	lab_task = LabTask.new(lab_task_params)
-  	lab_task.user_id = current_user.id
+  	@lab_task = LabTask.new(lab_task_params)
+  	@lab_task.user_id = current_user.id
   	@laboratory = Laboratory.find(params[:laboratory_id])
-  	lab_task.laboratory_id = @laboratory.id
-  	lab_task.save
-    @lab_task = LabTask.new
+  	@lab_task.laboratory_id = @laboratory.id
+  	if @lab_task.save
+      @lab_task = LabTask.new
+      @lab_tasks = @laboratory.lab_tasks.order(created_at: "DESC")
+    end
     @lab_tasks = @laboratory.lab_tasks.order(created_at: "DESC")
   end
 

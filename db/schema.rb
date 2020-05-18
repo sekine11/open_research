@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discussion_id"], name: "index_discuss_favorites_on_discussion_id"
+    t.index ["user_id", "discussion_id"], name: "index_discuss_favorites_on_user_id_and_discussion_id", unique: true
     t.index ["user_id"], name: "index_discuss_favorites_on_user_id"
   end
 
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lab_information_id"], name: "index_lab_information_checks_on_lab_information_id"
+    t.index ["user_id", "lab_information_id"], name: "index_lab_information_checks_on_user_id_and_lab_information_id", unique: true
     t.index ["user_id"], name: "index_lab_information_checks_on_user_id"
   end
 
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["laboratory_id"], name: "index_lab_members_on_laboratory_id"
+    t.index ["user_id", "laboratory_id"], name: "index_lab_members_on_user_id_and_laboratory_id", unique: true
     t.index ["user_id"], name: "index_lab_members_on_user_id"
   end
 
@@ -121,73 +124,13 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.index ["user_id"], name: "index_laboratories_on_user_id"
   end
 
-  create_table "project_information_checks", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "poject_information_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["poject_information_id"], name: "index_project_information_checks_on_poject_information_id"
-    t.index ["user_id"], name: "index_project_information_checks_on_user_id"
-  end
-
-  create_table "project_information_comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_information_id", null: false
-    t.string "content", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_information_id"], name: "index_project_information_comments_on_project_information_id"
-    t.index ["user_id"], name: "index_project_information_comments_on_user_id"
-  end
-
-  create_table "project_informations", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
-    t.string "subject", null: false
-    t.text "content", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_project_informations_on_project_id"
-    t.index ["user_id"], name: "index_project_informations_on_user_id"
-  end
-
-  create_table "project_members", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_project_members_on_project_id"
-    t.index ["user_id"], name: "index_project_members_on_user_id"
-  end
-
-  create_table "project_tasks", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
-    t.string "content", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_project_tasks_on_project_id"
-    t.index ["user_id"], name: "index_project_tasks_on_user_id"
-  end
-
-  create_table "projects", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "laboratory_id", null: false
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["laboratory_id"], name: "index_projects_on_laboratory_id"
-    t.index ["user_id"], name: "index_projects_on_user_id"
-  end
-
   create_table "protocol_favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "protocol_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["protocol_id"], name: "index_protocol_favorites_on_protocol_id"
+    t.index ["user_id", "protocol_id"], name: "index_protocol_favorites_on_user_id_and_protocol_id", unique: true
     t.index ["user_id"], name: "index_protocol_favorites_on_user_id"
   end
 
@@ -216,6 +159,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_ques_favorites_on_question_id"
+    t.index ["user_id", "question_id"], name: "index_ques_favorites_on_user_id_and_question_id", unique: true
     t.index ["user_id"], name: "index_ques_favorites_on_user_id"
   end
 

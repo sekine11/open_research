@@ -1,12 +1,10 @@
-<div class="max-vw-100 mt-n4 bg-light shadow-sm border-top">
-	<h2 class="h3 p-3"><%= @laboratory.name %></h2>
-</div>
 <div class="row m-4">
 
 <%= form_with(model: @lab_information, url: laboratory_lab_informations_path(@laboratory), local: true, html: { class: "col-12 col-md-8 offset-md-2 mt-3" }) do |f| %>
+	<%= render 'layouts/error_messages', model: f.object %>
 
 	<div class="form-group">
-		<%= f.label :subject, "題名（内容が分かりやすいもので50文字以内）" %>
+		<%= f.label :subject, "題名（内容が分かりやすいもので30文字以内）" %>
 		<%= f.text_field :subject, class: "form-control" %>
 	</div>
 

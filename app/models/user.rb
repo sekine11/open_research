@@ -26,12 +26,7 @@ class User < ApplicationRecord
   has_many :lab_informations
   has_many :lab_information_checks
   has_many :lab_information_comments
-  has_many :project_members
   has_many :events
-  has_many :project_tasks
-  has_many :project_informations
-  has_many :project_information_checks
-  has_many :project_information_comments
 
   def active_for_authentication?
     super && status == true

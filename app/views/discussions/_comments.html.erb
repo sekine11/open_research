@@ -1,5 +1,6 @@
 <div class="row m-4 border-bottom">
 <%= form_with(model: discuss_comment, url: discussion_discuss_comments_path(discussion), html: { class: "col-12" }) do |f| %>
+		<%= render 'layouts/error_messages', model: f.object %>
 
 		<div class="form-group">
 			<%= f.text_area :content, class: "form-control" %>

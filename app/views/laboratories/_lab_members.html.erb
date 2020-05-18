@@ -1,0 +1,21 @@
+<% lab_members.each do |member| %>
+  <tr>
+    <td><%= member.user.private_name %></td>
+    <td><%= member.user.email %></td>
+    <td id="lab-member-status<%= member.id %>"><%= render "laboratories/lab_member_status", member: member %></td>
+    <td>
+	  <%= link_to laboratory_lab_member_path(@laboratory,member,:status => "member"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"メンバーに変更" do %>
+	    <i class="fas fa-user-friends"></i>
+	  <% end %>
+	  <%= link_to laboratory_lab_member_path(@laboratory,member,:status => "subadmin"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"副管理者に変更" do %>
+	    <i class="fas fa-users-cog"></i>
+	  <% end %>
+	  <%= link_to laboratory_lab_member_path(@laboratory,member,:status => "admin"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"管理者に変更" do %>
+	    <i class="fas fa-user-cog"></i>
+	  <% end %>
+	  <%= link_to laboratory_lab_member_path(@laboratory,member), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
+	    <i class="fas fa-user-slash"></i>
+	  <% end %>
+	</td>
+  </tr>
+<% end %>

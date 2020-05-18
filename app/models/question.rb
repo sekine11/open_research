@@ -5,6 +5,12 @@ class Question < ApplicationRecord
 	has_many :ques_favorites
 	has_many :ques_comments
 
+	validates :user_id, presence: true
+	validates :subject, length: { in: 5..30 }
+	validates :subject, presence: true
+	validates :content, length: { in: 30..1000 }
+	validates :content, presence: true
+
 	enum status: { accepting: 0, completed: 1 }
 
 	def favorited_by?(user)

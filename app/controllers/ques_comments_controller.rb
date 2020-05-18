@@ -6,11 +6,12 @@ class QuesCommentsController < ApplicationController
 
   def create
   	@question = Question.find(params[:question_id])
-  	ques_comment = QuesComment.new(ques_comment_params)
-  	ques_comment.user_id = current_user.id
-  	ques_comment.question_id = @question.id
-  	ques_comment.save
-    @ques_comment = QuesComment.new
+  	@ques_comment = QuesComment.new(ques_comment_params)
+  	@ques_comment.user_id = current_user.id
+  	@ques_comment.question_id = @question.id
+  	if @ques_comment.save
+      @ques_comment = QuesComment.new
+    end
   end
 
   def destroy

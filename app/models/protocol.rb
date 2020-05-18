@@ -4,6 +4,12 @@ class Protocol < ApplicationRecord
 	belongs_to :user
 	has_many :protocol_favorites
 
+	validates :user_id, presence: true
+	validates :subject, length: { in: 5..30 }
+	validates :subject, presence: true
+	validates :content, length: { in: 30..2000 }
+	validates :content, presence: true
+
 	def favorited_by?(user)
         protocol_favorites.where(user_id: user.id).exists?
     end

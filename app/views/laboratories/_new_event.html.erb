@@ -6,6 +6,7 @@
 </div>
 <div class="modal-body">
 	<%= form_with(model: event, url: laboratory_events_path(laboratory)) do |f| %>
+		<%= render 'layouts/error_messages', model: f.object %>
 		<div class="form-group">
 		   	<div class="input-group" data-target-input="nearest">
 			    <%= f.text_field :start, id: "start", class: "form-control datepicker", data: { target: '#start' }, placeholder: "開始時刻" %>

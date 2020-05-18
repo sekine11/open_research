@@ -39,7 +39,6 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: "質問を投稿しました"
     else
-      @question = Question.new
       render "new"
     end
   end
