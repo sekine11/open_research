@@ -1,6 +1,7 @@
 <div class="row m-4">
 
 <%= form_with(model: @laboratory, local: true, html: { class: "col-12 col-md-8 offset-md-2 mt-3" }) do |f| %>
+	<%= render 'layouts/error_messages', model: f.object %>
 
 	<div class="form-group">
 		<%= f.label :name, "研究室名" %>

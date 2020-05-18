@@ -26,15 +26,18 @@ class LabInformationsController < ApplicationController
     @lab_information = LabInformation.new(lab_information_params)
     @lab_information.user_id = current_user.id
     @lab_information.laboratory_id = @laboratory.id
-    @lab_information.save
-    redirect_to laboratory_lab_information_path(@laboratory,@lab_information)
+    if @lab_information.save
+      redirect_to laboratory_lab_information_path(@laboratory,@lab_information)
+    else
+      render "new"
+    end
   end
 
   def destroy
     @laboratory = Laboratory.find(params[:laboratory_id])
     @lab_information = LabInformation.find(params[:id])
     @lab_information.destroy
-    redirect_to laboratory_lab_informations_path(@laboratory)
+    redirect_to laboratory_lab_informations_path(@laboratory), notice: "お知らせを削除しました"
   end
 
   private

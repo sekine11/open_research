@@ -24,16 +24,21 @@ class LaboratoriesController < ApplicationController
 
   def update
     @laboratory = Laboratory.find(params[:id])
-    @laboratory.update(laboratory_params)
-    redirect_to edit_laboratory_path(@laboratory)
+    if @laboratory.update(laboratory_params)
+      flash[:notice] = "ラボ名を変更しました"
+      @laboratory = Laboratory.find(params[:id])
+    end
   end
 
   def create
     @laboratory = Laboratory.new(laboratory_params)
     @laboratory.user_id = current_user.id
-    @laboratory.save
-    lab_member = LabMember.create(user_id: current_user.id, laboratory_id: @laboratory.id, status: "admin")
-    redirect_to @laboratory
+    if @laboratory.save
+      lab_member = LabMember.create(user_id: current_user.id, laboratory_id: @laboratory.id, status: "admin")
+      redirect_to @laboratory, notice: "ラボを作成しました"
+    else
+      render "new"
+    end
   end
 
   private

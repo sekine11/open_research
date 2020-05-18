@@ -6,6 +6,7 @@ class CreateLabMembers < ActiveRecord::Migration[5.2]
       t.integer :status, null: false, default: 0
 
       t.timestamps
+      t.index [:user_id, :laboratory_id], unique: true
     end
   end
 end

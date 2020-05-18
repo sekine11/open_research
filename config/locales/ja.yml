@@ -1,6 +1,4 @@
 ja:
-  date:
-    mouth_name: 
   enums:
     question:
       status:
@@ -22,6 +20,38 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    attributes:
+      lab_task:
+        content: 内容
+      discussion:
+        subject: 題名
+        content: 内容
+      protocol:
+        subject: 題名
+        content: 内容
+      question:
+        subject: 題名
+        content: 内容
+      ques_comment:
+        content: コメント
+      discuss_comment:
+        content: コメント
+      event:
+        title: タイトル
+        start: 開始時刻
+        end: 終了時刻
+      lab_information_comment:
+        content: コメント
+      lab_information:
+        subject: 題名
+        content: 内容
+      laboratory:
+        name: ラボ名
+      user:
+        private_name: 公開されない名前 
+        public_name: 公開される名前
+        email: メールアドレス
+        password: パスワード
   date:
     abbr_day_names:
     - 日

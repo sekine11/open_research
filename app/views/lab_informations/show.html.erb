@@ -1,7 +1,4 @@
-<div class="max-vw-100 bg-light shadow-sm border-top">
-	<h2 class="h3 p-3"><%= @laboratory.name %> > <%= @lab_information.subject %></h2>
-</div>
-<div class="max-vw-100 mt-n4 bg-dark shadow text-light">
+<div class="max-vw-100 bg-dark shadow text-light">
 	<div class="flex justify-content-between px-4 pt-3 pb-1">
 		<div class="">
 			<h3 class="font-weight-bold"><%= @lab_information.subject %></h3>
@@ -36,6 +33,6 @@
 </div>
 <div id="comments">
 		<%= render "lab_informations/comments", comment: @comment, laboratory: @laboratory, lab_information: @lab_information %>
-</div>>
+</div>
 </div>
 </div>

@@ -6,12 +6,15 @@ class DiscussCommentsController < ApplicationController
 
   def create
   	@discussion = Discussion.find(params[:discussion_id])
-  	discuss_comment = DiscussComment.new(discuss_comment_params)
-    discuss_comment.user_id = current_user.id
-  	discuss_comment.discussion_id = @discussion.id
-  	discuss_comment.save
-    @discussion = Discussion.find(params[:discussion_id])
-    @discuss_comment = DiscussComment.new
+  	@discuss_comment = DiscussComment.new(discuss_comment_params)
+    @discuss_comment.user_id = current_user.id
+  	@discuss_comment.discussion_id = @discussion.id
+  	if @discuss_comment.save
+      @discussion = Discussion.find(params[:discussion_id])
+      @discuss_comment = DiscussComment.new
+    else
+      @discussion = Discussion.find(params[:discussion_id])
+    end
   end
 
   def destroy

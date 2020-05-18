@@ -10,21 +10,12 @@
     <div class="col-12 col-md-9">
       <div class="tab-content" id="nav-tabContent">
         <div class="row tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
-          <%= form_with(model: @laboratory, local: true) do |f| %>
-
-            <div class="form-group">
-              <%= f.label :name, "名前" %>
-              <%= f.text_field :name, class: "form-control" %>
-            </div>
-
-            <div class="form-group">
-              <%= f.submit "編集する", class: "btn btn-success" %>
-            </div>
-
-          <% end %>
+          <div id="lab-edit-form">
+            <%= render "laboratories/lab_edit_form", laboratory: @laboratory %>
+          </div>
         </div>
         <div class="row tab-pane fade" id="list-edit" role="tabpanel" aria-labelledby="list-edit-list">
-          <%= form_with(url: laboratory_lab_members_path(@laboratory), local: true) do |f| %>
+          <%= form_with(url: laboratory_lab_members_path(@laboratory)) do |f| %>
 
             <div class="form-group">
               <%= f.label :email, "メールアドレス" %>
@@ -45,28 +36,8 @@
                 <th>ステータス変更・削除</th>
               </tr>
             </thead>
-            <tbody>
-              <% @lab_members.each do |member| %>
-                <tr>
-                  <td><%= member.user.private_name %></td>
-                  <td><%= member.user.email %></td>
-                  <td><%= member.status %></td>
-                  <td>
-                    <%= link_to laboratory_lab_member_path(@laboratory,member,:status => "member"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"メンバーに変更" do %>
-                      <i class="fas fa-user-friends"></i>
-                    <% end %>
-                    <%= link_to laboratory_lab_member_path(@laboratory,member,:status => "subadmin"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"副管理者に変更" do %>
-                      <i class="fas fa-users-cog"></i>
-                    <% end %>
-                    <%= link_to laboratory_lab_member_path(@laboratory,member,:status => "admin"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"管理者に変更" do %>
-                      <i class="fas fa-user-cog"></i>
-                    <% end %>
-                    <%= link_to laboratory_lab_member_path(@laboratory,member), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
-                      <i class="fas fa-user-slash"></i>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
+            <tbody id="lab-members">
+              <%= render "laboratories/lab_members", lab_members: @lab_members %>
             </tbody>
           </table>
         </div>

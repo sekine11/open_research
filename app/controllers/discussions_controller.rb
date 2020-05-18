@@ -37,9 +37,8 @@ class DiscussionsController < ApplicationController
     @discussion = Discussion.new(discussion_params)
     @discussion.user_id = current_user.id
     if @discussion.save
-      redirect_to @discussion, success: "議論を開始しました"
+      redirect_to @discussion, notice: "議論を開始しました"
     else
-      @discussion = Discussion.new
       render "new"
     end
   end
@@ -51,9 +50,8 @@ class DiscussionsController < ApplicationController
     else
       @discussion = Discussion.find(params[:id])
       if @discussion.update(discussion_params)
-        redirect_to @discussion, success: "議論を編集しました"
+        redirect_to @discussion, notice: "議論を編集しました"
       else
-        flash[:alert] = "編集に失敗しました"
         render "edit"
       end
   end
@@ -62,7 +60,7 @@ class DiscussionsController < ApplicationController
   def destroy
     discussion = Discussion.find(params[:id])
     discussion.destroy
-    redirect_to discussions_path, success: "削除しました"
+    redirect_to discussions_path, notice: "削除しました"
   end
 
   private

@@ -31,7 +31,7 @@ class Ability
         can [:show, :edit], Laboratory, lab_members: { user_id: user.id }
         can [:update], Laboratory, lab_members: { user_id: user.id, status: 2 }
 
-        can :manage, LabMember, laboratory: { lab_members: { user_id: user.id, status: 1 } }
+        can :manage, LabMember, laboratory: { lab_members: { user_id: user.id, status: 2 } }
 
         can :manage, LabTask, laboratory: { lab_members: { user_id: user.id } }
 
