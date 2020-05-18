@@ -10,12 +10,16 @@
 			</span>
 		</div>
 		<div class="flex">
-			<div id="status">
-				<%= render 'questions/status', question: @question %>
-			</div>
-			<div id="favorite">
-				<%= render 'questions/favorite', question: @question %>
-			</div>
+			<% if user_signed_in? && @question.user_id == current_user.id %>
+				<div id="status">
+					<%= render 'questions/status', question: @question %>
+				</div>
+			<% end %>
+			<% if user_signed_in? %>
+				<div id="favorite">
+					<%= render 'questions/favorite', question: @question %>
+				</div>
+			<% end %>
 		</div>
 	</div>
 	<div class="flex justify-content-between px-4 pb-3">
@@ -24,10 +28,12 @@
 			<p class="mr-4 mb-0">投稿日時：<%= @question.created_at %></p>
 			<p class="mr-4 mb-0">更新日時：<%= @question.updated_at %></p>
 		</div>
-		<div>
-			<%= link_to "編集", edit_question_path(@question), class: "btn btn-light" %>
-			<%= link_to "削除", question_path(@question), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
-		</div>
+		<% if user_signed_in? && @question.user_id == current_user.id %>
+			<div>
+				<%= link_to "編集", edit_question_path(@question), class: "btn btn-light" %>
+				<%= link_to "削除", question_path(@question), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+			</div>
+		<% end %>
 	</div>
 </div>
 <% if @question.user == current_user && @question.status == "accepting" %>

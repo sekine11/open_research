@@ -79,7 +79,7 @@ end
 	LabMember.create!(
 		user_id: rand(1..50),
 		laboratory_id: rand(1..20),
-		status: rand(0..3)
+		status: "admin"
 		)
 
 end

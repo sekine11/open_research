@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  authorize_resource class: false
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
+  end
+
   def hide
   	current_user.update(status: false)
   	session.clear
