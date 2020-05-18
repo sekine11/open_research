@@ -1,4 +1,10 @@
 class LabTasksController < ApplicationController
+  load_and_authorize_resource :laboratory
+  load_and_authorize_resource :lab_task, through: :laboratory
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to home_url, alert: "ラボのメンバーではないか、権限をもっていません"
+  end
+
   def create
   	lab_task = LabTask.new(lab_task_params)
   	lab_task.user_id = current_user.id

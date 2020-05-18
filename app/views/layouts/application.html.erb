@@ -34,24 +34,10 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <%= link_to "新しくラボを作る", new_laboratory_path, class: "dropdown-item" %>
-                <% current_user.laboratory.each do |lab| %>
-                  <% labo = Laboratory.find(lab.id) %>
-                  <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
-                <% end %>
-                <% current_user.lab_members.each do |lab| %>
-                  <% labo = Laboratory.find(lab.laboratory_id) %>
-                  <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
-                <% end %>
-              </div>
-            </li>
-            <li class="nav-item dropdown mr-4">
-              <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                プロジェクト
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <% current_user.project_members.each do |pro| %>
-                  <% project = Project.find(pro.project_id) %>
-                  <%= link_to project.name, laboratory_project_path(:laboratory_id => project.laboratory_id, :id => project.id), class: "dropdown-item" %>
+                <% current_user.lab_members.each do |lab_member| %>
+                  <% Laboratory.where(id: lab_member.laboratory_id).each do |lab| %>
+                   <%= link_to lab.name, laboratory_path(lab), class: "dropdown-item" %>
+                  <% end %>
                 <% end %>
               </div>
             </li>
@@ -148,6 +134,25 @@
               </div>
             </div>
           <% end %>
+        <% end %>
+
+        <% if flash[:notice] || flash[:alert] %>
+          <div class="container-fluid mt-4">
+            <div class="row">
+              <div class="col-12">
+                <% if flash[:notice] %>
+                  <div class="alert alert-success">
+                    <p class="success m-0"><%= flash[:notice] %></p>
+                  </div>
+                <% end %>
+                <% if flash[:alert] %>
+                  <div class="alert alert-danger">
+                    <p class="alert m-0"><%= flash[:alert] %></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
         <% end %>
 
         <%= yield %>

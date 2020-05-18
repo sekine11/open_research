@@ -6,12 +6,16 @@
 			<span id="comments-count" class="badge badge-light"><%= render "comments_count", discussion: @discussion %></span>
 		</div>
 		<div class="flex">
-			<div id="status">
-				<%= render "status", discussion: @discussion %>
-			</div>
-			<div id="favorite">
-				<%= render "favorite", discussion: @discussion %>
-			</div>
+			<% if user_signed_in? && @discussion.user_id == current_user.id %>
+				<div id="status">
+					<%= render "status", discussion: @discussion %>
+				</div>
+			<% end %>
+			<% if user_signed_in? %>
+				<div id="favorite">
+					<%= render "favorite", discussion: @discussion %>
+				</div>
+			<% end %>
 		</div>
 	</div>
 	<div class="flex justify-content-between px-4 pb-3">
@@ -20,10 +24,12 @@
 			<p class="mr-4 mb-0">投稿日時：<%= @discussion.created_at %></p>
 			<p class="mr-4 mb-0">更新日時：<%= @discussion.updated_at %></p>
 		</div>
-		<div>
-			<%= link_to "編集", edit_discussion_path(@discussion), class: "btn btn-light" %>
-			<%= link_to "削除", discussion_path(@discussion), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
-		</div>
+		<% if user_signed_in? && @discussion.user_id == current_user.id %>
+			<div>
+				<%= link_to "編集", edit_discussion_path(@discussion), class: "btn btn-light" %>
+				<%= link_to "削除", discussion_path(@discussion), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+			</div>
+		<% end %>
 	</div>
 </div>
 <% if @discussion.user == current_user && @discussion.status == "active" %>

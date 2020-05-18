@@ -1,4 +1,10 @@
 class LabInformationsController < ApplicationController
+  load_and_authorize_resource :laboratory
+  load_and_authorize_resource :lab_information, through: :laboratory
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to home_url, alert: "ラボのメンバーではないか、権限をもっていません"
+  end
+
   def new
     @laboratory = Laboratory.find(params[:laboratory_id])
     @lab_information = LabInformation.new

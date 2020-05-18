@@ -1,4 +1,10 @@
 class EventsController < ApplicationController
+  load_and_authorize_resource :laboratory
+  load_and_authorize_resource :event, through: :laboratory
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to home_url, alert: "ラボのメンバーではないか、権限をもっていません"
+  end
+
   def create
   	@laboratory = Laboratory.find(params[:laboratory_id])
   	event = Event.new(event_params)

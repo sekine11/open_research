@@ -19,9 +19,11 @@
 					<p class="m-0 mr-4 font-weight-bold text-dark"><%= comment.user.public_name %></p>
 					<p class="m-0 font-weight-bold text-dark"><%= comment.created_at %></p>
 				</div>
-				<div>
-					<%= link_to "削除", discussion_discuss_comment_path(discussion,comment), method: :delete, remote: true, class: "btn btn-danger" %>
-				</div>
+				<% if user_signed_in? && comment.user_id == current_user.id %>
+					<div>
+						<%= link_to "削除", discussion_discuss_comment_path(discussion,comment), method: :delete, remote: true, class: "btn btn-danger" %>
+					</div>
+				<% end %>
 			</div>
 			<p class="mb-4"><%= comment.content %></p>
 		</div>
