@@ -42,7 +42,7 @@ class LabInformationsController < ApplicationController
 
   private
   def lab_information_params
-    params.require(:lab_information).permit(:subject, :content)
+    params.require(:lab_information).permit(:subject, :pdf, :content)
   end
 
 end

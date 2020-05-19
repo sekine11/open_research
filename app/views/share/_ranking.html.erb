@@ -1,8 +1,12 @@
 <% i = 1 %>
-<% rank_items.first(10).each do |item| %>
+<% rank_items.each do |item| %>
 	<tr>
 		<th><%= i %></th>
-		<td><%= item.subject.truncate(15) %></td>
+		<td>
+			<%= link_to item, class: "link" do %>
+				<%= item.subject.truncate(15) %>
+			<% end %>
+		</td>
 	</tr>
 	<% i += 1 %>
 <% end %>

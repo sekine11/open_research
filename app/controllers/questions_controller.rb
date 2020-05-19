@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  impressionist actions: [:show]
   load_and_authorize_resource
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
@@ -26,7 +27,7 @@ class QuestionsController < ApplicationController
       end
       @questions = @q.result(distinct: true).order(created_at: "DESC").page(params[:question_page]).per(20)
     end
-    @rank_questions = Question.all.order(created_at: "DESC")
+    @rank_questions = Question.order('impressions_count DESC').take(10)
   end
 
   def edit

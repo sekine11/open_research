@@ -1,4 +1,5 @@
 class ProtocolsController < ApplicationController
+  impressionist actions: [:show]
   load_and_authorize_resource
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
@@ -25,7 +26,7 @@ class ProtocolsController < ApplicationController
       end
       @protocols = @q.result(distinct: true).order(created_at: "DESC").page(params[:protocol_page]).per(20)
     end
-    @rank_protocols = Protocol.all.order(created_at: "DESC")
+    @rank_protocols = Protocol.order('impressions_count DESC').take(10)
   end
 
   def edit

@@ -9,7 +9,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  attachment :image
+  attachment :image, type: :image
+
 
   # アソシエーション
   has_many :questions
