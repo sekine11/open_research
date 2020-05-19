@@ -10,7 +10,7 @@ class Protocol < ApplicationRecord
 	validates :content, length: { in: 30..2000 }
 	validates :content, presence: true
 
-	is_impressionable :counter_cache => true, :unique => [:impressionable_id, :session_hash]
+	is_impressionable :counter_cache => true, :unique => [:session_hash]
 
 	def favorited_by?(user)
         protocol_favorites.where(user_id: user.id).exists?

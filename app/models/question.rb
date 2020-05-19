@@ -13,7 +13,7 @@ class Question < ApplicationRecord
 
 	enum status: { accepting: 0, completed: 1 }
 
-	is_impressionable :counter_cache => true, :unique => [:impressionable_id, :session_hash]
+	is_impressionable :counter_cache => true, :unique => [:session_hash]
 
 	def favorited_by?(user)
         ques_favorites.where(user_id: user.id).exists?
