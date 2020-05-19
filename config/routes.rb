@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
   put "users/hide" => "users#hide", as: "hide"
   get "users/reregistrations" => "users#reregistrations", as: "reregistration"
   post "users/reactive" => "users#reactive", as: "reactive"
+  get 'contacts/new' => "contacts#new", as: "new_contact"
+  post 'contacts/create' => "contacts#create", as: "contacts"
   resources :protocols do
   	resource :protocol_favorites, only: [:create, :destroy]
   end
