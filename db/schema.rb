@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_082921) do
+ActiveRecord::Schema.define(version: 2020_05_19_064450) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.string "subject", null: false
     t.text "content", null: false
     t.integer "status", default: 0, null: false
+    t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
@@ -61,6 +62,32 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.datetime "updated_at", null: false
     t.index ["laboratory_id"], name: "index_events_on_laboratory_id"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "impressions", force: :cascade do |t|
+    t.string "impressionable_type"
+    t.integer "impressionable_id"
+    t.integer "user_id"
+    t.string "controller_name"
+    t.string "action_name"
+    t.string "view_name"
+    t.string "request_hash"
+    t.string "ip_address"
+    t.string "session_hash"
+    t.text "message"
+    t.text "referrer"
+    t.text "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index"
+    t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index"
+    t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index"
+    t.index ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index"
+    t.index ["impressionable_type", "impressionable_id", "params"], name: "poly_params_request_index"
+    t.index ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index"
+    t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
+    t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
+    t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
   create_table "lab_information_checks", force: :cascade do |t|
@@ -90,6 +117,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "pdf_id"
     t.index ["laboratory_id"], name: "index_lab_informations_on_laboratory_id"
     t.index ["user_id"], name: "index_lab_informations_on_user_id"
   end
@@ -138,6 +166,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.integer "user_id", null: false
     t.string "subject", null: false
     t.text "content", null: false
+    t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_protocols_on_user_id"
@@ -168,6 +197,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082921) do
     t.string "subject", null: false
     t.text "content", null: false
     t.integer "status", default: 0, null: false
+    t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"

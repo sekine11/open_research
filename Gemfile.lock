@@ -139,6 +139,8 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    impressionist (1.6.1)
+      nokogiri (~> 1)
     io-like (0.3.1)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
@@ -379,6 +381,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.4.1)
   fullcalendar-rails
   gimei
+  impressionist (~> 1.6.1)
   jbuilder (~> 2.5)
   jquery-rails
   kaminari

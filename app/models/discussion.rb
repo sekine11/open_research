@@ -13,6 +13,8 @@ class Discussion < ApplicationRecord
 
 	enum status: { active: 0, inactive: 1 }
 
+	is_impressionable :counter_cache => true, :unique => [:session_hash]
+
 	def favorited_by?(user)
         discuss_favorites.where(user_id: user.id).exists?
     end

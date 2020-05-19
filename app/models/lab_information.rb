@@ -4,6 +4,8 @@ class LabInformation < ApplicationRecord
 	has_many :lab_information_checks
 	has_many :lab_information_comments
 
+	attachment :pdf, extension: "pdf"
+
 	validates :user_id, presence: true
 	validates :laboratory_id, presence: true
 	validates :subject, length: { in: 5..30 }

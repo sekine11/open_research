@@ -30,7 +30,8 @@ end
 				user_id: rand(1..50),
 				subject: "テストテスト#{rand(1..99)}",
 				content: "テスト" * 100,
-				status: 0
+				status: 0,
+				impressions_count: rand(1..200)
 				)
 	question.question_list.add "DNA", "RNA", "NGS", "Protein"
 	question.save
@@ -52,7 +53,8 @@ end
 	protocol = Protocol.create!(
 				user_id: rand(1..50),
 				subject: "テストテスト#{rand(1..99)}",
-				content: "テスト" * 100
+				content: "テスト" * 100,
+				impressions_count: rand(1..200)
 				)
 	protocol.protocol_list.add "DNA", "NGS", "Protein"
 	protocol.save
@@ -65,7 +67,8 @@ end
 				user_id: rand(1..50),
 				subject: "テストテスト#{rand(1..99)}",
 				content: "テスト" * 100,
-				status: 0
+				status: 0,
+				impressions_count: rand(1..200)
 				)
 	discussion.discussion_list.add "DNA", "RNA", "NGS", "Protein"
 	discussion.save
