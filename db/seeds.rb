@@ -19,7 +19,8 @@ Admin.create!(
 		private_name: Faker::JapaneseMedia::SwordArtOnline.unique.real_name,
 		image_id: "",
 		password: "123456",
-    	password_confirmation: "123456"
+    	password_confirmation: "123456",
+    	confirmed_at: Time.now
 		)
 
 end
@@ -30,8 +31,7 @@ end
 				user_id: rand(1..50),
 				subject: "テストテスト#{rand(1..99)}",
 				content: "テスト" * 100,
-				status: 0,
-				impressions_count: rand(1..200)
+				status: 0
 				)
 	question.question_list.add "DNA", "RNA", "NGS", "Protein"
 	question.save
@@ -53,8 +53,7 @@ end
 	protocol = Protocol.create!(
 				user_id: rand(1..50),
 				subject: "テストテスト#{rand(1..99)}",
-				content: "テスト" * 100,
-				impressions_count: rand(1..200)
+				content: "テスト" * 100
 				)
 	protocol.protocol_list.add "DNA", "NGS", "Protein"
 	protocol.save
@@ -67,8 +66,7 @@ end
 				user_id: rand(1..50),
 				subject: "テストテスト#{rand(1..99)}",
 				content: "テスト" * 100,
-				status: 0,
-				impressions_count: rand(1..200)
+				status: 0
 				)
 	discussion.discussion_list.add "DNA", "RNA", "NGS", "Protein"
 	discussion.save
