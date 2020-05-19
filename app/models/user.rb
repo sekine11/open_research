@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :private_name, presence: true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
   attachment :image, type: :image
 
 

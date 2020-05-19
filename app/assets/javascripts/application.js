@@ -43,8 +43,7 @@ function eventCalendar() {
   	events: location.pathname + '.json',
   	// eventをクリックしたときにモーダルで詳細を表示
   	eventClick: function(info) {
-  		console.log(info.id);
-      jQuery(`#event${info.id}`).modal('toggle');
+      $(`#event${info.id}`).modal('toggle');
     },
   });
 };
@@ -53,3 +52,18 @@ function clearCalendar() {
 };
 $(document).on('turbolinks:load', eventCalendar);
 $(document).on('turbolinks:before-cache', clearCalendar);
+
+$(document).on('turbolinks:load', function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#img-prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#profile").change(function(){
+   readURL(this);
+ });
+});

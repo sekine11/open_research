@@ -37,8 +37,8 @@
             <%= render "devise/shared/error_messages", resource: resource %>
             <div class="form-group">
               <%= f.label :image, "公開されるプロフィール画像" %><br>
-              <%= attachment_image_tag(current_user, :image, :fill, 100, 100, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", size: "100x100") %>
-              <%= f.attachment_field :image, class: "align-bottom" %>
+              <%= attachment_image_tag(current_user, :image, :fill, 100, 100, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", id: "img-prev", size: "100x100") %>
+              <%= f.attachment_field :image, class: "align-bottom", id: "profile" %>
             </div>
             <div class="form-group">
               <%= f.label :public_name, "公開される名前" %>
