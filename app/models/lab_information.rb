@@ -4,11 +4,11 @@ class LabInformation < ApplicationRecord
 	has_many :lab_information_checks
 	has_many :lab_information_comments
 
-	attachment :pdf, extension: "pdf"
+	attachment :document, extension: "pdf"
 
 	validates :user_id, presence: true
 	validates :laboratory_id, presence: true
-	validates :subject, length: { in: 5..30 }
+	validates :subject, length: { in: 2..30 }
 	validates :subject, presence: true
 	validates :content, length: { in: 30..1000 }
 	validates :content, presence: true
@@ -16,4 +16,8 @@ class LabInformation < ApplicationRecord
 	def checked_by?(user)
         lab_information_checks.where(user_id: user.id).exists?
     end
+
+    def file_extension
+	    document_content_type.split("/").last.to_sym
+	end
 end

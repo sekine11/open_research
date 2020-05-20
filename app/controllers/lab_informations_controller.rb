@@ -23,6 +23,9 @@ class LabInformationsController < ApplicationController
 
   def create
     @laboratory = Laboratory.find(params[:laboratory_id])
+    if lab_information_params[:document] != ""
+      lab_information_params[:document].open # cancancanと一緒にrefile使用で起こる不都合を修正
+    end
     @lab_information = LabInformation.new(lab_information_params)
     @lab_information.user_id = current_user.id
     @lab_information.laboratory_id = @laboratory.id
@@ -42,7 +45,7 @@ class LabInformationsController < ApplicationController
 
   private
   def lab_information_params
-    params.require(:lab_information).permit(:subject, :pdf, :content)
+    params.require(:lab_information).permit(:subject, :content, :document)
   end
 
 end
