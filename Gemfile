@@ -53,6 +53,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem "letter_opener_web" #　開発環境でメールの確認
+  gem "bullet" # N+1の検出
 end
 
 group :production do

@@ -2,14 +2,14 @@
 	<div class="border-bottom p-3 row">
 		<h3 class="col-12 h5 mb-1 font-weight-bold"><%= link_to protocol.subject.truncate(30), protocol_path(protocol), class: "text-body link" %></h3>
 		<div class="col-12 mb-1">
-			<% protocol.protocol_counts.each do |tag| %>
+			<% protocol.protocols.each do |tag| %>
 				<span class="badge badge-pill badge-danger mx-1"><%= tag.name %></span>
 			<% end %>
 		</div>
 		<div class="col-12">
 			<div class="row">
 				<span class="col-12 col-md-6 text-dark">投稿者：<%= protocol.user.public_name %></span>
-				<span class="col-12 col-md-6 text-dark">お気に入り数：<%= protocol.protocol_favorites.count %></span>
+				<span class="col-12 col-md-6 text-dark">お気に入り数：<%= protocol.protocol_favorites.select {|favorite| favorite}.size %></span>
 			</div>
 		</div>
 	</div>

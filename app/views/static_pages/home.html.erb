@@ -1,7 +1,9 @@
 <div class="row m-4">
 	<div class="col-12 col-md-9">
-		<div class="keywords vh-40 bg-dark mb-4">
-			aaaaaaaaaa
+		<div class="w-100 keywords bg-dark mb-4 position-relative">
+			<% ActsAsTaggableOn::Tag.all.each do |tag| %>
+				<div class="text-light tag position-absolute" style="top:<%= rand(150) %>px;right:<%= rand(800) %>px;font-size:<%= rand(20...30) %>px;"><%= tag.name %></div>
+			<% end %>
 		</div>
 		<div id="all-contents" class="all-contents">
 			<%= render "share/all", questions: @questions, discussions: @discussions, protocols: @protocols %>

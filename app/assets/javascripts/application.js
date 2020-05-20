@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery3
 //= require popper
 //= require bootstrap
@@ -21,12 +20,13 @@
 //= require fullcalendar
 //= require fullcalendar/lang/ja
 //= require tempusdominus-bootstrap-4.js
+//= require turbolinks
 //= require_tree .
 
 // tooltipの設定
-$(function () {
+$(document).on('turbolinks:load', function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
+});
 
 // fullcalendar
 function eventCalendar() {
@@ -53,6 +53,8 @@ function clearCalendar() {
 $(document).on('turbolinks:load', eventCalendar);
 $(document).on('turbolinks:before-cache', clearCalendar);
 
+
+// refileの投稿時のプレビュー
 $(document).on('turbolinks:load', function() {
  function readURL(input) {
    if (input.files && input.files[0]) {
