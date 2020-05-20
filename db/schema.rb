@@ -125,7 +125,10 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "pdf_id"
+    t.string "document_id"
+    t.string "document_filename"
+    t.string "document_size"
+    t.string "document_content_type"
     t.index ["laboratory_id"], name: "index_lab_informations_on_laboratory_id"
     t.index ["user_id"], name: "index_lab_informations_on_user_id"
   end
