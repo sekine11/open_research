@@ -15,12 +15,15 @@ class User < ApplicationRecord
   # アソシエーション
   has_many :questions
   has_many :ques_favorites
+  has_many :favorite_questions, through: :ques_favorites, source: :question
   has_many :ques_comments
   has_many :discussions
   has_many :discuss_favorites
+  has_many :favorite_discussions, through: :discuss_favorites, source: :discussion
   has_many :discuss_comments
   has_many :protocols
   has_many :protocol_favorites
+  has_many :favorite_protocols, through: :protocol_favorites, source: :protocol
   has_many :lab_members
   has_many :laboratory
   has_many :lab_tasks

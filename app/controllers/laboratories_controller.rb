@@ -12,7 +12,7 @@ class LaboratoriesController < ApplicationController
     @laboratory = Laboratory.find(params[:id])
     @lab_tasks = @laboratory.lab_tasks.order(created_at: "DESC")
     @lab_task = LabTask.new
-    @events = Event.where(laboratory_id: params[:id])
+    @events = Event.where(laboratory_id: params[:id]).includes([:user])
     @event = Event.new
   end
 

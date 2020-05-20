@@ -1,13 +1,14 @@
 <div class="row m-4">
 	<div class="col-2 list-group">
-		<% Discussion.all.tags_on(:discussions).each do |tag| %>
+
+		<% @tags.each do |tag| %>
 			<% if params[:tag] == tag.name %>
 				<%= link_to discussions_path(:tag => tag.name), class: "list-group-item list-group-item-action active" do %>
-					<%= tag.name %> <span class="badge badge-pill badge-info"><%= Discussion.all.tagged_with(tag).count %></span>
+					<%= tag.name %> <span class="badge badge-pill badge-info"><%= Discussion.tagged_with(tag).select {|tag| tag}.size %></span>
 				<% end %>
 			<% else %>
 				<%= link_to discussions_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
-					<%= tag.name %> <span class="badge badge-pill badge-info"><%= Discussion.all.tagged_with(tag).count %></span>
+					<%= tag.name %> <span class="badge badge-pill badge-info"><%= Discussion.tagged_with(tag).select {|tag| tag}.size %></span>
 				<% end %>
 			<% end %>
 		<% end %>

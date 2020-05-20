@@ -15,9 +15,10 @@ class DiscussionsController < ApplicationController
   end
 
   def index
+    @tags = Discussion.tags_on(:discussions)
     if params[:tag]
       @q = Discussion.ransack(params[:q])
-      @discussions = Discussion.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:discussion_page]).per(20)
+      @discussions = Discussion.tagged_with(params[:tag]).includes(:user, [:discussions], [:discussion_taggings], [:discuss_favorites], [:discuss_comments]).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     else
       if params[:q] != nil
         params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
@@ -25,7 +26,7 @@ class DiscussionsController < ApplicationController
       else
         @q = Discussion.ransack(params[:q])
       end
-      @discussions = @q.result(distinct: true).order(created_at: "DESC").page(params[:discussion_page]).per(20)
+      @discussions = @q.result(distinct: true).includes(:user, [:discussions], [:discussion_taggings], [:discuss_favorites], [:discuss_comments]).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     end
     @rank_discussions = Discussion.order('impressions_count DESC').take(10)
   end

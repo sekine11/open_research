@@ -9,7 +9,7 @@
 				</div>
 			<% end %>
 		</div>
-		<% lab_information.lab_information_comments.each do |comment| %>
+		<% lab_information.lab_information_comments.includes([:user]).each do |comment| %>
 			<div class="my-4 border-bottom">
 				<div class="flex justify-content-between mb-4">
 					<div class="flex align-items-center">
