@@ -1,9 +1,9 @@
 <% i = 1 %>
 <% rank_items.each do |item| %>
 	<tr>
-		<th><%= i %></th>
+		<th class="align-middle text-center"><%= i %></th>
 		<td>
-			<%= link_to item, class: "link" do %>
+			<%= link_to item, class: "nav-link" do %>
 				<%= item.subject.truncate(15) %>
 			<% end %>
 		</td>

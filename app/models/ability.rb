@@ -5,7 +5,7 @@ class Ability
 
   def initialize(user)
     can [:reregistration, :reactive], :user
-    can [:top, :home, :about], :static_page
+    can [:top, :home, :about, :tags], :static_page
     can :read, Discussion
     can :read, Question
     can :read, Protocol

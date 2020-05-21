@@ -26,12 +26,15 @@ ja:
       discussion:
         subject: 題名
         content: 内容
+        discussion_list: タグ
       protocol:
         subject: 題名
         content: 内容
+        protocol_list: タグ
       question:
         subject: 題名
         content: 内容
+        question_list: タグ
       ques_comment:
         content: コメント
       discuss_comment:

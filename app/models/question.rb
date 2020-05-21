@@ -2,9 +2,10 @@ class Question < ApplicationRecord
 	acts_as_taggable 
 	acts_as_taggable_on :questions
 	belongs_to :user
-	has_many :ques_favorites
-	has_many :ques_comments
+	has_many :ques_favorites, dependent: :destroy
+	has_many :ques_comments, dependent: :destroy
 
+	validates :question_list, presence: true
 	validates :user_id, presence: true
 	validates :subject, length: { in: 5..30 }
 	validates :subject, presence: true

@@ -21,6 +21,7 @@
 
  body {
  	font-family: "Open Sans", "Helvetica Neue", Helvetica, "Arial", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+ 	background-color: var(--light);
  }
 
  .top-image {
@@ -45,7 +46,7 @@
  }
 
  .min-vh {
- 	min-height: calc( 100vh - 213px );
+ 	min-height: calc( 100vh - 231px );
  }
  .link:hover {
  	opacity: 0.8;
@@ -143,11 +144,19 @@
  	line-height: 2.5;
  }
 
- .bg-dark {
+ .bg-dark,.bg-danger,.bg-info {
  	.nav-link {
  		color: rgba(255, 255, 255, 0.9);
  		&:hover {
  			color: rgba(255, 255, 255, 0.5);
+ 		}
+ 	}
+ }
+ .bg-warning {
+ 	.nav-link {
+ 		color: rgba(52,58,64, 0.9);
+ 		&:hover {
+ 			color: rgba(52,58,64, 0.5);
  		}
  	}
  }
@@ -157,4 +166,12 @@
  	div {
  		opacity: 0.7;
  	}
+ }
+
+ .status {
+ 	min-width: 70px;
+ }
+
+ .tags-list {
+ 	flex-wrap: wrap;
  }

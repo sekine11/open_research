@@ -1,92 +1,94 @@
-  <h2 class="m-4">会員情報確認・編集</h2>
-
-  <div class="row m-4">
-    <div class="col-12 col-md-3 mb-4">
-      <div class="list-group" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">会員情報</a>
-        <a class="list-group-item list-group-item-action" id="list-edit-list" data-toggle="list" href="#list-edit" role="tab" aria-controls="edit">会員情報編集</a>
-        <a class="list-group-item list-group-item-action" id="list-signout-list" data-toggle="list" href="#list-signout" role="tab" aria-controls="signout">退会</a>
-      </div>
-    </div>
-    <div class="col-12 col-md-9">
-      <div class="tab-content" id="nav-tabContent">
-        <div class="row tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
-          <table class="table table-hover col-12 col-lg-6">
-            <tbody>
-              <tr>
-                <th>プロフィール画像</th>
-                <td><%= attachment_image_tag(current_user, :image, :fill, 100, 100, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", size: "100x100") %></td>
-              </tr>
-              <tr>
-                <th>公開される名前</th>
-                <td><%= current_user.public_name %></td>
-              </tr>
-              <tr>
-                <th>公開されない名前</th>
-                <td><%= current_user.private_name %></td>
-              </tr>
-              <tr>
-                <th>メールアドレス</th>
-                <td><%= current_user.email %></td>
-              </tr>
-            </tbody>
-          </table>
+<div class="container-fluid my-4">  
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-4">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">会員情報</a>
+            <a class="list-group-item list-group-item-action" id="list-edit-list" data-toggle="list" href="#list-edit" role="tab" aria-controls="edit">会員情報編集</a>
+            <a class="list-group-item list-group-item-action" id="list-signout-list" data-toggle="list" href="#list-signout" role="tab" aria-controls="signout">退会</a>
+          </div>
         </div>
-        <div class="row tab-pane fade" id="list-edit" role="tabpanel" aria-labelledby="list-edit-list">
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "col-12 col-lg-6" }) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
-            <div class="form-group">
-              <%= f.label :image, "公開されるプロフィール画像" %><br>
-              <%= attachment_image_tag(current_user, :image, :fill, 100, 100, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", id: "img-prev", size: "100x100") %>
-              <%= f.attachment_field :image, class: "align-bottom", id: "profile" %>
+        <div class="col-12 col-md-9">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>プロフィール画像</th>
+                    <td><%= attachment_image_tag(current_user, :image, :fill, 100, 100, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", size: "100x100") %></td>
+                  </tr>
+                  <tr>
+                    <th>公開される名前</th>
+                    <td><%= current_user.public_name %></td>
+                  </tr>
+                  <tr>
+                    <th>公開されない名前</th>
+                    <td><%= current_user.private_name %></td>
+                  </tr>
+                  <tr>
+                    <th>メールアドレス</th>
+                    <td><%= current_user.email %></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="form-group">
-              <%= f.label :public_name, "公開される名前" %>
-              <%= f.text_field :public_name, autofocus: true, placeholder: "公開される名前", class: "form-control" %>
+            <div class="tab-pane fade" id="list-edit" role="tabpanel" aria-labelledby="list-edit-list">
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "" }) do |f| %>
+                <%= render "devise/shared/error_messages", resource: resource %>
+                <div class="form-group">
+                  <%= f.label :image, "公開されるプロフィール画像" %><br>
+                  <%= attachment_image_tag(current_user, :image, :fill, 100, 100, fallback: "no-image-mini.jpg", class: "rounded-circle mr-4 align-bottom", id: "img-prev", size: "100x100") %>
+                  <%= f.attachment_field :image, class: "align-bottom", id: "profile" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :public_name, "公開される名前" %>
+                  <%= f.text_field :public_name, autofocus: true, placeholder: "公開される名前", class: "form-control" %>
+                </div>
+          
+                <div class="form-group">
+                  <%= f.label :private_name, "公開されない名前" %>
+                  <%= f.text_field :private_name, placeholder: "公開されない名前", class: "form-control" %>
+                </div>
+          
+                <div class="form-group">
+                  <%= f.label :email, "メールアドレス" %>
+                  <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
+                </div>
+          
+          
+                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                <% end %>
+          
+                <div class="form-group">
+                  <%= f.label :password, "新しいパスワード" %><br />
+                  <%= f.password_field :password, autocomplete: "new-password", placeholder: "新しいパスワード(6文字以上)", class: "form-control" %>
+                </div>
+          
+                <div class="form-group">
+                  <%= f.label :password_confirmation, "確認パスワード" %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "新しいパスワードの確認", class: "form-control" %>
+                </div>
+          
+                <div class="fomr-group text-right">
+                  <%= f.submit "更新する", class: "btn btn-success" %>
+                </div>
+              <% end %>
             </div>
-
-            <div class="form-group">
-              <%= f.label :private_name, "公開されない名前" %>
-              <%= f.text_field :private_name, placeholder: "公開されない名前", class: "form-control" %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :email, "メールアドレス" %>
-              <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
-            </div>
-
-
-            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-            <% end %>
-
-            <div class="form-group">
-              <%= f.label :password, "新しいパスワード" %><br />
-              <%= f.password_field :password, autocomplete: "new-password", placeholder: "新しいパスワード(6文字以上)", class: "form-control" %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :password_confirmation, "確認パスワード" %><br />
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "新しいパスワードの確認", class: "form-control" %>
-            </div>
-
-            <div class="actions">
-              <%= f.submit "更新する", class: "btn btn-success" %>
-            </div>
-          <% end %>
-        </div>
-        <div class="row tab-pane fade" id="list-signout" role="tabpanel" aria-labelledby="list-signout-list">
-          <div class="col-12">
-            <h3 class="mb-4">本当に退会しますか？</h3>
-            <p>退会すると、会員登録情報や</p>
-            <p>これまでの購入履歴が閲覧できなくなります。</p>
-            <p class="mb-4">退会する場合は、「退会する」をクリックしてください。</p>
-            <div class="">
-              <%= link_to "退会しない", home_path, class: "btn btn-success" %>
-              <%= link_to "退会する", hide_path, method: :put, class: "btn btn-danger" %>
+            <div class="tab-pane fade" id="list-signout" role="tabpanel" aria-labelledby="list-signout-list">
+                <h3 class="mb-4">本当に退会しますか？</h3>
+                <p>退会すると、会員登録情報や</p>
+                <p>お気に入り。コメント、研修室の機能が使用できなくなります。</p>
+                <p class="mb-4">退会する場合は、「退会する」をクリックしてください。</p>
+                <div class="">
+                  <%= link_to "退会しない", home_path, class: "btn btn-success" %>
+                  <%= link_to "退会する", hide_path, method: :put, class: "btn btn-danger" %>
+                </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

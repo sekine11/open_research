@@ -1,6 +1,6 @@
-<div class="container">
-	<div class="row my-4">
-		<div class="col-5 mb-4">
+<div class="container-fluid my-4">
+	<div class="row">
+		<div class="col-12 col-lg-6 mb-4">
 			<div id="calendar"></div>
 			<div class="text-right w-100 mt-2">
 				<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-event">
@@ -8,8 +8,8 @@
 				</button>
 			</div>
 		</div>
-		<div class="col-7 mb-4">
-			<table class="table table-sm">
+		<div class="col-12 col-lg-6 mb-4">
+			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr>
 						<th colspan="4">ラボタスク</th>
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="col-12">
-			<table class="table">
+			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr>
 						<th class="align-middle" colspan="2">お知らせ</th>
@@ -32,7 +32,7 @@
 					</tr>
 				</thead>
 				<tbody class="">
-					<% @laboratory.lab_informations.includes([:user], [:lab_information_comments], [:lab_information_checks]).order(created_at: "DESC").each do |information| %>
+					<% @laboratory.lab_informations.includes([:user], [:lab_information_comments], [:lab_information_checks]).order(created_at: "DESC").take(10).each do |information| %>
 						<tr>
 							<td>
 								<%= link_to laboratory_lab_information_path(@laboratory,information) ,class: "font-weight-bold text-body link" do %>
@@ -41,19 +41,22 @@
 							</td>
 							<td>
 								<div class="">
-									<span class="badge badge-info">確認済み：<%= information.lab_information_checks.select {|check| check}.size %></span>
-									<span class="badge badge-success">コメント数：<%= information.lab_information_comments.select {|comment| comment}.size %></span>
+									<span class="badge badge-info"><i class="fas fa-check"></i> <%= information.lab_information_checks.select {|check| check}.size %></span>
+									<span class="badge badge-success"><i class="fas fa-comment"></i> <%= information.lab_information_comments.select {|comment| comment}.size %></span>
 								</div>
 							</td>
-							<td>投稿者：<%= information.user.private_name %></td>
-							<td class="text-right"><%= information.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+							<td><i class="fas fa-user"></i> <%= information.user.private_name %></td>
+							<td class="text-right">
+								<i class="fas fa-clock"></i> 
+								<%= information.created_at.strftime("%Y/%m/%d %H:%M") %>
+							</td>
 						</tr>
 					<% end %>
-						<tr>
-							<td class="text-right" colspan="4"><%= link_to "過去分を確認", laboratory_lab_informations_path(@laboratory) %></td>
-						</tr>
 				</tbody>
 			</table>
+			<div class="w-100 text-right">
+				<%= link_to "過去分を確認", laboratory_lab_informations_path(@laboratory) %>
+			</div>
 		</div>
 	</div>
 </div>

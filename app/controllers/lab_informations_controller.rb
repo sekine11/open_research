@@ -18,7 +18,7 @@ class LabInformationsController < ApplicationController
 
   def index
     @laboratory = Laboratory.find(params[:laboratory_id])
-    @lab_informations = @laboratory.lab_informations.includes([:user]).order(created_at: "DESC").page(params[:page]).per(20)
+    @lab_informations = @laboratory.lab_informations.includes([:user],[:lab_information_comments],[:lab_information_checks]).order(created_at: "DESC").page(params[:page]).per(20)
   end
 
   def create

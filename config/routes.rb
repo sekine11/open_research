@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/about" => "static_pages#about", as: "about"
   get "/home" => "static_pages#home", as: "home"
   get "/favorites" => "static_pages#favorites", as: "favorites"
+  get "/tags" => "static_pages#tags", as: "tags"
   get "/search" => "search#index", as: "search"
   put "users/hide" => "users#hide", as: "hide"
   get "users/reregistrations" => "users#reregistrations", as: "reregistration"
