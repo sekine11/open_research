@@ -1,8 +1,8 @@
 class LabInformation < ApplicationRecord
 	belongs_to :user
 	belongs_to :laboratory
-	has_many :lab_information_checks
-	has_many :lab_information_comments
+	has_many :lab_information_checks, dependent: :destroy
+	has_many :lab_information_comments, dependent: :destroy
 
 	attachment :document, extension: "pdf"
 

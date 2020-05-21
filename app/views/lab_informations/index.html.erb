@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container-fluid my-4">
 	<div class="row">
-		<div class="col-12 my-4">
-			<table class="table">
+		<div class="col-12">
+			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr>
 						<th class="align-middle" colspan="2">お知らせ一覧</th>
@@ -18,12 +18,15 @@
 							</td>
 							<td>
 								<div class="">
-									<span class="badge badge-info">確認済み：<%= information.lab_information_checks.count %></span>
-									<span class="badge badge-success">コメント数：<%= information.lab_information_comments.count %></span>
+									<span class="badge badge-info"><i class="fas fa-check"></i> <%= information.lab_information_checks.select {|check| check}.size %></span>
+									<span class="badge badge-success"><i class="fas fa-comment"></i> <%= information.lab_information_comments.select {|comment| comment}.size %></span>
 								</div>
 							</td>
-							<td>投稿者：<%= information.user.private_name %></td>
-							<td class="text-right"><%= information.updated_at %></td>
+							<td><i class="fas fa-user"></i> <%= information.user.private_name %></td>
+							<td class="text-right">
+								<i class="fas fa-clock"></i> 
+								<%= information.updated_at.strftime("%Y/%m/%d %H:%M") %>
+							</td>
 						</tr>
 					<% end %>
 				</tbody>

@@ -1,41 +1,56 @@
-<div class="max-vw-100 bg-dark shadow text-light">
-	<div class="flex justify-content-between px-4 pt-3 pb-1">
-		<div class="">
-			<h3 class="font-weight-bold"><%= @lab_information.subject %></h3>
-			<span id="checks-count" class="badge badge-light">
-				<%= render "lab_informations/checks_count", lab_information: @lab_information %>
-			</span>
-			<span id="comments-count" class="badge badge-light">
-				<%= render "lab_informations/comments_count", lab_information: @lab_information %>
-			</span>
-		</div>
-	</div>
-	<div class="flex justify-content-between px-4 pb-3">
-		<div class="flex align-items-center">
-			<p class="mr-4 mb-0">投稿者：<%= @lab_information.user.public_name %></p>
-			<p class="mr-4 mb-0">投稿日時：<%= @lab_information.created_at %></p>
-		</div>
-		<div>
-			<%= link_to "削除", laboratory_lab_information_path(@laboratory,@lab_information), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+<div class="max-vw-100 bg-dark shadow py-4">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 d-block d-md-flex justify-content-between">
+				<div class="">
+					<h3 class="font-weight-bold mb-2 text-light"><%= @lab_information.subject %></h3>
+					<div class="mb-2">
+						<span class="badge badge-light">
+							<i class="fas fa-user"></i> <%= @lab_information.user.public_name %>
+						</span>
+						<span id="checks-count" class="badge badge-light">
+							<%= render "lab_informations/checks_count", lab_information: @lab_information %>
+						</span>
+						<span id="comments-count" class="badge badge-light">
+							<%= render "lab_informations/comments_count", lab_information: @lab_information %>
+						</span>
+					</div>
+					<div class="flex align-items-center text-light">
+						<p class="mr-4 mb-0">投稿日時：<%= @lab_information.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+					</div>
+				</div>
+				<div class="">
+					<% if user_signed_in? && @lab_information.user_id == current_user.id %>
+						<div class="flex justify-content-end mt-2">
+							<%= link_to "削除", laboratory_lab_information_path(@laboratory,@lab_information), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+						</div>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
-<div class="container">
-<div class="row my-4 pb-4 border-bottom">
-	<p class="col-12"><%= @lab_information.content %></p>
-	<% if @lab_information.document %>
-		<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
-	<% end %>
-	<div class="col-12 flex align-items-center justify-content-between">
-		<p class="mb-0 mr-2 font-weight-bold">内容の理解・確認できた場合、右の <i class="fas fa-check text-success"></i> をクリックして、確認済みにしましょう！</p>
-		<div id="check">
-			<%= render "lab_informations/check", laboratory: @laboratory, lab_information: @lab_information  %>
+<div class="container-fluid py-4">
+	<div class="row">
+		<div class="col-12">
+			<div class="border-bottom py-4">
+				<div class="m-0"><%= simple_format(@lab_information.content) %></div>
+				<% if @lab_information.document %>
+					<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
+				<% end %>
+			</div>
+			<div class="">
+				<div class="border-bottom flex align-items-center justify-content-between">
+					<p class="mb-0 font-weight-bold">内容の理解・確認できた場合、右の <i class="fas fa-check text-success"></i> をクリックして、確認済みにしましょう！</p>
+					<div class="my-4" id="check">
+						<%= render "lab_informations/check", laboratory: @laboratory, lab_information: @lab_information  %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12" id="comments">
+			<%= render "lab_informations/comments", comment: @comment, laboratory: @laboratory, lab_information: @lab_information %>
 		</div>
 	</div>
-</div>
-<div id="comments">
-		<%= render "lab_informations/comments", comment: @comment, laboratory: @laboratory, lab_information: @lab_information %>
-</div>
-</div>
 </div>

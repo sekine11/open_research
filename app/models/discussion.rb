@@ -2,9 +2,10 @@ class Discussion < ApplicationRecord
 	acts_as_taggable 
 	acts_as_taggable_on :discussions
 	belongs_to :user
-	has_many :discuss_favorites
-	has_many :discuss_comments
+	has_many :discuss_favorites, dependent: :destroy
+	has_many :discuss_comments, dependent: :destroy
 
+	validates :discussion_list, presence: true
 	validates :user_id, presence: true
 	validates :subject, length: { in: 5..30 }
 	validates :subject, presence: true
