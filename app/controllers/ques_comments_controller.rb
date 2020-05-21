@@ -10,6 +10,7 @@ class QuesCommentsController < ApplicationController
   	@ques_comment.user_id = current_user.id
   	@ques_comment.question_id = @question.id
   	if @ques_comment.save
+      @question.update(updated_at: Time.now)
       @ques_comment = QuesComment.new
     end
   end

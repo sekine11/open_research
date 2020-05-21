@@ -7,9 +7,9 @@ class Question < ApplicationRecord
 
 	validates :question_list, presence: true
 	validates :user_id, presence: true
-	validates :subject, length: { in: 5..30 }
+	validates :subject, length: { in: 5..50 }
 	validates :subject, presence: true
-	validates :content, length: { in: 30..1000 }
+	validates :content, length: { in: 30..2000 }
 	validates :content, presence: true
 
 	enum status: { accepting: 0, completed: 1 }

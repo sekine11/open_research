@@ -10,6 +10,7 @@ class DiscussCommentsController < ApplicationController
     @discuss_comment.user_id = current_user.id
   	@discuss_comment.discussion_id = @discussion.id
   	if @discuss_comment.save
+      @discussion.update(updated_at: Time.now)
       @discussion = Discussion.find(params[:discussion_id])
       @discuss_comment = DiscussComment.new
     else

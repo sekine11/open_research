@@ -8,9 +8,9 @@ class LabInformation < ApplicationRecord
 
 	validates :user_id, presence: true
 	validates :laboratory_id, presence: true
-	validates :subject, length: { in: 2..30 }
+	validates :subject, length: { in: 2..50 }
 	validates :subject, presence: true
-	validates :content, length: { in: 30..1000 }
+	validates :content, length: { in: 30..2000 }
 	validates :content, presence: true
 
 	def checked_by?(user)

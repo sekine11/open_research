@@ -36,7 +36,8 @@ function eventCalendar() {
         center: 'title',
         right: 'month agendaWeek agendaDay'
   	},
-  	firstDay: 1,
+    selectable: true,
+    selectHelper: true,
   	titleFormat: 'M月',
   	timeFormat: 'H:mm',
   	// eventsのjsonのパス
