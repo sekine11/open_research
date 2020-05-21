@@ -37,7 +37,9 @@
 			<div class="border-bottom py-4">
 				<div class="m-0"><%= simple_format(@lab_information.content) %></div>
 				<% if @lab_information.document %>
-					<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
+					<div class="text-right">
+						<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
+					</div>
 				<% end %>
 			</div>
 			<div class="">

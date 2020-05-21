@@ -37,12 +37,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-md-flex align-items-end d-none d-sm-none">
-				<% if question.ques_comments != [] %>
-					<p class="text-right m-0"><%= question.ques_comments.last.created_at.strftime("%m/%d %H:%M") %></p>
-				<% else %>
-					<p class="text-right m-0"><%= question.updated_at.strftime("%m/%d %H:%M") %></p>
-				<% end %>
+			<div class="d-md-flex align-items-end justify-content-end d-none d-sm-none time">
+				<p class="text-right m-0"><%= time_ago_in_words(question.updated_at) %>前</p>
 			</div>
 		</div>
 	<% end %>
