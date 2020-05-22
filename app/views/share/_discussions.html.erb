@@ -1,4 +1,4 @@
-<% if discussions == [] %>
+<% if discussions.blank? %>
 	<div class="alert alert-danger my-4" role="alert">
 	  該当の議論はありません。
 	</div>
@@ -21,7 +21,9 @@
 					</h3>
 					<div class="mb-2">
 						<% discussion.discussions.each do |tag| %>
-							<span class="badge badge-pill badge-info mx-1"><%= tag.name %></span>
+							<%= link_to discussions_path(:tag => tag.name), class: "" do %>
+								<span class="badge badge-pill badge-info mx-1"><%= tag.name %></span>
+							<% end %>
 						<% end %>
 					</div>
 					<div class="">

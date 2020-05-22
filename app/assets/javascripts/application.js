@@ -70,3 +70,9 @@ $(document).on('turbolinks:load', function() {
    readURL(this);
  });
 });
+
+$(document).on('turbolinks:load', function(){
+  $('#scroll-top').on('click', function(){
+    $('body, html').animate({ scrollTop: 0 }, 500);
+  });
+});

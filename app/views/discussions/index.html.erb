@@ -1,3 +1,12 @@
+<% content_for :title do %>
+	<% if params[:tag] %>
+		<%= params[:tag] %>を含む議論一覧
+	<% elsif params[:q] != nil %>
+		検索結果
+	<% else %>
+		議論一覧
+	<% end %>
+<% end %>
 <div class="container-fluid my-4">
 	<div class="row">
 		<div class="d-none d-sm-none d-md-none d-lg-block col-2">

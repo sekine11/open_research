@@ -1,3 +1,6 @@
+<% content_for :title do %>
+	<%= @lab_information.subject %>
+<% end %>
 <div class="max-vw-100 bg-dark shadow py-4">
 	<div class="container-fluid">
 		<div class="row">
@@ -16,7 +19,7 @@
 						</span>
 					</div>
 					<div class="flex align-items-center text-light">
-						<p class="mr-4 mb-0">投稿日時：<%= @lab_information.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+						<p class="mr-4 mb-0">投稿日時：<%= @lab_information.create_time %></p>
 					</div>
 				</div>
 				<div class="">

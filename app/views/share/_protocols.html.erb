@@ -1,4 +1,4 @@
-<% if protocols == [] %>
+<% if protocols.blank? %>
 	<div class="alert alert-danger my-4" role="alert">
 	  該当のプロトコルはありません。
 	</div>
@@ -11,7 +11,9 @@
 				</h3>
 				<div class="col-12 mb-2">
 					<% protocol.protocols.each do |tag| %>
-						<span class="badge badge-pill badge-danger mx-1"><%= tag.name %></span>
+						<%= link_to discussions_path(:tag => tag.name), class: "" do %>
+							<span class="badge badge-pill badge-danger mx-1"><%= tag.name %></span>
+						<% end %>
 					<% end %>
 				</div>
 				<div class="col-12">

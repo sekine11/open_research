@@ -10,11 +10,9 @@ class DiscussCommentsController < ApplicationController
     @discuss_comment.user_id = current_user.id
   	@discuss_comment.discussion_id = @discussion.id
   	if @discuss_comment.save
+      # discussionのupdated_atを更新して更新時刻でのDESCを可能にする
       @discussion.update(updated_at: Time.now)
-      @discussion = Discussion.find(params[:discussion_id])
       @discuss_comment = DiscussComment.new
-    else
-      @discussion = Discussion.find(params[:discussion_id])
     end
   end
 
@@ -22,7 +20,6 @@ class DiscussCommentsController < ApplicationController
   	@discussion = Discussion.find(params[:discussion_id])
   	discuss_comment = DiscussComment.find(params[:id])
     discuss_comment.destroy
-    @discussion = Discussion.find(params[:discussion_id])
     @discuss_comment = DiscussComment.new
   end
 
