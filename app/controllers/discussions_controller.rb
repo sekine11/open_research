@@ -4,7 +4,7 @@ class DiscussionsController < ApplicationController
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
   end
-  
+
   def new
     @discussion = Discussion.new
   end
@@ -20,8 +20,8 @@ class DiscussionsController < ApplicationController
     if params[:tag]
       @q = Discussion.ransack(params[:q])
       @discussions = Discussion.tagged_with(params[:tag]).includes(
-        :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-        ).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
+      :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
+      ).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
     else
       # 文字検索の分岐
       if params[:q].present?
@@ -32,8 +32,8 @@ class DiscussionsController < ApplicationController
         @q = Discussion.ransack(params[:q])
       end
       @discussions = @q.result(distinct: true).includes(
-        :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-        ).order(updated_at: "DESC").page(params[:discussion_page])
+       :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
+      ).order(updated_at: "DESC").page(params[:discussion_page])
     end
     @rank_discussions = Discussion.order('impressions_count DESC').take(10)
   end
@@ -73,8 +73,8 @@ class DiscussionsController < ApplicationController
   end
 
   private
+
   def discussion_params
     params.require(:discussion).permit(:subject, :content, :status, :tags, discussion_list: [])
   end
-
 end

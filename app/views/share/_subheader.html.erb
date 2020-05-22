@@ -2,16 +2,16 @@
 	<div class="w-100 bg-light py-2 border-bottom">
 	    <div class="container">
 			<div class="d-flex justify-content-between">
-				<div class="flex align-items-center">
-					<%= link_to "質問へ", questions_path, class: "d-none d-sm-none d-md-block text-warning font-weight-bold mr-2" %>
-					<%= link_to "質問をする", new_question_path, class: "btn btn-warning btn-sm" %>
+				<div class="d-block d-md-flex text-center align-items-center">
+					<%= link_to "一覧", questions_path, class: "text-warning font-weight-bold mr-2" %>
+					<%= link_to "質問する", new_question_path, class: "btn btn-warning btn-sm" %>
 				</div>
-				<div class="flex align-items-center">
-					<%= link_to "議論へ", discussions_path, class: "d-none d-sm-none d-md-block text-info font-weight-bold mr-2" %>
-					<%= link_to "議論を始める", new_discussion_path, class: "btn btn-info btn-sm" %>
+				<div class="d-block d-md-flex text-center align-items-center">
+					<%= link_to "一覧", discussions_path, class: "text-info font-weight-bold mr-2" %>
+					<%= link_to "議論を開始", new_discussion_path, class: "btn btn-info btn-sm" %>
 				</div>
-				<div class="flex align-items-center">
-					<%= link_to "プロトコールへ", protocols_path, class: "d-none d-sm-none d-md-block text-danger font-weight-bold mr-2" %>
+				<div class="d-block d-md-flex text-center align-items-center">
+					<%= link_to "一覧", protocols_path, class: "text-danger font-weight-bold mr-2" %>
 					<%= link_to "共有する", new_protocol_path, class: "btn btn-danger btn-sm" %>
 				</div>
 			</div>

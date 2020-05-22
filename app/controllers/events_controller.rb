@@ -6,11 +6,11 @@ class EventsController < ApplicationController
   end
 
   def create
-  	@laboratory = Laboratory.find(params[:laboratory_id])
-  	@event = Event.new(event_params)
-  	@event.user_id = current_user.id
-  	@event.laboratory_id = params[:laboratory_id]
-  	if @event.save
+    @laboratory = Laboratory.find(params[:laboratory_id])
+    @event = Event.new(event_params)
+    @event.user_id = current_user.id
+    @event.laboratory_id = params[:laboratory_id]
+    if @event.save
       @event = Event.new
       @events = Event.where(laboratory_id: params[:laboratory_id]).includes(:user)
     end
@@ -18,13 +18,14 @@ class EventsController < ApplicationController
   end
 
   def destroy
-  	@laboratory = Laboratory.find(params[:laboratory_id])
-  	@event = Event.find(params[:id])
-  	@event.destroy
+    @laboratory = Laboratory.find(params[:laboratory_id])
+    @event = Event.find(params[:id])
+    @event.destroy
   end
 
   private
+
   def event_params
-  	params.require(:event).permit(:title, :start, :end)
+    params.require(:event).permit(:title, :start, :end)
   end
 end

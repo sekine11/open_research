@@ -166,14 +166,14 @@
       <div class="container-fluid">
         <% if flash[:notice] || flash[:alert] %>
           <div class="row">
-            <div class="col-12 mt-3">
+            <div class="col-12 mt-4">
               <% if flash[:notice] %>
-                <div class="alert alert-success">
+                <div class="alert alert-success m-0">
                   <p class="success m-0"><%= flash[:notice] %></p>
                 </div>
               <% end %>
               <% if flash[:alert] %>
-                <div class="alert alert-danger">
+                <div class="alert alert-danger m-0">
                   <p class="alert m-0"><%= flash[:alert] %></p>
                 </div>
               <% end %>
