@@ -18,12 +18,13 @@ class LabInformationsController < ApplicationController
 
   def index
     @laboratory = Laboratory.find(params[:laboratory_id])
-    @lab_informations = @laboratory.lab_informations.includes([:user],[:lab_information_comments],[:lab_information_checks]).order(created_at: "DESC").page(params[:page]).per(20)
+    @lab_informations = @laboratory.lab_informations.includes(:user, :lab_information_comments, :lab_information_checks).order(created_at: "DESC").page(params[:page]).per(20)
   end
 
   def create
     @laboratory = Laboratory.find(params[:laboratory_id])
-    if lab_information_params[:document] != ""
+    # 添付ファイルを含む場合の処理
+    if lab_information_params[:document].present?
       lab_information_params[:document].open # cancancanと一緒にrefile使用で起こる不都合を修正
     end
     @lab_information = LabInformation.new(lab_information_params)

@@ -12,9 +12,9 @@ class EventsController < ApplicationController
   	@event.laboratory_id = params[:laboratory_id]
   	if @event.save
       @event = Event.new
-      @events = Event.where(laboratory_id: params[:laboratory_id]).includes([:user])
+      @events = Event.where(laboratory_id: params[:laboratory_id]).includes(:user)
     end
-    @events = Event.where(laboratory_id: params[:laboratory_id]).includes([:user])
+    @events = Event.where(laboratory_id: params[:laboratory_id]).includes(:user)
   end
 
   def destroy

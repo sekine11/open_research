@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OpenResearch</title>
+    <title><%= content_for?(:title) ? "#{yield(:title)}｜OpenResearch" : "OpenResearch" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= favicon_link_tag('favicon.ico') %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "application-print", :media => "print" %>
@@ -182,11 +183,14 @@
       </div>
     </div>
 
-      <div class="min-vh">
-        <%= yield %>
-      </div>
+    <div class="min-vh">
+       <%= yield %>
+    </div>
 
     <% if request.url != "http://localhost:3000/" %>
+      <div class="flex justify-content-center align-items-center bg-dark shadow text-light p-2 rounded-circle" id="scroll-top">
+        <i class="fas fa-arrow-up fa-2x"></i>
+      </div>
       <footer class="bg-secondary py-4">
         <p class="text-white text-center m-0">OpenResearch</p>
       </footer>

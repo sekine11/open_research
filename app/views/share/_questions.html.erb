@@ -1,4 +1,4 @@
-<% if questions == [] %>
+<% if questions.blank? %>
 	<div class="alert alert-danger my-4" role="alert">
 	  該当の質問はありません。
 	</div>
@@ -21,7 +21,9 @@
 					</h3>
 					<div class="mb-2">
 						<% question.questions.each do |tag| %>
-							<span class="badge badge-pill badge-warning mx-1"><%= tag.name %></span>
+							<%= link_to questions_path(:tag => tag.name), class: "" do %>
+								<span class="badge badge-pill badge-warning mx-1"><%= tag.name %></span>
+							<% end %>
 						<% end %>
 					</div>
 					<div class="">

@@ -16,17 +16,24 @@ class DiscussionsController < ApplicationController
 
   def index
     @tags = Discussion.tags_on(:discussions)
+    # tag検索の分岐
     if params[:tag]
       @q = Discussion.ransack(params[:q])
-      @discussions = Discussion.tagged_with(params[:tag]).includes(:user, [:discussions], [:discussion_taggings], [:discuss_favorites], [:discuss_comments]).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
+      @discussions = Discussion.tagged_with(params[:tag]).includes(
+        :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
+        ).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
     else
-      if params[:q] != nil
+      # 文字検索の分岐
+      if params[:q].present?
+        # スペース、タブ区切りでの検索のための前処理
         params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
         @q = Discussion.ransack(params[:q])
       else
         @q = Discussion.ransack(params[:q])
       end
-      @discussions = @q.result(distinct: true).includes(:user, [:discussions], [:discussion_taggings], [:discuss_favorites], [:discuss_comments]).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
+      @discussions = @q.result(distinct: true).includes(
+        :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
+        ).order(updated_at: "DESC").page(params[:discussion_page])
     end
     @rank_discussions = Discussion.order('impressions_count DESC').take(10)
   end
@@ -56,7 +63,7 @@ class DiscussionsController < ApplicationController
       else
         render "edit"
       end
-  end
+    end
   end
 
   def destroy

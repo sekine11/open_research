@@ -7,6 +7,7 @@ class LabMembersController < ApplicationController
 
   def create
     @laboratory = Laboratory.find(params[:laboratory_id])
+    # emailでのユーザー検索
     if user = User.find_by(email: params[:email])
       @lab_member = LabMember.create(laboratory_id: @laboratory.id, user_id: user.id)
       @lab_members = @laboratory.lab_members

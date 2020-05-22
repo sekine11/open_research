@@ -13,6 +13,11 @@ ja:
         incomplete: 未完了
         progress: 進行中
         complete: 完了
+    lab_member:
+      status:
+        member: メンバー
+        subadmin: 副管理者
+        admin: 管理者
   activerecord:
     errors:
       messages:

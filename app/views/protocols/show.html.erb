@@ -1,3 +1,6 @@
+<% content_for :title do %>
+	<%= @protocol.subject %>
+<% end %>
 <div class="max-vw-100 protocol-subject shadow py-4">
 	<div class="container-fluid">
 		<div class="row">
@@ -13,8 +16,8 @@
 						</span>
 					</div>
 					<div class="flex align-items-center text-light">
-						<p class="mr-4 mb-0">投稿日時：<%= @protocol.created_at.strftime("%Y/%m/%d %H:%M") %></p>
-						<p class="mr-4 mb-0">更新日時：<%= @protocol.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
+						<p class="mr-4 mb-0">投稿日時：<%= @protocol.create_time %></p>
+						<p class="mr-4 mb-0">更新日時：<%= @protocol.update_time %></p>
 					</div>
 				</div>
 				<div class="d-flex d-md-block">

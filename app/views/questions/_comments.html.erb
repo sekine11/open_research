@@ -4,7 +4,7 @@
 						<div class="flex align-items-center">
 							<%= attachment_image_tag(comment.user, :image, :fill, 50, 50, fallback: "no-image-mini.jpg", class: "rounded-circle mr-2 align-bottom", size: "50x50") %>
 							<p class="m-0 mr-2 font-weight-bold text-dark"><%= comment.user.public_name %></p>
-							<p class="m-0 font-weight-bold text-dark"><%= comment.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+							<p class="m-0 font-weight-bold text-dark"><%= comment.create_time %></p>
 						</div>
 						<% if user_signed_in? && comment.user_id == current_user.id %>
 							<div>
