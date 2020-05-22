@@ -1,22 +1,20 @@
-	<div class="container">
-		<div class="row">
-			<div class="col-4">
-				<div class="text-left">
-					<%= link_to "質問へ", questions_path, class: "text-warning font-weight-bold" %>
-					<%= link_to "質問をする", new_question_path, class: "btn btn-warning" %>
+<% if request.url != "http://localhost:3000/" %>
+	<div class="w-100 bg-light py-2 border-bottom">
+	    <div class="container">
+			<div class="d-flex justify-content-between">
+				<div class="d-block d-md-flex text-center align-items-center">
+					<%= link_to "一覧", questions_path, class: "text-warning font-weight-bold mr-2" %>
+					<%= link_to "質問する", new_question_path, class: "btn btn-warning btn-sm" %>
 				</div>
-			</div>
-			<div class="col-4">
-				<div class="text-center">
-					<%= link_to "議論へ", discussions_path, class: "text-info font-weight-bold" %>
-					<%= link_to "議論を始める", new_discussion_path, class: "btn btn-info" %>
+				<div class="d-block d-md-flex text-center align-items-center">
+					<%= link_to "一覧", discussions_path, class: "text-info font-weight-bold mr-2" %>
+					<%= link_to "議論を開始", new_discussion_path, class: "btn btn-info btn-sm" %>
 				</div>
-			</div>
-			<div class="col-4">
-				<div class="text-right">
-					<%= link_to "プロトコールへ", protocols_path, class: "text-danger font-weight-bold" %>
-					<%= link_to "共有する", new_protocol_path, class: "btn btn-danger" %>
+				<div class="d-block d-md-flex text-center align-items-center">
+					<%= link_to "一覧", protocols_path, class: "text-danger font-weight-bold mr-2" %>
+					<%= link_to "共有する", new_protocol_path, class: "btn btn-danger btn-sm" %>
 				</div>
 			</div>
 		</div>
 	</div>
+<% end %>

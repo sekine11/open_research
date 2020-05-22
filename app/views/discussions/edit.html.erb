@@ -1,33 +1,39 @@
-<div class="row m-4">
-
-<%= form_with(model: @discussion, local: true, html: { class: "col-12 col-md-8 offset-md-2 mt-3" }) do |f| %>
-
-	<div class="form-group">
-		<%= f.label :subject, "題名（内容が分かりやすいもので50文字以内）" %>
-		<%= f.text_field :subject, class: "form-control" %>
-	</div>
-
-	<div class="form-group">
-		<%= f.label :content, "内容" %>
-		<%= f.text_area :content, class: "form-control vh-100" %>
-	</div>
-
-	<div class="form-group">
-		<div class="row m-0">
-			<%= f.label "タグ（複数選択可）", class: "col-12 p-0" %>
-	        <% ["DNA","RNA","Protein","NGS","LC/MS","Enzyme","Mouse","Rat","ModelOrganism","Genome","GenomeEditing","Proteomics","Genomics","Biochemistry","Biophysics","Anatomy","CellBiology","Genetics","Ecology","Evolution","Microbiology","Immunology","MolecularBiology","Photobiology"].each do |tag| %>
-	            <div class="custom-control custom-checkbox col-4 mt-2">
-	                <%= f.check_box :discussion_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
-	                <%= f.label "discussion_list_#{tag.downcase}", tag, class: "custom-control-label" %>
-	            </div>
-	        <% end %>
-        </div>
-    </div>
-
-	<div class="form-group">
-		<%= f.submit "編集する", class: "btn btn-success" %>
-	</div>
-
+<% content_for :title do %>
+<%= @discussion.subject %>の編集
 <% end %>
-
+<div class="container-fluid my-4">
+	<div class="row">
+	
+	<%= form_with(model: @discussion, local: true, html: { class: "col-12 col-md-8 offset-md-2" }) do |f| %>
+		<%= render 'layouts/error_messages', model: f.object %>
+	
+		<div class="form-group">
+			<%= f.label :subject, "題名（内容が分かりやすいもので30文字以内）" %>
+			<%= f.text_field :subject, class: "form-control" %>
+		</div>
+	
+		<div class="form-group">
+			<%= f.label :content, "内容" %>
+			<%= f.text_area :content, class: "form-control vh-100" %>
+		</div>
+	
+		<div class="form-group">
+			<div class="row m-0">
+				<%= f.label "タグ（複数選択可）", class: "col-12 p-0" %>
+		        <% ["DNA","RNA","Protein","NGS","LC/MS","Enzyme","Mouse","Rat","ModelOrganism","Genome","GenomeEditing","Proteomics","Genomics","Biochemistry","Biophysics","Anatomy","CellBiology","Genetics","Ecology","Evolution","Microbiology","Immunology","MolecularBiology","Photobiology"].each do |tag| %>
+		            <div class="custom-control custom-checkbox col-6 col-md-4 mt-2">
+		                <%= f.check_box :discussion_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
+		                <%= f.label "discussion_list_#{tag.downcase}", tag, class: "custom-control-label" %>
+		            </div>
+		        <% end %>
+	        </div>
+	    </div>
+	
+		<div class="form-group text-right">
+			<%= f.submit "議論を開始", class: "btn btn-success" %>
+		</div>
+	
+	<% end %>
+	
+	</div>
 </div>
