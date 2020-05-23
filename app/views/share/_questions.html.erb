@@ -1,28 +1,57 @@
-<% questions.each do |question| %>
-	<div class="border-bottom p-3 row">
-		<div class="col-12 flex justify-content-between align-items-center">
-			<h3 class="h5 font-weight-bold"><%= link_to question.subject.truncate(35), question_path(question), class: "text-body link" %></h3>
-			<% if question.status_i18n == "受付中" %>
-				<p class="font-weight-bold bg-success p-2 m-0 text-light rounded"><%= question.status_i18n %></p>
-			<% else %>
-				<p class="font-weight-bold bg-secondary p-2 m-0 text-light rounded"><%= question.status_i18n %></p>
-			<% end %>
-		</div>
-		<div class="col-12 mb-2 mt-n1">
-			<% question.question_counts.each do |tag| %>
-				<span class="badge badge-pill badge-warning mx-1"><%= tag.name %></span>
-			<% end %>
-		</div>
-		<div class="col-12 flex justify-content-between align-items-center">
-			<div class="">
-				<span class="text-dark mr-2">投稿者：<%= question.user.public_name %></span>
-				<span class="text-dark mr-2">コメント数：<%= question.ques_comments.count %></span>
-				<span class="text-dark">お気に入り数：<%= question.ques_favorites.count %></span>
-			</div>
-			<span class="text-dark font-weight-bold">ああああ</span>
-		</div>
+<% if questions.blank? %>
+	<div class="alert alert-danger my-4" role="alert">
+	  該当の質問はありません。
 	</div>
-<% end %>
-<% if request.url != "http://localhost:3000/home" %>
-<div class="flex justify-content-center mt-4"><%= paginate questions, remote: true, param_name: :question_page %></div>
+<% else %>
+	<% questions.each do |question| %>
+		<div class="border-bottom py-3 flex justify-content-between col-12">
+			<div class="flex">
+				<div class="status d-inlineblock text-center mr-4">
+					<% if question.status_i18n == "受付中" %>
+						<%= link_to question.status_i18n, question_path(question), class: "btn btn-sm btn-outline-secondary" %><br>
+						<i class="fas fa-check-circle fa-3x text-secondary mt-2"></i>
+					<% else %>
+						<%= link_to question.status_i18n, question_path(question), class: "btn btn-sm btn-outline-danger" %><br>
+						<i class="fas fa-check-circle fa-3x text-danger mt-2"></i>
+					<% end %>
+				</div>
+				<div class="">
+					<h3 class="h5 mb-2 font-weight-bold ">
+						<%= link_to question.subject.truncate(35), question_path(question), class: "text-body link" %>
+					</h3>
+					<div class="mb-2">
+						<% question.questions.each do |tag| %>
+							<%= link_to questions_path(:tag => tag.name), class: "" do %>
+								<span class="badge badge-pill badge-warning mx-1"><%= tag.name %></span>
+							<% end %>
+						<% end %>
+					</div>
+					<div class="">
+						<span class="text-dark mr-2">
+							<i class="fas fa-user"></i> <%= question.user.public_name %>
+						</span>
+						<span class="text-dark mr-2">
+							<i class="fas fa-comment"></i> <%= question.ques_comments.select {|comment| comment}.size %>
+						</span>
+						<span class="text-dark">
+							<i class="fas fa-heart"></i> <%= question.ques_favorites.select {|favorite| favorite}.size %>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="d-md-flex align-items-end justify-content-end d-none d-sm-none time">
+				<p class="text-right m-0"><%= time_ago_in_words(question.updated_at) %>前</p>
+			</div>
+		</div>
+	<% end %>
+
+	<% if request.url != "http://localhost:3000/home" %>
+		<div class="flex justify-content-center mt-4">
+			<%= paginate questions, remote: true, param_name: :question_page %>
+		</div>
+	<% else %>
+		<div class="text-right mt-4">
+			<%= link_to "もっとみる", questions_path, class: "" %>
+		</div>
+	<% end %>
 <% end %>

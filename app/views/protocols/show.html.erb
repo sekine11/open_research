@@ -1,27 +1,51 @@
-<div class="max-vw-100 protocol-subject shadow">
-	<div class="flex justify-content-between px-4 pt-3 pb-1">
-		<div class="">
-			<h3 class="font-weight-bold text-light"><%= @protocol.subject %></h3>
-			<span id="favorites-count" class="badge badge-light">
-				<%= render "protocols/favorites_count", protocol: @protocol %>
-			</span>
-		</div>
-		<div id="favorite">
-			<%= render "protocols/favorite", protocol: @protocol %>
-		</div>
-	</div>
-	<div class="flex justify-content-between px-4 pb-3">
-		<div class="flex align-items-center text-light">
-			<p class="mr-4 mb-0">投稿者：<%= @protocol.user.public_name %></p>
-			<p class="mr-4 mb-0">投稿日時：<%= @protocol.created_at %></p>
-			<p class="mr-4 mb-0">更新日時：<%= @protocol.updated_at %></p>
-		</div>
-		<div>
-			<%= link_to "編集", edit_protocol_path(@protocol), class: "btn btn-light" %>
-			<%= link_to "削除", protocol_path(@protocol), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+<% content_for :title do %>
+	<%= @protocol.subject %>
+<% end %>
+<div class="max-vw-100 protocol-subject shadow py-4">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 d-block d-md-flex justify-content-between">
+				<div class="">
+					<h3 class="font-weight-bold mb-2 text-light"><%= @protocol.subject %></h3>
+					<div class="mb-2">
+						<span class="badge badge-light">
+							<i class="fas fa-user"></i> <%= @protocol.user.public_name %>
+						</span>
+						<span id="favorites-count" class="badge badge-light">
+							<%= render "favorites_count", protocol: @protocol %>
+						</span>
+					</div>
+					<div class="flex align-items-center text-light">
+						<p class="mr-4 mb-0">投稿日時：<%= @protocol.create_time %></p>
+						<p class="mr-4 mb-0">更新日時：<%= @protocol.update_time %></p>
+					</div>
+				</div>
+				<div class="d-flex d-md-block">
+					<div class="flex justify-content-end mb-1 mr-2">
+						<% if user_signed_in? %>
+							<div id="favorite">
+								<%= render "favorite", protocol: @protocol %>
+							</div>
+						<% end %>
+					</div>
+					<% if user_signed_in? && @protocol.user_id == current_user.id %>
+						<div class="flex justify-content-end mb-1 mr-2">
+							<%= link_to "編集", edit_protocol_path(@protocol), class: "btn btn-light mr-2" %>
+							<%= link_to "削除", protocol_path(@protocol), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+						</div>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-<div class="row m-4">
-	<%= @protocol.content %>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="border-bottom py-4">
+				<%= simple_format(@protocol.content) %>
+			</div>
+		</div>
+	</div>
 </div>

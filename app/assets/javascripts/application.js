@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery3
 //= require popper
 //= require bootstrap
@@ -21,12 +20,13 @@
 //= require fullcalendar
 //= require fullcalendar/lang/ja
 //= require tempusdominus-bootstrap-4.js
+//= require turbolinks
 //= require_tree .
 
 // tooltipの設定
-$(function () {
+$(document).on('turbolinks:load', function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
+});
 
 // fullcalendar
 function eventCalendar() {
@@ -36,15 +36,15 @@ function eventCalendar() {
         center: 'title',
         right: 'month agendaWeek agendaDay'
   	},
-  	firstDay: 1,
+    selectable: true,
+    selectHelper: true,
   	titleFormat: 'M月',
   	timeFormat: 'H:mm',
   	// eventsのjsonのパス
   	events: location.pathname + '.json',
   	// eventをクリックしたときにモーダルで詳細を表示
   	eventClick: function(info) {
-  		console.log(info.id);
-      jQuery(`#event${info.id}`).modal('toggle');
+      $(`#event${info.id}`).modal('toggle');
     },
   });
 };
@@ -53,3 +53,26 @@ function clearCalendar() {
 };
 $(document).on('turbolinks:load', eventCalendar);
 $(document).on('turbolinks:before-cache', clearCalendar);
+
+
+// refileの投稿時のプレビュー
+$(document).on('turbolinks:load', function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#img-prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#profile").change(function(){
+   readURL(this);
+ });
+});
+
+$(document).on('turbolinks:load', function(){
+  $('#scroll-top').on('click', function(){
+    $('body, html').animate({ scrollTop: 0 }, 500);
+  });
+});

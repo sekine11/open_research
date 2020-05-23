@@ -1,0 +1,40 @@
+<% events.each do |event| %>
+	<div class="modal fade" id="event<%= event.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalCenterTitle">予定の確認</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body pb-0">
+	      	<table class="table">
+	      		<tbody class="border-bottom">
+	      			<tr>
+	      				<td>投稿者</td>
+	      				<td><%= event.user.private_name %></td>
+	      			</tr>
+	      			<tr>
+	      				<td>開始時刻</td>
+	      				<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
+	      			</tr>
+	      			<tr>
+	      				<td>終了時刻</td>
+	      				<td><%= event.end.strftime("%Y/%m/%d %H:%M") %></td>
+	      			</tr>
+	      			<tr>
+	      				<td>内容</td>
+	      				<td><%= event.title %></td>
+	      			</tr>
+	      		</tbody>
+	      	</table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+	        <%= link_to "削除", laboratory_event_path(@laboratory,event), method: :delete, remote: true,  class: "btn btn-danger" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<% end %>
