@@ -5,7 +5,6 @@ class CreateDiscussions < ActiveRecord::Migration[5.2]
       t.string :subject, null: false
       t.text :content, null: false
       t.integer :status, null: false, default: 0
-      t.integer :impressions_count, default: 0
 
       t.timestamps
     end

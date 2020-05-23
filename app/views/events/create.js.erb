@@ -1,5 +1,4 @@
 $('#new-event').modal('hide');
 $('#newevent').html("<%= j(render "laboratories/new_event", event: @event, laboratory: @laboratory) %>");
-$('#event-modals').html("<%= j(render "laboratories/event_modals", events: @events) %>");
 $("#calendar").fullCalendar('removeEvents');
 $("#calendar").fullCalendar('refetchEvents');

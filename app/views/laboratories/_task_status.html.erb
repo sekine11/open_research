@@ -1,13 +1,13 @@
 <% if task.status_i18n == "未完了" %>
-	<div class="alert-danger btn btn-sm mr-1">
+	<div class="alert-danger btn btn-sm">
 		<%= task.status_i18n %>
 	</div>
 <% elsif task.status_i18n == "進行中" %>
-	<div class="alert-warning btn btn-sm mr-1">
+	<div class="alert-warning btn btn-sm">
 		<%= task.status_i18n %>
 	</div>
 <% else %>
-	<div class="alert-success btn btn-sm mr-1">
+	<div class="alert-success btn btn-sm">
 		<%= task.status_i18n %>
 	</div>
 <% end %>

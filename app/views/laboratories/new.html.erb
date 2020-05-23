@@ -1,22 +1,16 @@
-<% content_for :title do %>
-	ラボの新規作成
-<% end %>
-<div class="container-fluid my-4">
-	<div class="row">
-	
-	<%= form_with(model: @laboratory, local: true, html: { class: "col-12 col-md-8 offset-md-2" }) do |f| %>
-		<%= render 'layouts/error_messages', model: f.object %>
-	
-		<div class="form-group">
-			<%= f.label :name, "研究室名" %>
-			<%= f.text_field :name, class: "form-control" %>
-		</div>
-	
-		<div class="form-group">
-			<%= f.submit "ラボを作成", class: "btn btn-success" %>
-		</div>
-	
-	<% end %>
-	
+<div class="row m-4">
+
+<%= form_with(model: @laboratory, local: true, html: { class: "col-12 col-md-8 offset-md-2 mt-3" }) do |f| %>
+
+	<div class="form-group">
+		<%= f.label :name, "研究室名" %>
+		<%= f.text_field :name, class: "form-control" %>
 	</div>
+
+	<div class="form-group">
+		<%= f.submit "ラボを作成", class: "btn btn-success" %>
+	</div>
+
+<% end %>
+
 </div>

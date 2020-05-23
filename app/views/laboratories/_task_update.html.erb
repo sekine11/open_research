@@ -1,33 +1,31 @@
-<div class="status-update">
-	<% if task.status == "incomplete" %>
-		<%= link_to laboratory_lab_task_path(laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
-			<i class="fas fa-spinner"></i>
-		<% end %>
-		<%= link_to laboratory_lab_task_path(laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
-			<i class="fas fa-check"></i>
-		<% end %>
-		<%= link_to laboratory_lab_task_path(laboratory,task), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
-			<i class="fas fa-trash-alt"></i>
-		<% end %>
-	<% elsif task.status == "progress" %>
-		<%= link_to laboratory_lab_task_path(laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm disabled", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
-			<i class="fas fa-spinner"></i>
-		<% end %>
-		<%= link_to laboratory_lab_task_path(laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
-			<i class="fas fa-check"></i>
-		<% end %>
-		<%= link_to laboratory_lab_task_path(laboratory,task), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
-			<i class="fas fa-trash-alt"></i>
-		<% end %>
-	<% elsif task.status == "complete" %>
-		<%= link_to laboratory_lab_task_path(laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
-			<i class="fas fa-spinner"></i>
-		<% end %>
-		<%= link_to laboratory_lab_task_path(laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm disabled", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
-			<i class="fas fa-check"></i>
-		<% end %>
-		<%= link_to laboratory_lab_task_path(laboratory,task), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
-			<i class="fas fa-trash-alt"></i>
-		<% end %>
+<% if task.status == "incomplete" %>
+	<%= link_to laboratory_lab_task_path(laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
+		<i class="fas fa-spinner"></i>
 	<% end %>
-</div>
+	<%= link_to laboratory_lab_task_path(laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
+		<i class="fas fa-check"></i>
+	<% end %>
+	<%= link_to laboratory_lab_task_path(laboratory,task), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
+		<i class="fas fa-trash-alt"></i>
+	<% end %>
+<% elsif task.status == "progress" %>
+	<%= link_to laboratory_lab_task_path(laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm disabled", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
+		<i class="fas fa-spinner"></i>
+	<% end %>
+	<%= link_to laboratory_lab_task_path(laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
+		<i class="fas fa-check"></i>
+	<% end %>
+	<%= link_to laboratory_lab_task_path(laboratory,task), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
+		<i class="fas fa-trash-alt"></i>
+	<% end %>
+<% elsif task.status == "complete" %>
+	<%= link_to laboratory_lab_task_path(laboratory,task.id,:status => "progress" ), method: :put, class: "btn alert-warning btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"進行中に変更" do %>
+		<i class="fas fa-spinner"></i>
+	<% end %>
+	<%= link_to laboratory_lab_task_path(laboratory,task,:status => "complete"), method: :put, class: "btn alert-success btn-sm disabled", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"完了に変更" do %>
+		<i class="fas fa-check"></i>
+	<% end %>
+	<%= link_to laboratory_lab_task_path(laboratory,task), method: :delete, class: "btn alert-danger btn-sm", remote: true, 'data-toggle': :tooltip, 'data-placement': :top, 'title': :"削除" do %>
+		<i class="fas fa-trash-alt"></i>
+	<% end %>
+<% end %>

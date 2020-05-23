@@ -8,28 +8,30 @@ class User < ApplicationRecord
   validates :private_name, presence: true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
-  attachment :image, type: :image
+         :recoverable, :rememberable, :validatable
+  attachment :image
 
   # アソシエーション
-  has_many :questions, dependent: :destroy
-  has_many :ques_favorites, dependent: :destroy
-  has_many :favorite_questions, through: :ques_favorites, source: :question, dependent: :destroy
-  has_many :ques_comments, dependent: :destroy
-  has_many :discussions, dependent: :destroy
-  has_many :discuss_favorites, dependent: :destroy
-  has_many :favorite_discussions, through: :discuss_favorites, source: :discussion, dependent: :destroy
-  has_many :discuss_comments, dependent: :destroy
-  has_many :protocols, dependent: :destroy
-  has_many :protocol_favorites, dependent: :destroy
-  has_many :favorite_protocols, through: :protocol_favorites, source: :protocol, dependent: :destroy
-  has_many :lab_members, dependent: :destroy
-  has_many :laboratory, dependent: :destroy
-  has_many :lab_tasks, dependent: :destroy
-  has_many :lab_informations, dependent: :destroy
-  has_many :lab_information_checks, dependent: :destroy
-  has_many :lab_information_comments, dependent: :destroy
-  has_many :events, dependent: :destroy
+  has_many :questions
+  has_many :ques_favorites
+  has_many :ques_comments
+  has_many :discussions
+  has_many :discuss_favorites
+  has_many :discuss_comments
+  has_many :protocols
+  has_many :protocol_favorites
+  has_many :lab_members
+  has_many :laboratory
+  has_many :lab_tasks
+  has_many :lab_informations
+  has_many :lab_information_checks
+  has_many :lab_information_comments
+  has_many :project_members
+  has_many :events
+  has_many :project_tasks
+  has_many :project_informations
+  has_many :project_information_checks
+  has_many :project_information_comments
 
   def active_for_authentication?
     super && status == true
