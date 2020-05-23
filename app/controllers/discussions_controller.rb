@@ -1,10 +1,5 @@
 class DiscussionsController < ApplicationController
-  impressionist actions: [:show]
-  load_and_authorize_resource
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
-  end
-
+  
   def new
     @discussion = Discussion.new
   end
@@ -15,27 +10,19 @@ class DiscussionsController < ApplicationController
   end
 
   def index
-    @tags = Discussion.tags_on(:discussions)
-    # tag検索の分岐
     if params[:tag]
       @q = Discussion.ransack(params[:q])
-      @discussions = Discussion.tagged_with(params[:tag]).includes(
-      :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-      ).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
+      @discussions = Discussion.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     else
-      # 文字検索の分岐
-      if params[:q].present?
-        # スペース、タブ区切りでの検索のための前処理
+      if params[:q] != nil
         params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
         @q = Discussion.ransack(params[:q])
       else
         @q = Discussion.ransack(params[:q])
       end
-      @discussions = @q.result(distinct: true).includes(
-       :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-      ).order(updated_at: "DESC").page(params[:discussion_page])
+      @discussions = @q.result(distinct: true).order(created_at: "DESC").page(params[:discussion_page]).per(20)
     end
-    @rank_discussions = Discussion.order('impressions_count DESC').take(10)
+    @rank_discussions = Discussion.all.order(created_at: "DESC")
   end
 
   def edit
@@ -48,6 +35,7 @@ class DiscussionsController < ApplicationController
     if @discussion.save
       redirect_to @discussion, notice: "議論を開始しました"
     else
+      @discussion = Discussion.new
       render "new"
     end
   end
@@ -63,18 +51,18 @@ class DiscussionsController < ApplicationController
       else
         render "edit"
       end
-    end
+  end
   end
 
   def destroy
     discussion = Discussion.find(params[:id])
     discussion.destroy
-    redirect_to discussions_path, notice: "削除しました"
+    redirect_to discussions_path
   end
 
   private
-
   def discussion_params
     params.require(:discussion).permit(:subject, :content, :status, :tags, discussion_list: [])
   end
+
 end

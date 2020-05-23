@@ -52,9 +52,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "letter_opener_web" # 開発環境でメールの確認
-  gem "bullet" # N+1の検出
-  gem 'rubocop-airbnb'
 end
 
 group :production do
@@ -88,5 +85,3 @@ gem 'momentjs-rails' # fullcalender関連
 gem "bootstrap4-datetime-picker-rails" # 日時選択の為に導入
 gem 'ransack' # 検索に使用
 gem 'rails_admin' # 管理者
-gem 'cancancan' # 権限管理
-gem 'impressionist', '~>1.6.1' # ランキングの為

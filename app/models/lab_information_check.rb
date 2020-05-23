@@ -1,7 +1,4 @@
 class LabInformationCheck < ApplicationRecord
-  belongs_to :user
-  belongs_to :lab_information
-
-  validates :user_id, presence: true
-  validates :lab_information_id, presence: true
+	belongs_to :user
+	belongs_to :lab_information
 end

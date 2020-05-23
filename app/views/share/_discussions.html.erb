@@ -1,57 +1,31 @@
-<% if discussions.blank? %>
-	<div class="alert alert-danger my-4" role="alert">
-	  該当の議論はありません。
+<% discussions.each do |discussion| %>
+	<div class="border-bottom p-3 row">
+		<div class="col-12 flex justify-content-between align-items-center">
+			<h3 class="h5 font-weight-bold"><%= link_to discussion.subject.truncate(35), discussion_path(discussion), class: "text-body link" %></h3>
+			<% if discussion.status_i18n == "活動中" %>
+				<p class="font-weight-bold bg-success p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
+			<% else %>
+				<p class="font-weight-bold bg-secondary p-2 m-0 text-light rounded"><%= discussion.status_i18n %></p>
+			<% end %>
+		</div>
+		<div class="col-12 mb-2 mt-n1">
+			<% discussion.discussion_counts.each do |tag| %>
+				<span class="badge badge-pill badge-info mx-1"><%= tag.name %></span>
+			<% end %>
+		</div>
+		<div class="col-12 flex justify-content-between align-items-center">
+			<div class="">
+				<span class="text-dark mr-2">投稿者：<%= discussion.user.public_name %></span>
+				<span class="text-dark mr-2">コメント数：<%= discussion.discuss_comments.count %></span>
+				<span class="text-dark">お気に入り数：<%= discussion.discuss_favorites.count %></span>
+			</div>
+			<span class="text-dark font-weight-bold">ああああ</span>
+		</div>
 	</div>
-<% else %>
-	<% discussions.each do |discussion| %>
-		<div class="border-bottom py-3 flex justify-content-between col-12">
-			<div class="flex">
-				<div class="status d-inlineblock text-center mr-4">
-					<% if discussion.status_i18n == "活動中" %>
-						<%= link_to discussion.status_i18n, discussion_path(discussion), class: "btn btn-sm btn-outline-secondary" %><br>
-						<i class="fas fa-check-circle fa-3x text-secondary mt-2"></i>
-					<% else %>
-						<%= link_to discussion.status_i18n, discussion_path(discussion), class: "btn btn-sm btn-outline-danger" %><br>
-						<i class="fas fa-check-circle fa-3x text-danger mt-2"></i>
-					<% end %>
-				</div>
-				<div class="">
-					<h3 class="h5 mb-2 font-weight-bold ">
-						<%= link_to discussion.subject.truncate(35), discussion_path(discussion), class: "text-body link" %>
-					</h3>
-					<div class="mb-2">
-						<% discussion.discussions.each do |tag| %>
-							<%= link_to discussions_path(:tag => tag.name), class: "" do %>
-								<span class="badge badge-pill badge-info mx-1"><%= tag.name %></span>
-							<% end %>
-						<% end %>
-					</div>
-					<div class="">
-						<span class="text-dark mr-2">
-							<i class="fas fa-user"></i> <%= discussion.user.public_name %>
-						</span>
-						<span class="text-dark mr-2">
-							<i class="fas fa-comment"></i> <%= discussion.discuss_comments.select {|comment| comment}.size %>
-						</span>
-						<span class="text-dark">
-							<i class="fas fa-heart"></i> <%= discussion.discuss_favorites.select {|favorite| favorite}.size %>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="d-md-flex align-items-end justify-content-end d-none d-sm-none time">
-				<p class="text-right m-0"><%= time_ago_in_words(discussion.updated_at) %>前</p>
-			</div>
-		</div>
-	<% end %>
+<% end %>
 
-	<% if request.url != "http://localhost:3000/home" %>
-		<div class="flex justify-content-center mt-4">
-			<%= paginate discussions, remote: true, param_name: :discussion_page %>
-		</div>
-	<% else %>
-		<div class="text-right mt-4">
-			<%= link_to "もっとみる", discussions_path, class: "" %>
-		</div>
-	<% end %>
+<% if request.url != "http://localhost:3000/home" %>
+<div class="flex justify-content-center mt-4">
+	<%= paginate discussions, remote: true, param_name: :discussion_page %>
+</div>
 <% end %>

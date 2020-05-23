@@ -1,16 +1,12 @@
 <% lab_tasks.each do |task| %>
-	<div class="w-100 border-bottom">
-		<div class="w-100 d-sm-flex justify-content-between align-items-center">
-			<div class="task-status my-2" id="task-status-<%= task.id %>">
-				<%= render "laboratories/task_status", task: task %>
-			</div>
-			<p class="my-1"><%= task.content %></p>
-			<div class="mt-1 mb-2 flex justify-content-between align-items-center">
-				<p class="mb-0 mr-2"><%= task.create_time %></p>
-				<div id="task-update-<%= task.id %>">
-					<%= render "laboratories/task_update", task: task, laboratory: @laboratory %>
-				</div>
-			</div>
-		</div>
-	</div>
+	<tr>
+		<td id="task-status-<%= task.id %>">
+			<%= render "laboratories/task_status", task: task %>
+		</td>
+		<td class="align-middle font-weight-bold"><%= task.content %></td>
+		<td class="align-middle"><%= task.created_at.strftime("%m/%d %H:%M") %></td>
+		<td id="task-update-<%= task.id %>" class="text-right">
+			<%= render "laboratories/task_update", task: task, laboratory: @laboratory %>
+		</td>
+	</tr>
 <% end %>

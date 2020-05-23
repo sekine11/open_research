@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_110510) do
+ActiveRecord::Schema.define(version: 2020_05_14_082921) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -19,14 +19,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
-  end
-
-  create_table "contacts", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "title", null: false
-    t.text "message", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "discuss_comments", force: :cascade do |t|
@@ -45,7 +37,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discussion_id"], name: "index_discuss_favorites_on_discussion_id"
-    t.index ["user_id", "discussion_id"], name: "index_discuss_favorites_on_user_id_and_discussion_id", unique: true
     t.index ["user_id"], name: "index_discuss_favorites_on_user_id"
   end
 
@@ -54,7 +45,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.string "subject", null: false
     t.text "content", null: false
     t.integer "status", default: 0, null: false
-    t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
@@ -72,39 +62,12 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
-  create_table "impressions", force: :cascade do |t|
-    t.string "impressionable_type"
-    t.integer "impressionable_id"
-    t.integer "user_id"
-    t.string "controller_name"
-    t.string "action_name"
-    t.string "view_name"
-    t.string "request_hash"
-    t.string "ip_address"
-    t.string "session_hash"
-    t.text "message"
-    t.text "referrer"
-    t.text "params"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index"
-    t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index"
-    t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index"
-    t.index ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index"
-    t.index ["impressionable_type", "impressionable_id", "params"], name: "poly_params_request_index"
-    t.index ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index"
-    t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
-    t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
-    t.index ["user_id"], name: "index_impressions_on_user_id"
-  end
-
   create_table "lab_information_checks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "lab_information_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lab_information_id"], name: "index_lab_information_checks_on_lab_information_id"
-    t.index ["user_id", "lab_information_id"], name: "index_lab_information_checks_on_user_id_and_lab_information_id", unique: true
     t.index ["user_id"], name: "index_lab_information_checks_on_user_id"
   end
 
@@ -125,10 +88,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "document_id"
-    t.string "document_filename"
-    t.string "document_size"
-    t.string "document_content_type"
     t.index ["laboratory_id"], name: "index_lab_informations_on_laboratory_id"
     t.index ["user_id"], name: "index_lab_informations_on_user_id"
   end
@@ -140,7 +99,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["laboratory_id"], name: "index_lab_members_on_laboratory_id"
-    t.index ["user_id", "laboratory_id"], name: "index_lab_members_on_user_id_and_laboratory_id", unique: true
     t.index ["user_id"], name: "index_lab_members_on_user_id"
   end
 
@@ -163,13 +121,73 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.index ["user_id"], name: "index_laboratories_on_user_id"
   end
 
+  create_table "project_information_checks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "poject_information_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poject_information_id"], name: "index_project_information_checks_on_poject_information_id"
+    t.index ["user_id"], name: "index_project_information_checks_on_user_id"
+  end
+
+  create_table "project_information_comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_information_id", null: false
+    t.string "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_information_id"], name: "index_project_information_comments_on_project_information_id"
+    t.index ["user_id"], name: "index_project_information_comments_on_user_id"
+  end
+
+  create_table "project_informations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.string "subject", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_informations_on_project_id"
+    t.index ["user_id"], name: "index_project_informations_on_user_id"
+  end
+
+  create_table "project_members", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_members_on_project_id"
+    t.index ["user_id"], name: "index_project_members_on_user_id"
+  end
+
+  create_table "project_tasks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.string "content", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_tasks_on_project_id"
+    t.index ["user_id"], name: "index_project_tasks_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "laboratory_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_projects_on_laboratory_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
   create_table "protocol_favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "protocol_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["protocol_id"], name: "index_protocol_favorites_on_protocol_id"
-    t.index ["user_id", "protocol_id"], name: "index_protocol_favorites_on_user_id_and_protocol_id", unique: true
     t.index ["user_id"], name: "index_protocol_favorites_on_user_id"
   end
 
@@ -177,7 +195,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.integer "user_id", null: false
     t.string "subject", null: false
     t.text "content", null: false
-    t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_protocols_on_user_id"
@@ -199,7 +216,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_ques_favorites_on_question_id"
-    t.index ["user_id", "question_id"], name: "index_ques_favorites_on_user_id_and_question_id", unique: true
     t.index ["user_id"], name: "index_ques_favorites_on_user_id"
   end
 
@@ -208,7 +224,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.string "subject", null: false
     t.text "content", null: false
     t.integer "status", default: 0, null: false
-    t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
@@ -250,10 +265,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_110510) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "status", default: true, null: false

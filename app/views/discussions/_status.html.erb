@@ -1,9 +1,5 @@
 <% if discussion.status == "active" %>
-	<%= link_to discussion_path(:id => discussion.id, :status => "inactive"), remote: true, method: :put, class: "btn btn-light font-weight-bold" do %>
-		<i class="fas fa-check"></i>
-	<% end %>
+	<%= link_to "「終了」にする", discussion_path(:id => discussion.id, :status => "inactive"), remote: true, method: :put, class: "btn btn-light font-weight-bold" %>
 <% else %>
-	<%= link_to discussion_path(:id => discussion.id, :status => "active"), remote: true, method: :put, class: "btn btn-secondary font-weight-bold" do %>
-		<i class="fas fa-check"></i>
-	<% end %>
+	<%= link_to "「活動中」に戻す", discussion_path(:id => discussion.id, :status => "active"), remote: true, method: :put, class: "btn btn-secondary font-weight-bold" %>
 <% end %>
