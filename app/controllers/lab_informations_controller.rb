@@ -18,7 +18,9 @@ class LabInformationsController < ApplicationController
 
   def index
     @laboratory = Laboratory.find(params[:laboratory_id])
-    @lab_informations = @laboratory.lab_informations.includes(:user, :lab_information_comments, :lab_information_checks).order(created_at: "DESC").page(params[:page]).per(20)
+    @lab_informations = @laboratory.lab_informations.includes(
+     :user, :lab_information_comments, :lab_information_checks
+    ).order(created_at: "DESC").page(params[:page]).per(20)
   end
 
   def create
@@ -31,7 +33,7 @@ class LabInformationsController < ApplicationController
     @lab_information.user_id = current_user.id
     @lab_information.laboratory_id = @laboratory.id
     if @lab_information.save
-      redirect_to laboratory_lab_information_path(@laboratory,@lab_information)
+      redirect_to laboratory_lab_information_path(@laboratory, @lab_information)
     else
       render "new"
     end
@@ -45,8 +47,8 @@ class LabInformationsController < ApplicationController
   end
 
   private
+
   def lab_information_params
     params.require(:lab_information).permit(:subject, :content, :document)
   end
-
 end

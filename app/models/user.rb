@@ -11,7 +11,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
   attachment :image, type: :image
 
-
   # アソシエーション
   has_many :questions, dependent: :destroy
   has_many :ques_favorites, dependent: :destroy

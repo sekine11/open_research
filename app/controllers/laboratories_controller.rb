@@ -34,7 +34,7 @@ class LaboratoriesController < ApplicationController
     @laboratory = Laboratory.new(laboratory_params)
     @laboratory.user_id = current_user.id
     if @laboratory.save
-      lab_member = LabMember.create(user_id: current_user.id, laboratory_id: @laboratory.id, status: "admin")
+      LabMember.create(user_id: current_user.id, laboratory_id: @laboratory.id, status: "admin")
       redirect_to @laboratory, notice: "ラボを作成しました"
     else
       render "new"
@@ -42,6 +42,7 @@ class LaboratoriesController < ApplicationController
   end
 
   private
+
   def laboratory_params
     params.require(:laboratory).permit(:name)
   end

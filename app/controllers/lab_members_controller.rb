@@ -8,12 +8,12 @@ class LabMembersController < ApplicationController
   def create
     @laboratory = Laboratory.find(params[:laboratory_id])
     # emailでのユーザー検索
-    if user = User.find_by(email: params[:email])
-      @lab_member = LabMember.create(laboratory_id: @laboratory.id, user_id: user.id)
+    user = User.where(email: params[:email])
+    if user.present?
+      @lab_member = LabMember.create(laboratory_id: @laboratory.id, user_id: user.first.id)
       @lab_members = @laboratory.lab_members
     else
-      flash[:alert] = "ユーザーの登録に失敗しました"
-      @lab_members = @laboratory.lab_members
+      redirect_to edit_laboratory_path(@laboratory), alert: "メンバーの追加に失敗しました。"
     end
   end
 
