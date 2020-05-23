@@ -2,7 +2,7 @@
 	<%= @question.subject %>
 <% end %>
 <div class="max-vw-100 question-subject shadow py-4">
-	<div class="container-fluid">
+	<div class="container-fluid position-relative">
 		<div class="row">
 			<div class="col-12 d-block d-md-flex justify-content-between">
 				<div class="">
@@ -49,21 +49,23 @@
 </div>
 
 <div class="container-fluid">
-	<div class="row">
-		<% if @question.user == current_user && @question.status == "accepting" %>
-			<div class="col-12 mt-4">
-			  <div class="alert alert-info text-center">
-			  	<p class="m-0">議論が終了したら、右上の <strong> <i class="fas fa-check"></i> </strong>を押して、「終了」しましょう！ </p>
-			  </div>
+	<div class="container">
+		<div class="row">
+			<% if @question.user == current_user && @question.status == "accepting" %>
+				<div class="col-12 mt-4">
+				  <div class="alert alert-info text-center">
+				  	<p class="m-0">議論が終了したら、右上の <strong> <i class="fas fa-check"></i> </strong>を押して、「終了」しましょう！ </p>
+				  </div>
+				</div>
+			<% end %>
+			<div class="col-12">
+				<div class="border-bottom py-4">
+					<div class="mb-0"><%= simple_format(@question.content) %></div>
+				</div>
 			</div>
-		<% end %>
-		<div class="col-12">
-			<div class="border-bottom py-4">
-				<div class="mb-0"><%= simple_format(@question.content) %></div>
+			<div class="col-12" id="comments">
+				<%= render "comments", question: @question, ques_comment: @ques_comment %>
 			</div>
-		</div>
-		<div class="col-12" id="comments">
-			<%= render "comments", question: @question, ques_comment: @ques_comment %>
 		</div>
 	</div>
 </div>

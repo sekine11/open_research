@@ -12,37 +12,13 @@
 
 		<div class="d-none d-sm-none d-md-none d-lg-block col-2">
 			<div class="list-group">
-				<% Protocol.all.tags_on(:protocols).each do |tag| %>
-					<% if params[:tag] == tag.name %>
-						<%= link_to protocols_path(:tag => tag.name), class: "list-group-item list-group-item-action active" do %>
-							<%= tag.name %> <span class="badge badge-pill badge-danger"><%= Protocol.tagged_with(tag).select {|tag| tag}.size %></span>
-						<% end %>
-					<% else %>
-						<%= link_to protocols_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
-							<%= tag.name %> <span class="badge badge-pill badge-danger"><%= Protocol.tagged_with(tag).select {|tag| tag}.size %></span>
-						<% end %>
-					<% end %>
-				<% end %>
+				<%= render "share/tags", tags: @tags, model: Protocol %>
 			</div>
 		</div>
 
 		<div class="d-flex d-sm-flex d-md-flex d-lg-none col-12">
 			<div class="w-100 tags-list flex border-bottom pb-4">
-				<% Protocol.all.tags_on(:protocols).each do |tag| %>
-					<% if params[:tag] == tag.name %>
-						<div class="p-2">
-							<%= link_to protocols_path(:tag => tag.name), class: "px-2 active" do %>
-								<%= tag.name %> <span class="badge badge-pill badge-danger"><%= Protocol.tagged_with(tag).select {|tag| tag}.size %></span>
-							<% end %>
-						</div>
-					<% else %>
-						<div class="p-2">
-							<%= link_to protocols_path(:tag => tag.name), class: "" do %>
-								<%= tag.name %> <span class="badge badge-pill badge-danger"><%= Protocol.tagged_with(tag).select {|tag| tag}.size %></span>
-							<% end %>
-						</div>
-					<% end %>
-				<% end %>
+				<%= render "share/tags_for_sw", tags: @tags, model: Protocol %>
 			</div>
 		</div>
 

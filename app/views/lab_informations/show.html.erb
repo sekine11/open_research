@@ -35,27 +35,29 @@
 </div>
 
 <div class="container-fluid py-4">
-	<div class="row">
-		<div class="col-12">
-			<div class="border-bottom py-4">
-				<div class="m-0"><%= simple_format(@lab_information.content) %></div>
-				<% if @lab_information.document %>
-					<div class="text-right">
-						<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
-					</div>
-				<% end %>
-			</div>
-			<div class="">
-				<div class="border-bottom flex align-items-center justify-content-between">
-					<p class="mb-0 font-weight-bold">内容の理解・確認できた場合、右の <i class="fas fa-check text-success"></i> をクリックして、確認済みにしましょう！</p>
-					<div class="my-4" id="check">
-						<%= render "lab_informations/check", laboratory: @laboratory, lab_information: @lab_information  %>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="border-bottom py-4">
+					<div class="m-0"><%= simple_format(@lab_information.content) %></div>
+					<% if @lab_information.document %>
+						<div class="text-right">
+							<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
+						</div>
+					<% end %>
+				</div>
+				<div class="">
+					<div class="border-bottom flex align-items-center justify-content-between">
+						<p class="mb-0 font-weight-bold">内容の理解・確認できた場合、右の <i class="fas fa-check text-success"></i> をクリックして、確認済みにしましょう！</p>
+						<div class="my-4" id="check">
+							<%= render "lab_informations/check", laboratory: @laboratory, lab_information: @lab_information  %>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-12" id="comments">
-			<%= render "lab_informations/comments", comment: @comment, laboratory: @laboratory, lab_information: @lab_information %>
+			<div class="col-12" id="comments">
+				<%= render "lab_informations/comments", comment: @comment, laboratory: @laboratory, lab_information: @lab_information %>
+			</div>
 		</div>
 	</div>
 </div>

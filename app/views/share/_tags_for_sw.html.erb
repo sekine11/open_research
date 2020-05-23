@@ -1,0 +1,15 @@
+<% tags.each do |tag| %>
+	<% if params[:tag] == tag.name %>
+		<div class="p-2">
+			<%= link_to discussions_path(:tag => tag.name), class: "px-2 active" do %>
+				<%= tag.name %> <span class="badge badge-pill badge-info"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+			<% end %>
+		</div>
+	<% else %>
+		<div class="p-2">
+			<%= link_to discussions_path(:tag => tag.name), class: "" do %>
+				<%= tag.name %> <span class="badge badge-pill badge-info"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+			<% end %>
+		</div>
+	<% end %>
+<% end %>

@@ -14,6 +14,7 @@ class ProtocolsController < ApplicationController
   end
 
   def index
+    @tags = Protocol.tags_on(:protocols)
     # タグ検索
     if params[:tag]
       @q = Protocol.ransack(params[:q])

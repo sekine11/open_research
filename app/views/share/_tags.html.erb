@@ -1,0 +1,11 @@
+<% tags.each do |tag| %>
+	<% if params[:tag] == tag.name %>
+		<%= link_to discussions_path(:tag => tag.name), class: "list-group-item list-group-item-action active" do %>
+		<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+		<% end %>
+	<% else %>
+		<%= link_to discussions_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
+		<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+		<% end %>
+	<% end %>
+<% end %>

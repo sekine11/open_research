@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
+    @tags = Question.tags_on(:questions)
     if params[:tag]
       @q = Question.ransack(params[:q])
       @questions = Question.tagged_with(params[:tag]).includes(

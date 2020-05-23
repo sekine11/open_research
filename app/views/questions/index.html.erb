@@ -12,37 +12,13 @@
 
 		<div class="d-none d-sm-none d-md-none d-lg-block col-2">
 			<div class="list-group">
-				<% Question.all.tags_on(:questions).each do |tag| %>
-					<% if params[:tag] == tag.name %>
-						<%= link_to questions_path(:tag => tag.name), class: "list-group-item list-group-item-action active" do %>
-							<%= tag.name %> <span class="badge badge-pill badge-warning"><%= Question.tagged_with(tag).select {|tag| tag}.size %></span>
-						<% end %>
-					<% else %>
-						<%= link_to questions_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
-							<%= tag.name %> <span class="badge badge-pill badge-warning"><%= Question.tagged_with(tag).select {|tag| tag}.size %></span>
-						<% end %>
-					<% end %>
-				<% end %>
+				<%= render "share/tags", tags: @tags, model: Question %>
 			</div>
 		</div>
 
 		<div class="d-flex d-sm-flex d-md-flex d-lg-none col-12">
 			<div class="w-100 tags-list flex border-bottom pb-4">
-				<% Question.all.tags_on(:questions).each do |tag| %>
-					<% if params[:tag] == tag.name %>
-						<div class="p-2">
-							<%= link_to questions_path(:tag => tag.name), class: "px-2 active" do %>
-								<%= tag.name %> <span class="badge badge-pill badge-warning"><%= Question.tagged_with(tag).select {|tag| tag}.size %></span>
-							<% end %>
-						</div>
-					<% else %>
-						<div class="p-2">
-							<%= link_to questions_path(:tag => tag.name), class: "" do %>
-								<%= tag.name %> <span class="badge badge-pill badge-warning"><%= Question.tagged_with(tag).select {|tag| tag}.size %></span>
-							<% end %>
-						</div>
-					<% end %>
-				<% end %>
+				<%= render "share/tags_for_sw", tags: @tags, model: Question %>
 			</div>
 		</div>
 
