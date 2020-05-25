@@ -66,7 +66,7 @@ class QuestionsController < ApplicationController
   def destroy
     question = Question.find(params[:id])
     question.destroy
-    redirect_to questions_path
+    redirect_to questions_path, notice: "削除しました"
   end
 
   private

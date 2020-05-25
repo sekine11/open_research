@@ -1,9 +1,9 @@
 <% if question.favorited_by?(current_user) %>
-	<%= link_to question_ques_favorites_path(question), method: :delete, remote: true, class: "btn btn-light" do %>
+	<%= link_to question_ques_favorites_path(question), method: :delete, remote: true, class: "btn btn-light favorite-link" do %>
 		<i class="fas fa-heart text-danger"></i>
 	<% end %>
 <% else %>
-	<%= link_to question_ques_favorites_path(question), method: :post, remote: true, class: "btn btn-light" do %>
+	<%= link_to question_ques_favorites_path(question), method: :post, remote: true, class: "btn btn-light favorite-link" do %>
 		<i class="far fa-heart"></i>
 	<% end %>
 <% end %>

@@ -8,7 +8,7 @@
 						</div>
 						<% if user_signed_in? && comment.user_id == current_user.id %>
 							<div>
-								<%= link_to question_ques_comment_path(question,comment), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
+								<%= link_to question_ques_comment_path(question,comment), method: :delete, remote: true, class: "btn btn-danger btn-sm delete-link" do %>
 									<i class="fas fa-trash-alt"></i>
 								<% end %>
 							</div>

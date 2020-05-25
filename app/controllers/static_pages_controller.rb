@@ -11,15 +11,15 @@ class StaticPagesController < ApplicationController
   end
 
   def home
-    @protocols = Protocol.includes(
+    @protocols = Protocol.all.includes(
     :user, :protocols, :protocol_taggings, :protocol_favorites
     ).order(updated_at: "DESC").take(20)
 
-    @discussions = Discussion.includes(
+    @discussions = Discussion.all.includes(
     :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
     ).order(updated_at: "DESC").take(20)
 
-    @questions = Question.includes(
+    @questions = Question.all.includes(
     :user, :questions, :question_taggings, :ques_favorites, :ques_comments
     ).order(updated_at: "DESC").take(20)
 

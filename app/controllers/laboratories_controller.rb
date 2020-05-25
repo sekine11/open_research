@@ -27,7 +27,11 @@ class LaboratoriesController < ApplicationController
     if @laboratory.update(laboratory_params)
       flash[:notice] = "ラボ名を変更しました"
       @laboratory = Laboratory.find(params[:id])
+      @lab_members = @laboratory.lab_members
+      @lab_member = LabMember.new
     end
+    @lab_members = @laboratory.lab_members
+    @lab_member = LabMember.new
   end
 
   def create

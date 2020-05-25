@@ -1,9 +1,9 @@
 <% if lab_information.checked_by?(current_user) %>
-	<%= link_to laboratory_lab_information_lab_information_checks_path(laboratory,lab_information), method: :delete, remote: true, class: "btn btn-secondary" do %>
+	<%= link_to laboratory_lab_information_lab_information_checks_path(laboratory,lab_information), method: :delete, remote: true, class: "btn btn-secondary check-button" do %>
 		<i class="fas fa-check"></i>
 	<% end %>
 <% else %>
-	<%= link_to laboratory_lab_information_lab_information_checks_path(laboratory,lab_information), method: :post, remote: true, class: "btn btn-success" do %>
+	<%= link_to laboratory_lab_information_lab_information_checks_path(laboratory,lab_information), method: :post, remote: true, class: "btn btn-success check-button" do %>
 		<i class="fas fa-check"></i>
 	<% end %>
 <% end %>

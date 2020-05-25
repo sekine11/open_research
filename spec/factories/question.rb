@@ -3,6 +3,6 @@ FactoryBot.define do
     user_id { 1 }
     subject { "テストテスト" }
     content { "テストテストテストテストテストテストテストテストテストテスト" }
-    question_list { ["テスト"] }
+    question_list { ["DNA"] }
   end
 end

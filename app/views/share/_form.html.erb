@@ -34,9 +34,31 @@
 	        <% end %>
         </div>
     </div>
-	
-	<div class="form-group text-right">
-		<%= f.submit "議論を開始", class: "btn btn-success" %>
-	</div>
-	
+
+	<% if request.url.include?("discussions") && resource.created_at.blank? %>
+		<div class="form-group text-right">
+			<%= f.submit "議論を開始", class: "btn btn-success" %>
+		</div>
+	<% elsif request.url.include?("discussions") && resource.created_at.present? %>
+		<div class="form-group text-right">
+			<%= f.submit "議論を編集", class: "btn btn-success" %>
+		</div>
+	<% elsif request.url.include?("questions") && resource.created_at.blank? %>
+		<div class="form-group text-right">
+			<%= f.submit "質問を投稿", class: "btn btn-success" %>
+		</div>
+	<% elsif request.url.include?("questions") && resource.created_at.present? %>
+		<div class="form-group text-right">
+			<%= f.submit "質問を編集", class: "btn btn-success" %>
+		</div>
+	<% elsif request.url.include?("protocols") && resource.created_at.blank? %>
+		<div class="form-group text-right">
+			<%= f.submit "プロトコルを共有", class: "btn btn-success" %>
+		</div>
+	<% elsif request.url.include?("protocols") && resource.created_at.present? %>
+		<div class="form-group text-right">
+			<%= f.submit "プロトコルを編集", class: "btn btn-success" %>
+		</div>
+	<% end %>
+
 <% end %>

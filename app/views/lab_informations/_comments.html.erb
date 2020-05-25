@@ -8,7 +8,7 @@
 						</div>
 						<% if comment.user_id == current_user.id %>
 							<div>
-								<%= link_to laboratory_lab_information_lab_information_comment_path(laboratory,lab_information,comment), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
+								<%= link_to laboratory_lab_information_lab_information_comment_path(laboratory,lab_information,comment), method: :delete, remote: true, class: "btn btn-danger btn-sm delete-comment" do %>
 									<i class="fas fa-trash-alt"></i>
 								<% end %>
 							</div>

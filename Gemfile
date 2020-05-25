@@ -67,7 +67,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem "letter_opener_web" # 開発環境でメールの確認
 end
 
