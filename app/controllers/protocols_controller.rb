@@ -45,7 +45,7 @@ class ProtocolsController < ApplicationController
     @protocol = Protocol.new(protocol_params)
     @protocol.user_id = current_user.id
     if @protocol.save
-      redirect_to @protocol, notice: "質問を投稿しました"
+      redirect_to @protocol, notice: "プロトコルを共有しました"
     else
       render "new"
     end
@@ -54,7 +54,7 @@ class ProtocolsController < ApplicationController
   def update
     @protocol = Protocol.find(params[:id])
     if @protocol.update(protocol_params)
-      redirect_to @protocol, notice: "質問を編集しました"
+      redirect_to @protocol, notice: "プロトコルを編集しました"
     else
       render "edit"
     end
@@ -63,7 +63,7 @@ class ProtocolsController < ApplicationController
   def destroy
     protocol = Protocol.find(params[:id])
     protocol.destroy
-    redirect_to protocols_path
+    redirect_to protocols_path, notice: "削除しました"
   end
 
   private

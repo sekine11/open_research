@@ -1,9 +1,9 @@
 <% if discussion.status == "active" %>
-	<%= link_to discussion_path(:id => discussion.id, :status => "inactive"), remote: true, method: :put, class: "btn btn-light font-weight-bold" do %>
+	<%= link_to discussion_path(:id => discussion.id, :status => "inactive"), remote: true, method: :put, class: "btn btn-light font-weight-bold check-link" do %>
 		<i class="fas fa-check"></i>
 	<% end %>
 <% else %>
-	<%= link_to discussion_path(:id => discussion.id, :status => "active"), remote: true, method: :put, class: "btn btn-secondary font-weight-bold" do %>
+	<%= link_to discussion_path(:id => discussion.id, :status => "active"), remote: true, method: :put, class: "btn btn-secondary font-weight-bold check-link" do %>
 		<i class="fas fa-check"></i>
 	<% end %>
 <% end %>

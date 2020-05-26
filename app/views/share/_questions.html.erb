@@ -45,7 +45,7 @@
 		</div>
 	<% end %>
 
-	<% if request.url != "http://localhost:3000/home" %>
+	<% if questions.class != Array %>
 		<div class="flex justify-content-center mt-4">
 			<%= paginate questions, remote: true, param_name: :question_page %>
 		</div>

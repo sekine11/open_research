@@ -13,7 +13,11 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
           <div id="lab-edit-form">
-            <%= render "laboratories/lab_edit_form", laboratory: @laboratory %>
+            <% if @lab_members.find_by(user_id: current_user.id).status == "admin" || @lab_members.find_by(user_id: current_user.id).status == "subadmin" %>
+              <%= render "laboratories/lab_edit_form", laboratory: @laboratory %>
+            <% elsif %>
+              <p><%= @laboratory.name %></p>
+            <% end %>
           </div>
         </div>
         <div class="tab-pane fade" id="list-edit" role="tabpanel" aria-labelledby="list-edit-list">
