@@ -43,7 +43,7 @@ RSpec.describe "Authority", type: :system do
       end
       it 'タグにアクセス可' do
         visit tags_path(tag: "DNA")
-        expect(current_path).to eq(tags_path(tag: "DNA"))
+        expect(current_path).to eq(tags_path)
       end
       it 'お問い合わせにアクセス可' do
         visit new_contact_path
@@ -65,14 +65,12 @@ RSpec.describe "Authority", type: :system do
         visit question_path(@question)
         fill_in "ques_comment[content]", with: "宜しくお願いします。"
         click_button "コメント"
-        expect(current_path).to eq(home_path)
         expect(page).to have_content "新規登録もしくは、ログインしてください。"
       end
       it '議論詳細にコメント不可' do
         visit discussion_path(@discussion)
         fill_in "discuss_comment[content]", with: "宜しくお願いします。"
         click_button "コメント"
-        expect(current_path).to eq(home_path)
         expect(page).to have_content "新規登録もしくは、ログインしてください。"
       end
     end
@@ -113,7 +111,7 @@ RSpec.describe "Authority", type: :system do
         click_link "テスト大学　テスト研究室"
         click_link "ラボ情報編集"
         find('#list-edit-list').click
-        find(".member").find(".fa-users-cog").click
+        find(".subadmin").find(".fa-users-cog").click
         expect(page).to have_content('副管理者', count: 1)
       end
       it 'ラボお知らせ投稿可' do
@@ -144,14 +142,13 @@ RSpec.describe "Authority", type: :system do
         click_link "テスト大学　テスト研究室"
         expect(current_path).to eq(laboratory_path(@laboratory))
       end
-      it 'ラボ名編集可' do
+      it 'ラボ名編集不可' do
         find("#navbarDropdown1").double_click
         click_link "テスト大学　テスト研究室"
         click_link "ラボ情報編集"
         fill_in 'laboratory[name]', with: "東京大学　東京研究室"
         click_button "編集する"
-        click_link "テスト大学　テスト研究室"
-        expect(page).to have_content '東京大学　東京研究室'
+        expect(page).to have_content 'ラボのメンバーではないか、権限をもっていません'
       end
       it 'ラボメンバーステータス編集不可' do
         find("#navbarDropdown1").double_click

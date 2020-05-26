@@ -48,16 +48,4 @@ class Ability
       can [:destroy], LabInformationComment, user_id: user.id
     end
   end
-
-  def initialize(admin)
-    can [:reregistration, :reactive], :user
-    can [:top, :home, :about, :tags], :static_page
-    can :read, Discussion
-    can :read, Question
-    can :read, Protocol
-    can :read, :search
-    if admin.present?
-      can :manage, :all
-    end
-  end
 end

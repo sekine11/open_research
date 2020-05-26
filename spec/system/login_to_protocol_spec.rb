@@ -76,7 +76,6 @@ RSpec.describe "Protocol", type: :system do
         click_link "テストテスト", match: :first
         click_link "削除"
         page.driver.browser.switch_to.alert.accept
-        expect(current_path).to eq(protocols_path)
         expect(page).to have_content '削除しました'
         expect(page).to have_no_content 'テストテスト'
       end

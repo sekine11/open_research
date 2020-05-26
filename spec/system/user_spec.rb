@@ -48,6 +48,7 @@ RSpec.describe "User", type: :system do
         fill_in 'user[password]', with: "password"
         click_button 'ログインする'
         expect(current_path).to eq(home_path)
+        find("#navbarDropdown3").double_click
         click_link "会員情報"
         fill_in 'user[public_name]', with: "フジ"
         fill_in 'user[private_name]', with: "藤本浩太"
@@ -63,6 +64,7 @@ RSpec.describe "User", type: :system do
         fill_in 'user[password]', with: "password"
         click_button 'ログインする'
         expect(current_path).to eq(home_path)
+        find("#navbarDropdown3").double_click
         click_link "会員情報"
         fill_in 'user[email]', with: "sample@test.com"
         click_button "更新する"
@@ -81,6 +83,7 @@ RSpec.describe "User", type: :system do
         fill_in 'user[password]', with: "password"
         click_button 'ログインする'
         expect(current_path).to eq(home_path)
+        find("#navbarDropdown3").double_click
         click_link "会員情報"
         fill_in 'user[password]', with: "hogehoge"
         fill_in 'user[password_confirmation]', with: "hogehoge"
@@ -99,6 +102,7 @@ RSpec.describe "User", type: :system do
         fill_in 'user[password]', with: "password"
         click_button 'ログインする'
         expect(current_path).to eq(home_path)
+        find("#navbarDropdown3").double_click
         click_link "会員情報"
         fill_in 'user[public_name]', with: ""
         fill_in 'user[private_name]', with: ""
