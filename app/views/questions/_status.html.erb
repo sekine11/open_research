@@ -1,5 +1,9 @@
 <% if question.status == "accepting" %>
-	<%= link_to "「解決済み」にする", question_path(:id => question.id, :status => "completed"), method: :put, remote: true, class: "btn btn-light font-weight-bold" %>
+	<%= link_to question_path(:id => question.id, :status => "completed"), method: :put, remote: true, class: "btn btn-light font-weight-bold check-link" do %>
+		<i class="fas fa-check"></i>
+	<% end %>
 <% else %>
-	<%= link_to "「受付中」に戻す", question_path(:id => question.id, :status => "accepting"), method: :put, remote: true, class: "btn btn-secondary font-weight-bold" %>
+	<%= link_to question_path(:id => question.id, :status => "accepting"), method: :put, remote: true, class: "btn btn-secondary font-weight-bold check-link" do %>
+		<i class="fas fa-check"></i>
+	<% end %>
 <% end %>

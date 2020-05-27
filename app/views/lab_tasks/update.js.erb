@@ -1,3 +1,6 @@
 $('.tooltip').tooltip('dispose');
 $('#task-update-<%= @task.id %>').html("<%= j(render "laboratories/task_update", task: @task, laboratory: @laboratory) %>");
 $('#task-status-<%= @task.id %>').html("<%= j(render "laboratories/task_status", task: @task) %>");
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});

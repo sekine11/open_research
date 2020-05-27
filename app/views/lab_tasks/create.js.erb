@@ -1,2 +1,5 @@
 $('#tasks').html("<%= j(render "laboratories/tasks", lab_tasks: @lab_tasks) %>");
 $('#task-form').html("<%= j(render "laboratories/task_form", lab_task: @lab_task, laboratory: @laboratory) %>");
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});

@@ -1,0 +1,12 @@
+<% i = 1 %>
+					<% tags.each do |tag| %>
+						<tr>
+							<th class="align-middle text-center"><%= i %></th>
+							<td>
+								<%= link_to tags_path(:tag => tag.name), class: "nav-link" do %>
+									<%= tag.name %> <span class="badge badge-pill badge-dark"><%= tag.taggings_count %></span>
+								<% end %>
+							</td>
+						</tr>
+						<% i += 1 %>
+					<% end %>

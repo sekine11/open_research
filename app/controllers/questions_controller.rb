@@ -1,4 +1,9 @@
 class QuestionsController < ApplicationController
+  impressionist actions: [:show]
+  load_and_authorize_resource
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
+  end
 
   def new
     @question = Question.new
@@ -10,19 +15,24 @@ class QuestionsController < ApplicationController
   end
 
   def index
+    @tags = Question.tags_on(:questions)
     if params[:tag]
       @q = Question.ransack(params[:q])
-      @questions = Question.tagged_with(params[:tag]).order(created_at: "DESC").page(params[:question_page]).per(20)
+      @questions = Question.tagged_with(params[:tag]).includes(
+      :user, :questions, :question_taggings, :ques_favorites, :ques_comments
+      ).order(updated_at: "DESC").page(params[:question_page])
     else
-      if params[:q] != nil
+      if params[:q].present?
         params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
         @q = Question.ransack(params[:q])
       else
         @q = Question.ransack(params[:q])
       end
-      @questions = @q.result(distinct: true).order(created_at: "DESC").page(params[:question_page]).per(20)
+      @questions = @q.result(distinct: true).includes(
+      :user, :questions, :question_taggings, :ques_favorites, :ques_comments
+      ).order(updated_at: "DESC").page(params[:question_page])
     end
-    @rank_questions = Question.all.order(created_at: "DESC")
+    @rank_questions = Question.order('impressions_count DESC').take(10)
   end
 
   def edit
@@ -35,34 +45,33 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: "質問を投稿しました"
     else
-      @question = Question.new
       render "new"
     end
   end
 
   def update
-  	if params[:status]
-  		@question = Question.find(params[:id])
-	    @question.update(status: params[:status])
-  	else
-	    @question = Question.find(params[:id])
-	    if @question.update(question_params)
-	      redirect_to @question, notice: "質問を編集しました"
-	    else
-	      render "edit"
-	    end
-	end
+    if params[:status]
+      @question = Question.find(params[:id])
+      @question.update(status: params[:status])
+    else
+      @question = Question.find(params[:id])
+      if @question.update(question_params)
+        redirect_to @question, notice: "質問を編集しました"
+      else
+        render "edit"
+      end
+    end
   end
 
   def destroy
     question = Question.find(params[:id])
     question.destroy
-    redirect_to questions_path
+    redirect_to questions_path, notice: "削除しました"
   end
 
   private
+
   def question_params
     params.require(:question).permit(:subject, :content, :status, :tags, question_list: [])
   end
-
 end

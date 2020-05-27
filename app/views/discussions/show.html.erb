@@ -1,38 +1,71 @@
-<div class="max-vw-100 discussion-subject shadow">
-	<div class="flex justify-content-between px-4 pt-3 pb-1">
-		<div class="">
-			<h3 class="font-weight-bold text-light"><%= @discussion.subject %></h3>
-			<span id="favorites-count" class="badge badge-light"><%= render "favorites_count", discussion: @discussion %></span>
-			<span id="comments-count" class="badge badge-light"><%= render "comments_count", discussion: @discussion %></span>
-		</div>
-		<div class="flex">
-			<div id="status">
-				<%= render "status", discussion: @discussion %>
-			</div>
-			<div id="favorite">
-				<%= render "favorite", discussion: @discussion %>
-			</div>
-		</div>
-	</div>
-	<div class="flex justify-content-between px-4 pb-3">
-		<div class="flex align-items-center text-light">
-			<p class="mr-4 mb-0">投稿者：<%= @discussion.user.public_name %></p>
-			<p class="mr-4 mb-0">投稿日時：<%= @discussion.created_at %></p>
-			<p class="mr-4 mb-0">更新日時：<%= @discussion.updated_at %></p>
-		</div>
-		<div>
-			<%= link_to "編集", edit_discussion_path(@discussion), class: "btn btn-light" %>
-			<%= link_to "削除", discussion_path(@discussion), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
-		</div>
-	</div>
-</div>
-<% if @discussion.user == current_user && @discussion.status == "active" %>
-	<div class="alert alert-info m-4 text-center">
-	  <p class="m-0">議論が終了したら、右上の <strong>”「終了」”にするボタン</strong>を押して、「終了」にしましょう！ </p>
-	</div>
+<% content_for :title do %>
+	<%= @discussion.subject %>
 <% end %>
-<div class="row m-4 pb-4 border-bottom">
-	<%= @discussion.content %>
+<div class="max-vw-100 discussion-subject shadow py-4">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 d-block d-md-flex flex justify-content-between">
+				<div class="">
+					<h3 class="font-weight-bold mb-2 text-light"><%= @discussion.subject %></h3>
+					<div class="mb-2">
+						<span class="badge badge-light">
+							<i class="fas fa-user"></i> <%= @discussion.user.public_name %>
+						</span>
+						<span id="favorites-count" class="badge badge-light">
+							<%= render "favorites_count", discussion: @discussion %>
+						</span>
+						<span id="comments-count" class="badge badge-light">
+							<%= render "comments_count", discussion: @discussion %>
+						</span>
+					</div>
+					<div class="flex align-items-center text-light">
+						<p class="mr-4 mb-0">投稿日時：<%= @discussion.create_time %></p>
+						<p class="mr-4 mb-0">更新日時：<%= @discussion.update_time %></p>
+					</div>
+				</div>
+				<div class="d-flex d-md-block">
+					<div class="flex justify-content-end mb-1 mr-2">
+						<% if user_signed_in? && @discussion.user_id == current_user.id %>
+							<div class="mr-2" id="status">
+								<%= render "status", discussion: @discussion %>
+							</div>
+						<% end %>
+						<% if user_signed_in? %>
+							<div id="favorite">
+								<%= render "favorite", discussion: @discussion %>
+							</div>
+						<% end %>
+					</div>
+					<% if user_signed_in? && @discussion.user_id == current_user.id %>
+						<div class="flex justify-content-end mb-1 mr-2">
+							<%= link_to "編集", edit_discussion_path(@discussion), class: "btn btn-light mr-2" %>
+							<%= link_to "削除", discussion_path(@discussion), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-	<div id="comments"><%= render "comments", discussion: @discussion, discuss_comment: @discuss_comment %></div>
+
+<div class="container-fluid py-4">
+	<div class="container">
+		<div class="row">
+			<% if @discussion.user == current_user && @discussion.status == "active" %>
+				<div class="col-12 mt-4">
+				  <div class="alert alert-info text-center">
+				  	<p class="m-0">議論が終了したら、右上の <strong> <i class="fas fa-check"></i> </strong>を押して、「終了」しましょう！ </p>
+				  </div>
+				</div>
+			<% end %>
+			<div class="col-12">
+				<div class="border-bottom py-4">
+					<div class="mb-0"><%= simple_format(@discussion.content) %></div>
+				</div>
+			</div>
+			<div class="col-12" id="comments">
+				<%= render "comments", discussion: @discussion, discuss_comment: @discuss_comment %>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,28 +1,47 @@
-<div class="row m-4">
-	<div class="col-2 list-group">
-		<% Protocol.all.tags_on(:protocols).each do |tag| %>
-			<%= link_to protocols_path(:tag => tag.name), class: "list-group-item list-group-item-action" do %>
-				<%= tag.name %> <span class="badge badge-pill badge-danger"><%= Protocol.all.tagged_with(tag).count %></span>
-			<% end %>
-		<% end %>
-	</div>
-	<div class="col-7">
-		<main class="">
-			<div id="protocols">
-				<%= render "share/protocols", protocols: @protocols %>
+<% content_for :title do %>
+	<% if params[:tag] %>
+		<%= params[:tag] %>を含むプロトコル一覧
+	<% elsif params[:q] != nil %>
+		検索結果
+	<% else %>
+		プロトコルの一覧
+	<% end %>
+<% end %>
+<div class="container-fluid my-4">
+	<div class="row">
+
+		<div class="d-none d-sm-none d-md-none d-lg-block col-2">
+			<div class="list-group">
+				<%= render "share/tags", tags: @tags, model: Protocol %>
 			</div>
-		</main>
-	</div>
-	<div class="col-3">
-		<table class="table">
-			<thead class="bg-danger">
-				<tr>
-					<th class="text-center text-light" colspan="2">人気のプロトコール</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%= render "share/ranking", rank_items: @rank_protocols %>
-			</tbody>
-		</table>
+		</div>
+
+		<div class="d-flex d-sm-flex d-md-flex d-lg-none col-12">
+			<div class="w-100 tags-list flex border-bottom pb-4">
+				<%= render "share/tags_for_sw", tags: @tags, model: Protocol %>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-9 col-lg-7">
+			<main class="">
+				<div id="protocols">
+					<%= render "share/protocols", protocols: @protocols %>
+				</div>
+			</main>
+		</div>
+
+		<div class="d-none d-sm-none d-md-block col-3">
+			<table class="table">
+				<thead class="bg-danger">
+					<tr>
+						<th class="text-center text-light" colspan="2">人気のプロトコル</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%= render "share/ranking", rank_items: @rank_protocols %>
+				</tbody>
+			</table>
+		</div>
+
 	</div>
 </div>

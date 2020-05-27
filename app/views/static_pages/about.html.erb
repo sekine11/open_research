@@ -1,3 +1,6 @@
+<% content_for :title do %>
+	OpenReserchについて
+<% end %>
 <div class="jumbotron jumbotron-fluid bg-dark mb-0 text-light">
   <div class="container text-center">
     <h1 class="font-weight-bold ">Open Research</h1>
@@ -10,17 +13,23 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-lg-4 text-center my-4">
-				<h2 class="font-weight-middle bg-warning p-2 badge-pill">Question</h2>
+				<h2 class="font-weight-middle bg-warning p-2 badge-pill">
+					<%= link_to "Question", questions_path, class: "nav-link" %>
+				</h2>
 				<p class="my-4 about-text">実験が分からなくなった時<br>実験で行き詰った時<br>ラボで聞いても解決しない時<br>全国の研究者に聞きましょう</p>
 				<%= link_to "質問をする", new_question_path, class: "btn btn-warning" %>
 			</div>
 			<div class="col-12 col-lg-4 text-center my-4">
-				<h2 class="font-weight-middle bg-info p-2 badge-pill text-light">Discussion</h2>
+				<h2 class="font-weight-middle bg-info p-2 badge-pill text-light">
+					<%= link_to "Discussion", discussions_path, class: "nav-link" %>
+				</h2>
 				<p class="my-4 about-text">論文を読んで感じたこと<br>論文を読んで話したいこと<br>他の人の意見を聞きたい時<br>議論を立ち上げましょう</p>
 				<%= link_to "議論を始める", new_discussion_path, class: "btn btn-info" %>
 			</div>
 			<div class="col-12 col-lg-4 text-center my-4">
-				<h2 class="font-weight-middle bg-danger p-2 badge-pill text-light">Protocol</h2>
+				<h2 class="font-weight-middle bg-danger p-2 badge-pill text-light">
+					<%= link_to "Protocol", protocols_path, class: "nav-link" %>
+				</h2>
 				<p class="my-4 about-text">ラボにあるプロトコール<br>共有しませんか？<br>プロトコールがすぐ見つかれば<br>研究が加速します</p>
 				<%= link_to "共有する", new_protocol_path, class: "btn btn-danger" %>
 			</div>

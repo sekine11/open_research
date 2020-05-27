@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OpenResearch</title>
+    <title><%= content_for?(:title) ? "#{yield(:title)}｜OpenResearch" : "OpenResearch" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "application-print", :media => "print" %>
@@ -34,24 +35,10 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <%= link_to "新しくラボを作る", new_laboratory_path, class: "dropdown-item" %>
-                <% current_user.laboratory.each do |lab| %>
-                  <% labo = Laboratory.find(lab.id) %>
-                  <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
-                <% end %>
-                <% current_user.lab_members.each do |lab| %>
-                  <% labo = Laboratory.find(lab.laboratory_id) %>
-                  <%= link_to labo.name, laboratory_path(labo), class: "dropdown-item" %>
-                <% end %>
-              </div>
-            </li>
-            <li class="nav-item dropdown mr-4">
-              <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                プロジェクト
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <% current_user.project_members.each do |pro| %>
-                  <% project = Project.find(pro.project_id) %>
-                  <%= link_to project.name, laboratory_project_path(:laboratory_id => project.laboratory_id, :id => project.id), class: "dropdown-item" %>
+                <% current_user.lab_members.each do |lab_member| %>
+                  <% Laboratory.where(id: lab_member.laboratory_id).each do |lab| %>
+                   <%= link_to lab.name, laboratory_path(lab), class: "dropdown-item" %>
+                  <% end %>
                 <% end %>
               </div>
             </li>
@@ -63,6 +50,9 @@
                 <%= link_to "会員情報", edit_user_registration_path, class: "dropdown-item" %>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
               </div>
+            </li>
+            <li class="nav-item mr-4">
+              <%= link_to "お問い合わせ", new_contact_path, class: "nav-link font-weight-bold" %>
             </li>
           </ul>
           <%= form_with(url: search_path, method: :get, local: true, html: { class: "form-inline my-2 my-lg-0" }) do |f| %>
@@ -88,13 +78,16 @@
             <li class="nav-item">
               <%= link_to "サイトについて", about_path, class: "nav-link font-weight-bold" %>
             </li>
+            <li class="nav-item mr-4">
+              <%= link_to "お問い合わせ", new_contact_path, class: "nav-link font-weight-bold" %>
+            </li>
           </ul>
           <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-warning mr-2" %>
           <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-info mr-2" %>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <%= form_with(url: search_path, method: :get, local: true, html: { class: "form-inline my-2 my-lg-0" }) do |f| %>
+            <%= f.text_field :q, class: "form-control mr-sm-2", placeholder: "検索" %>
+            <%= f.submit "検索", class: "btn btn-success" %>
+          <% end %>
         </div>
       </nav>
 
@@ -102,59 +95,103 @@
 
     </header>
     
-    <% if request.url != "http://localhost:3000/" %>
-      <div class="container-fluid">
-        <div class="row py-2 shadow-sm bg-light">
-          <%= render "share/subheader" %>
+    <%= render "share/subheader" %>
+
+    <% if @laboratory.present? %>
+    <% if @laboratory.created_at.present? %>
+      <div class="max-vw-100 bg-dark shadow text-light d-block d-md-flex justify-content-between align-items-center border-bottom">
+        <h2 class="h4 py-2 m-0">
+          <%= link_to laboratory_path(@laboratory), class: "nav-link" do %>
+            <%= @laboratory.name %>
+          <% end %>
+        </h2>
+        <div class="mr-2 flex">
+          <%= link_to "お知らせ一覧", laboratory_lab_informations_path(@laboratory), class: "nav-link" %>
+          <%= link_to "ラボ情報編集", edit_laboratory_path(@laboratory), class: "nav-link" %>
         </div>
       </div>
     <% end %>
+    <% end %>
 
-    <div class="container-fluid min-vh">
-      <div class="row d-block">
-        <% if request.url.include?("protocols") %>
-          <% if @protocol.nil? %>
-            <div class="max-vw-100 protocol-subject shadow text-light flex justify-content-between align-items-center">
-              <h2 class="h3 p-3 m-0">Protocols</h2>
-              <div class="search px-3">
-                <%= search_form_for @q, url: protocols_path, html: { class: "flex" } do |f| %>
-                  <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "プロトコルの検索" %>
-                  <%= f.submit "検索", class: "btn btn-success" %>
-                <% end %>
+    <div class="w-100">
+      <div class="container-fluid">
+        <div class="row">
+          <% if request.url.include?("protocols") %>
+            <% if @protocol.nil? %>
+              <div class="w-100 protocol-subject shadow text-light d-block d-md-flex justify-content-between align-items-center py-2">
+                <h2 class="h4 mb-0 mx-3 bg-danger">
+                  <%= link_to "Protocols", protocols_path, class: "nav-link" %>
+                </h2>
+                <div class="search mx-3">
+                  <%= search_form_for @q, url: protocols_path, html: { class: "flex" } do |f| %>
+                    <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "プロトコルの検索" %>
+                    <%= f.submit "検索", class: "btn btn-secondary" %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-          <% end %>
-        <% elsif request.url.include?("discussions") %>
-          <% if @discussion.nil? %>
-            <div class="max-vw-100 discussion-subject shadow text-light flex justify-content-between align-items-center">
-              <h2 class="h3 p-3 m-0">Discussions</h2>
-              <div class="search px-3">
-                <%= search_form_for @q, url: discussions_path, html: { class: "flex" } do |f| %>
-                  <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "議論の検索" %>
-                  <%= f.submit "検索", class: "btn btn-success" %>
-                <% end %>
+            <% end %>
+          <% elsif request.url.include?("discussions") %>
+            <% if @discussion.nil? %>
+              <div class="w-100 discussion-subject shadow text-light d-block d-md-flex justify-content-between align-items-center py-2">
+                <h2 class="h4 mb-0 mx-3 bg-info">
+                  <%= link_to "Discussions", discussions_path, class: "nav-link" %>
+                </h2>
+                <div class="search mx-3">
+                  <%= search_form_for @q, url: discussions_path, html: { class: "flex" } do |f| %>
+                    <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "議論の検索" %>
+                    <%= f.submit "検索", class: "btn btn-secondary" %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-          <% end %>
-        <% elsif request.url.include?("questions") %>
-          <% if @question.nil? %>
-            <div class="max-vw-100 question-subject shadow text-light flex justify-content-between align-items-center">
-              <h2 class="h3 p-3 m-0">Questions</h2>
-              <div class="search px-3">
-                <%= search_form_for @q, url: questions_path, html: { class: "flex" } do |f| %>
-                  <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "質問の検索" %>
-                  <%= f.submit "検索", class: "btn btn-success" %>
-                <% end %>
+            <% end %>
+          <% elsif request.url.include?("questions") %>
+            <% if @question.nil? %>
+              <div class="w-100 question-subject shadow text-light d-block d-md-flex justify-content-between align-items-center py-2">
+                <h2 class="h4 mb-0 mx-3 bg-warning">
+                  <%= link_to "Questions", questions_path, class: "nav-link" %>
+                </h2>
+                <div class="search mx-3">
+                  <%= search_form_for @q, url: questions_path, html: { class: "flex" } do |f| %>
+                    <%= f.search_field :subject_or_content_cont_any, class: "form-control mr-1", placeholder: "質問の検索" %>
+                    <%= f.submit "検索", class: "btn btn-secondary" %>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
-        <% end %>
-
-        <%= yield %>
-
+        </div>
       </div>
     </div>
+
+    <div class="w-100 bg-light">
+      <div class="container-fluid">
+        <% if flash[:notice] || flash[:alert] %>
+          <div class="row">
+            <div class="col-12 my-4">
+              <% if flash[:notice] %>
+                <div class="alert alert-success m-0">
+                  <p class="success m-0"><%= flash[:notice] %></p>
+                </div>
+              <% end %>
+              <% if flash[:alert] %>
+                <div class="alert alert-danger m-0">
+                  <p class="alert m-0"><%= flash[:alert] %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="min-vh">
+       <%= yield %>
+    </div>
+
     <% if request.url != "http://localhost:3000/" %>
+      <div class="flex justify-content-center align-items-center bg-dark shadow text-light p-2 rounded-circle" id="scroll-top">
+        <i class="fas fa-arrow-up fa-2x"></i>
+      </div>
       <footer class="bg-secondary py-4">
         <p class="text-white text-center m-0">OpenResearch</p>
       </footer>

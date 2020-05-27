@@ -1,9 +1,9 @@
 <% if protocol.favorited_by?(current_user) %>
-	<%= link_to protocol_protocol_favorites_path(protocol), method: :delete, remote: true, class: "btn btn-light" do %>
+	<%= link_to protocol_protocol_favorites_path(protocol), method: :delete, remote: true, class: "btn btn-light favorite-link" do %>
 		<i class="fas fa-heart text-danger"></i>
 	<% end %>
 <% else %>
-	<%= link_to protocol_protocol_favorites_path(protocol), method: :post, remote: true, class: "btn btn-light" do %>
+	<%= link_to protocol_protocol_favorites_path(protocol), method: :post, remote: true, class: "btn btn-light favorite-link" do %>
 		<i class="far fa-heart"></i>
 	<% end %>
 <% end %>
