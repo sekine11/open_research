@@ -44,7 +44,8 @@ function eventCalendar() {
   	events: location.pathname + '.json',
   	// eventをクリックしたときにモーダルで詳細を表示
   	eventClick: function(info) {
-      $(`#event${info.id}`).modal('toggle');
+      // $(`#event${info.id}`).modal('toggle');
+      $("#event1").modal('toggle');
     },
   });
 };
