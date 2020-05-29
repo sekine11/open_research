@@ -10,14 +10,13 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_self
- *= require fullcalendar
  */
  // Custom bootstrap variables must be set or imported *before* bootstrap.
  @import 'bootstrap';
  @import 'font-awesome-sprockets';
  @import 'font-awesome';
  @import "tempusdominus-bootstrap-4.css";
+ @import "fullcalendar";
 
  body {
  	font-family: "Open Sans", "Helvetica Neue", Helvetica, "Arial", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
