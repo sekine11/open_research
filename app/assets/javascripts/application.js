@@ -44,8 +44,9 @@ function eventCalendar() {
   	events: location.pathname + '.json',
   	// eventをクリックしたときにモーダルで詳細を表示
   	eventClick: function(info) {
+      let event = "#event" + info.id
       // $(`#event${info.id}`).modal('toggle');
-      $("#event1").modal('toggle');
+      $(event).modal('toggle');
     },
   });
 };
@@ -77,3 +78,9 @@ $(document).on('turbolinks:load', function(){
     $('body, html').animate({ scrollTop: 0 }, 500);
   });
 });
+
+$(document).on('turbolinks:load',function () {
+    $('.datepicker').datetimepicker({
+      orientation: 'bottom'
+    });
+  });
