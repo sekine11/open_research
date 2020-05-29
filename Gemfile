@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'aws-ses'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -83,7 +84,7 @@ gem 'jquery-rails' # jqueryの使用
 gem 'kaminari' # ページネーション
 gem 'enum_help' # 日本語化
 gem 'acts-as-taggable-on', '~> 6.0' # タグ管理
-gem 'dotenv-rails' # 環境変数の格納
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'font-awesome-sass', '~> 5.4.1' # font-awesome使用
 gem 'fullcalendar-rails' # fullcalender関連
 gem 'momentjs-rails' # fullcalender関連

@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@open-research.com'
+  default from: 'OpenResearch <noreply@open-research.work>'
   layout 'mailer'
 end
