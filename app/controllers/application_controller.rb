@@ -26,4 +26,14 @@ class ApplicationController < ActionController::Base
     @rank_discussions = Discussion.order('impressions_count DESC').take(10)
     @rank_questions = Question.order('impressions_count DESC').take(10)
   end
+
+  def current_ability
+    if user_signed_in?
+      @current_ability ||= ::UserAbility.new(current_user)
+    elsif admin_signed_in?
+      @current_ability ||= ::AdminAbility.new(current_admin)
+    else
+      @current_ability ||= ::UserAbility.new(nil)
+    end
+  end
 end

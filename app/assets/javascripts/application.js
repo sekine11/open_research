@@ -80,7 +80,15 @@ $(document).on('turbolinks:load', function(){
 });
 
 $(document).on('turbolinks:load',function () {
-    $('.datepicker').datetimepicker({
-      orientation: 'bottom'
-    });
+    $('.datetime').datetimepicker({
+      buttons: {
+        showToday: true,
+        showClear: true,
+        showClose: true
+      },
+      widgetPositioning: {
+        horizontal: 'left',
+        vertical: 'bottom'
+      }
   });
+});
