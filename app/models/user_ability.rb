@@ -4,7 +4,7 @@ class UserAbility
   include CanCan::Ability
 
   def initialize(user)
-    can [:reregistration, :reactive], :user
+    can [:reregistrations, :reactive], :user
     can [:top, :home, :about, :tags], :static_page
     can :read, Discussion
     can :read, Question

@@ -10,13 +10,14 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  def reregistration
+  def reregistrations
     @user = User.new
   end
 
   def reactive
-    user = User.find_by(email: params[:email])
-    if user.valid_password?(params[:password])
+    user = User.find_by(email: params[:user][:email])
+    binding.pry
+    if user.valid_password?(params[:user][:password])
       user.update(status: true)
       redirect_to home_path
     end

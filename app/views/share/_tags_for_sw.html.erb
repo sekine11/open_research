@@ -1,15 +1,49 @@
-<% tags.each do |tag| %>
-	<% if params[:tag] == tag.name %>
-		<div class="p-2">
-			<%= link_to discussions_path(:tag => tag.name), class: "px-2 active" do %>
-				<%= tag.name %> <span class="badge badge-pill badge-info"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
-			<% end %>
-		</div>
-	<% else %>
-		<div class="p-2">
-			<%= link_to discussions_path(:tag => tag.name), class: "" do %>
-				<%= tag.name %> <span class="badge badge-pill badge-info"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
-			<% end %>
-		</div>
+<% if @questions %>
+	<% tags.each do |tag| %>
+		<% if params[:tag] == tag.name %>
+			<div class="p-2">
+				<%= link_to questions_path(:tag => tag.name), class: "px-2 active" do %>
+					<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+				<% end %>
+			</div>
+		<% else %>
+			<div class="p-2">
+				<%= link_to questions_path(:tag => tag.name), class: "" do %>
+					<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+				<% end %>
+			</div>
+		<% end %>
+	<% end %>
+<% elsif @discussions %>
+	<% tags.each do |tag| %>
+		<% if params[:tag] == tag.name %>
+			<div class="p-2">
+				<%= link_to discussions_path(:tag => tag.name), class: "px-2 active" do %>
+					<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+				<% end %>
+			</div>
+		<% else %>
+			<div class="p-2">
+				<%= link_to discussions_path(:tag => tag.name), class: "" do %>
+					<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+				<% end %>
+			</div>
+		<% end %>
+	<% end %>
+<% else %>
+		<% tags.each do |tag| %>
+		<% if params[:tag] == tag.name %>
+			<div class="p-2">
+				<%= link_to protocols_path(:tag => tag.name), class: "px-2 active" do %>
+					<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+				<% end %>
+			</div>
+		<% else %>
+			<div class="p-2">
+				<%= link_to protocols_path(:tag => tag.name), class: "" do %>
+					<%= tag.name %> <span class="badge badge-pill badge-dark"><%= model.tagged_with(tag).select {|tag| tag}.size %></span>
+				<% end %>
+			</div>
+		<% end %>
 	<% end %>
 <% end %>
