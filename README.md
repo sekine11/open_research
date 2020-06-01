@@ -1,4 +1,5 @@
 # OpenReserch
+https://open-research.work/
 
 ## サイト概要
 OpenReserchはライフサイエンスの研究活動を包括的にサポートするサービスです。
