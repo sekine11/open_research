@@ -4,13 +4,13 @@ class ProtocolsController < ApplicationController
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
   end
+  before_action :find_protocol, only: [:show, :edit, :update, :destroy]
 
   def new
     @protocol = Protocol.new
   end
 
   def show
-    @protocol = Protocol.find(params[:id])
   end
 
   def index
@@ -38,7 +38,6 @@ class ProtocolsController < ApplicationController
   end
 
   def edit
-    @protocol = Protocol.find(params[:id])
   end
 
   def create
@@ -52,7 +51,6 @@ class ProtocolsController < ApplicationController
   end
 
   def update
-    @protocol = Protocol.find(params[:id])
     if @protocol.update(protocol_params)
       redirect_to @protocol, notice: "プロトコルを編集しました"
     else
@@ -61,7 +59,6 @@ class ProtocolsController < ApplicationController
   end
 
   def destroy
-    protocol = Protocol.find(params[:id])
     protocol.destroy
     redirect_to protocols_path, notice: "削除しました"
   end
@@ -70,5 +67,9 @@ class ProtocolsController < ApplicationController
 
   def protocol_params
     params.require(:protocol).permit(:subject, :content, :tags, protocol_list: [])
+  end
+
+  def find_protocol
+    @protocol = Protocol.find(params[:id])
   end
 end

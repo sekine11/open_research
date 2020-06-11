@@ -4,13 +4,13 @@ class DiscussionsController < ApplicationController
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
   end
+  before_action :find_discussion, only: [:show, :edit, :update, :destroy]
 
   def new
     @discussion = Discussion.new
   end
 
   def show
-    @discussion = Discussion.find(params[:id])
     @discuss_comment = DiscussComment.new
   end
 
@@ -39,7 +39,6 @@ class DiscussionsController < ApplicationController
   end
 
   def edit
-    @discussion = Discussion.find(params[:id])
   end
 
   def create
@@ -54,10 +53,8 @@ class DiscussionsController < ApplicationController
 
   def update
     if params[:status]
-      @discussion = Discussion.find(params[:id])
       @discussion.update(status: params[:status])
     else
-      @discussion = Discussion.find(params[:id])
       if @discussion.update(discussion_params)
         redirect_to @discussion, notice: "議論を編集しました"
       else
@@ -67,7 +64,6 @@ class DiscussionsController < ApplicationController
   end
 
   def destroy
-    discussion = Discussion.find(params[:id])
     discussion.destroy
     redirect_to discussions_path, notice: "削除しました"
   end
@@ -76,5 +72,9 @@ class DiscussionsController < ApplicationController
 
   def discussion_params
     params.require(:discussion).permit(:subject, :content, :status, :tags, discussion_list: [])
+  end
+
+  def find_discussion
+    @discussion = Discussion.find(params[:id])
   end
 end

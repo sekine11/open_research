@@ -9,10 +9,13 @@ class QuesCommentsController < ApplicationController
     @ques_comment = QuesComment.new(ques_comment_params)
     @ques_comment.user_id = current_user.id
     @ques_comment.question_id = @question.id
-    if @ques_comment.save
+    @ques_comment.transaction do
+      @ques_comment.save
       @question.update(updated_at: Time.now)
       @ques_comment = QuesComment.new
     end
+    rescue => e
+      redirect_back(fallback_location: root_path)
   end
 
   def destroy
