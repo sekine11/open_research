@@ -1,5 +1,8 @@
 # OpenReserch
 https://open-research.work/
+テストユーザー
+Email: test@test.com
+Password: hogehoge
 
 ## サイト概要
 OpenReserchはライフサイエンスの研究活動を包括的にサポートするサービスです。
