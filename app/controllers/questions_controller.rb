@@ -4,13 +4,13 @@ class QuestionsController < ApplicationController
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_url, alert: "新規登録もしくは、ログインしてください。"
   end
+  before_action :find_question, only: [:show, :edit, :update, :destroy]
 
   def new
     @question = Question.new
   end
 
   def show
-    @question = Question.find(params[:id])
     @ques_comment = QuesComment.new
   end
 
@@ -36,7 +36,6 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find(params[:id])
   end
 
   def create
@@ -51,10 +50,8 @@ class QuestionsController < ApplicationController
 
   def update
     if params[:status]
-      @question = Question.find(params[:id])
       @question.update(status: params[:status])
     else
-      @question = Question.find(params[:id])
       if @question.update(question_params)
         redirect_to @question, notice: "質問を編集しました"
       else
@@ -64,7 +61,6 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question = Question.find(params[:id])
     question.destroy
     redirect_to questions_path, notice: "削除しました"
   end
@@ -73,5 +69,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:subject, :content, :status, :tags, question_list: [])
+  end
+
+  def find_question
+    @question = Question.find(params[:id])
   end
 end

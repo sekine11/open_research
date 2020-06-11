@@ -9,11 +9,13 @@ class DiscussCommentsController < ApplicationController
     @discuss_comment = DiscussComment.new(discuss_comment_params)
     @discuss_comment.user_id = current_user.id
     @discuss_comment.discussion_id = @discussion.id
-    if @discuss_comment.save
-      # discussionのupdated_atを更新して更新時刻でのDESCを可能にする
+    @discuss_comment.transaction do
+      @discuss_comment.save
       @discussion.update(updated_at: Time.now)
-      @discuss_comment = DiscussComment.new
+      @discuss_comment = QuesComment.new
     end
+    rescue => e
+      redirect_back(fallback_location: root_path)
   end
 
   def destroy
