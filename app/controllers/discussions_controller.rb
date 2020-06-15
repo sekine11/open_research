@@ -21,7 +21,7 @@ class DiscussionsController < ApplicationController
       @q = Discussion.ransack(params[:q])
       @discussions = Discussion.tagged_with(params[:tag]).includes(
       :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-      ).order(updated_at: "DESC").page(params[:discussion_page]).per(20)
+      ).order(commented_at: "DESC").page(params[:discussion_page]).per(20)
     else
       # 文字検索の分岐
       if params[:q].present?
@@ -33,7 +33,7 @@ class DiscussionsController < ApplicationController
       end
       @discussions = @q.result(distinct: true).includes(
        :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-      ).order(updated_at: "DESC").page(params[:discussion_page])
+      ).order(commented_at: "DESC").page(params[:discussion_page])
     end
     @rank_discussions = Discussion.order('impressions_count DESC').take(10)
   end
@@ -44,6 +44,7 @@ class DiscussionsController < ApplicationController
   def create
     @discussion = Discussion.new(discussion_params)
     @discussion.user_id = current_user.id
+    @discussion.commented_at = Time.now
     if @discussion.save
       redirect_to @discussion, notice: "議論を開始しました"
     else

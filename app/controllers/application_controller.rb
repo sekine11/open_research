@@ -22,8 +22,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_ranking
-    @rank_protocols = Protocol.order('impressions_count DESC').take(10)
-    @rank_discussions = Discussion.order('impressions_count DESC').take(10)
-    @rank_questions = Question.order('impressions_count DESC').take(10)
+    # 過去7日間を指定
+    ago = Range.new(Time.now - 604800, Time.now)
+    @rank_protocols = Protocol.where(created_at: ago).order('impressions_count DESC').take(10)
+    @rank_discussions = Discussion.where(created_at: ago).order('impressions_count DESC').take(10)
+    @rank_questions = Question.where(created_at: ago).order('impressions_count DESC').take(10)
   end
 end

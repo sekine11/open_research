@@ -11,7 +11,7 @@ class QuesCommentsController < ApplicationController
     @ques_comment.question_id = @question.id
     @ques_comment.transaction do
       @ques_comment.save
-      @question.update(updated_at: Time.now)
+      @question.update(commented_at: Time.now)
       @ques_comment = QuesComment.new
     end
     rescue => e

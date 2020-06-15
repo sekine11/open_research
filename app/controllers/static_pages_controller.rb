@@ -17,11 +17,11 @@ class StaticPagesController < ApplicationController
 
     @discussions = Discussion.all.includes(
     :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-    ).order(updated_at: "DESC").take(20)
+    ).order(commented_at: "DESC").take(20)
 
     @questions = Question.all.includes(
     :user, :questions, :question_taggings, :ques_favorites, :ques_comments
-    ).order(updated_at: "DESC").take(20)
+    ).order(commented_at: "DESC").take(20)
 
     @tags = ActsAsTaggableOn::Tag.most_used(5)
   end
@@ -36,11 +36,11 @@ class StaticPagesController < ApplicationController
 
     @discussions = current_user.favorite_discussions.includes(
     :user, :discussions, :discussion_taggings, :discuss_favorites, :discuss_comments
-    ).order(updated_at: "DESC").page(params[:discussion_page])
+    ).order(commented_at: "DESC").page(params[:discussion_page])
 
     @questions = current_user.favorite_questions.includes(
     :user, :questions, :question_taggings, :ques_favorites, :ques_comments
-    ).order(updated_at: "DESC").page(params[:question_page])
+    ).order(commented_at: "DESC").page(params[:question_page])
 
     @tags = ActsAsTaggableOn::Tag.most_used(5)
   end

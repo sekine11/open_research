@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<div class="d-md-flex align-items-end justify-content-end d-none d-sm-none time">
-				<p class="text-right m-0"><%= time_ago_in_words(question.updated_at) %>前</p>
+				<p class="text-right m-0"><%= time_ago_in_words(question.commented_at) %>前</p>
 			</div>
 		</div>
 	<% end %>
