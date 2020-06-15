@@ -11,7 +11,7 @@ class DiscussCommentsController < ApplicationController
     @discuss_comment.discussion_id = @discussion.id
     @discuss_comment.transaction do
       @discuss_comment.save
-      @discussion.update(updated_at: Time.now)
+      @discussion.update(commented_at: Time.now)
       @discuss_comment = QuesComment.new
     end
     rescue => e

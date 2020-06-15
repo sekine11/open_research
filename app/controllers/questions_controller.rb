@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
       @q = Question.ransack(params[:q])
       @questions = Question.tagged_with(params[:tag]).includes(
       :user, :questions, :question_taggings, :ques_favorites, :ques_comments
-      ).order(updated_at: "DESC").page(params[:question_page])
+      ).order(commented_at: "DESC").page(params[:question_page])
     else
       if params[:q].present?
         params[:q][:subject_or_content_cont_any] = params[:q][:subject_or_content_cont_any].split(/\p{blank}|\s|\t/)
@@ -30,9 +30,11 @@ class QuestionsController < ApplicationController
       end
       @questions = @q.result(distinct: true).includes(
       :user, :questions, :question_taggings, :ques_favorites, :ques_comments
-      ).order(updated_at: "DESC").page(params[:question_page])
+      ).order(commented_at: "DESC").page(params[:question_page])
     end
-    @rank_questions = Question.order('impressions_count DESC').take(10)
+    # 過去7日間を指定
+    ago = Range.new(Time.now - 604800, Time.now)
+    @rank_questions = Question.where(created_at: ago).order('impressions_count DESC').take(10)
   end
 
   def edit
@@ -41,6 +43,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
+    @question.commented_at = Time.now
     if @question.save
       redirect_to @question, notice: "質問を投稿しました"
     else
