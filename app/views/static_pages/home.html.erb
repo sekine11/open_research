@@ -1,6 +1,32 @@
 <% content_for :title do %>
 	ホーム
 <% end %>
+
+<% if user_signed_in? &&  %>
+    <div class="w-100 bg-light">
+        <div class="container-fluid mt-4">
+            <% if current_user.lab_members.where(joined_at: nil).present? %>
+	            <div class="row">
+	              <div class="col-12 my-2">
+	              	<h3>招待</h3>
+	                <% current_user.lab_members.includes([:laboratory]).each do |lab_member| %>
+	                  <% if lab_member.joined_at == nil %>
+	                    <div class="alert alert-info m-0 d-sm-flex justify-content-between">
+	                        <p class="m-0"><%= lab_member.laboratory.name %>に招待されています。</p>
+	                        <div>
+	                        	<%= link_to "参加する", laboratory_lab_join_path(lab_member.laboratory) %>
+	                        	<%= link_to "参加しない", laboratory_lab_unjoin_path(lab_member.laboratory) %>
+	                       	</div>
+	                    </div>
+	                  <% end %>
+	                <% end %>
+	              </div>
+	        	</div>
+    	    <% end %>
+	    </div>
+    </div>
+<% end %>
+
 <div class="container-fluid my-4">
 	<div class="row">
 		<div class="col-12 col-md-9">

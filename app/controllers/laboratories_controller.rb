@@ -19,7 +19,7 @@ class LaboratoriesController < ApplicationController
   def edit
     @laboratory = Laboratory.find(params[:id])
     @lab_member = LabMember.new
-    @lab_members = @laboratory.lab_members
+    @lab_members = @laboratory.lab_members.includes([:user])
   end
 
   def update
@@ -27,10 +27,10 @@ class LaboratoriesController < ApplicationController
     if @laboratory.update(laboratory_params)
       flash[:notice] = "ラボ名を変更しました"
       @laboratory = Laboratory.find(params[:id])
-      @lab_members = @laboratory.lab_members
+      @lab_members = @laboratory.lab_members.includes([:user])
       @lab_member = LabMember.new
     end
-    @lab_members = @laboratory.lab_members
+    @lab_members = @laboratory.lab_members.includes([:user])
     @lab_member = LabMember.new
   end
 
@@ -38,7 +38,7 @@ class LaboratoriesController < ApplicationController
     @laboratory = Laboratory.new(laboratory_params)
     @laboratory.user_id = current_user.id
     if @laboratory.save
-      LabMember.create(user_id: current_user.id, laboratory_id: @laboratory.id, status: "admin")
+      LabMember.create(user_id: current_user.id, laboratory_id: @laboratory.id, status: "admin", joined_at: Time.now)
       redirect_to @laboratory, notice: "ラボを作成しました"
     else
       render "new"

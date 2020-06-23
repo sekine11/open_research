@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     resources :events, only: [:create, :destroy]
     resources :lab_tasks, only: [:create, :destroy, :update]
     resources :lab_members, only: [:new, :index, :create, :update, :destroy]
+    get "/lab_member/join" => "lab_members#join", as: "lab_join"
+    get "/lab_member/unjoin" => "lab_members#unjoin", as: "lab_unjoin"
     resources :lab_informations do
       resources :lab_information_comments, only: [:create, :destroy]
       resource :lab_information_checks, only: [:create, :destroy]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_121447) do
+ActiveRecord::Schema.define(version: 2020_06_23_084736) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2020_06_15_121447) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "joined_at"
     t.index ["laboratory_id"], name: "index_lab_members_on_laboratory_id"
     t.index ["user_id", "laboratory_id"], name: "index_lab_members_on_user_id_and_laboratory_id", unique: true
     t.index ["user_id"], name: "index_lab_members_on_user_id"
@@ -213,6 +214,7 @@ ActiveRecord::Schema.define(version: 2020_06_15_121447) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "commented_at", default: "2020-06-15 12:18:07", null: false
+    t.datetime "joined_at"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 

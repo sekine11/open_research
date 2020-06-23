@@ -36,8 +36,10 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <%= link_to "新しくラボを作る", new_laboratory_path, class: "dropdown-item" %>
                 <% current_user.lab_members.each do |lab_member| %>
-                  <% Laboratory.where(id: lab_member.laboratory_id).each do |lab| %>
-                   <%= link_to lab.name, laboratory_path(lab), class: "dropdown-item" %>
+                  <% if lab_member.joined_at != nil %>
+                    <% Laboratory.where(id: lab_member.laboratory_id).each do |lab| %>
+                     <%= link_to lab.name, laboratory_path(lab), class: "dropdown-item" %>
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>

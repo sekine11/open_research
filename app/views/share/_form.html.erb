@@ -13,25 +13,31 @@
 	
 	<div class="form-group">
 		<div class="row m-0">
-			<%= f.label "タグ（複数選択可）", class: "col-12 p-0" %>
-	        <% ["DNA","RNA","Protein","NGS","LC/MS","Enzyme","Mouse","Rat","ModelOrganism","Genome","GenomeEditing","Proteomics","Genomics","Biochemistry","Biophysics","Anatomy","CellBiology","Genetics","Ecology","Evolution","Microbiology","Immunology","MolecularBiology","Photobiology"].each do |tag| %>
-	            <% if request.url.include?("discussions") %>
-	            	<div class="custom-control custom-checkbox col-6 col-md-4 mt-2">
-		                <%= f.check_box :discussion_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
-		                <%= f.label "discussion_list_#{tag.downcase}", tag, class: "custom-control-label" %>
-		            </div>
-	            <% elsif request.url.include?("questions") %>
+		        <% if request.url.include?("discussions") %>
+		        	<%= f.label "タグ（複数選択可）", class: "col-12 p-0" %>
+	       			<% ["研究・実験","キャリア","研究室運営","研究費","試薬・機器","その他"].each do |tag| %>
+		          	<div class="custom-control custom-checkbox col-6 col-md-4 mt-2">
+			            <%= f.check_box :discussion_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
+			            <%= f.label "discussion_list_#{tag.downcase}", tag, class: "custom-control-label" %>
+			        </div>
+			        <% end %>
+		        <% elsif request.url.include?("questions") %>
+		        	<%= f.label "タグ（複数選択可）", class: "col-12 p-0" %>
+	       			<% ["研究・実験","キャリア","研究室運営","研究費","試薬・機器","その他"].each do |tag| %>
 					<div class="custom-control custom-checkbox col-6 col-md-4 mt-2">
-		                <%= f.check_box :question_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
-		                <%= f.label "question_list_#{tag.downcase}", tag, class: "custom-control-label" %>
-		            </div>
-	            <% elsif request.url.include?("protocols") %>
+			            <%= f.check_box :question_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
+			            <%= f.label "question_list_#{tag.downcase}", tag, class: "custom-control-label" %>
+			        </div>
+			        <% end %>
+		        <% elsif request.url.include?("protocols") %>
+		        	<%= f.label "タグ（複数選択可）", class: "col-12 p-0" %>
+	       			<% ["DNA","RNA","Protein","NGS","LC/MS","ModelOrganism","CellBiology","DevelopmentalBiology","GeneralLabTechnique","Genetics","Genomics","Imaging","Neuroscience","MolecularBiology","Microbiology","Physiology","PlantBiology","Bioinformatics","Statistics","Biochemistry","Immunology","ラボハック"].each do |tag| %>
 					<div class="custom-control custom-checkbox col-6 col-md-4 mt-2">
-		                <%= f.check_box :protocol_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
-		                <%= f.label "protocol_list_#{tag.downcase}", tag, class: "custom-control-label" %>
-		            </div>
-	            <% end %>
-	        <% end %>
+			            <%= f.check_box :protocol_list, {multiple: true, :class => "custom-control-input"}, tag, nil %>
+			            <%= f.label "protocol_list_#{tag.downcase}", tag, class: "custom-control-label" %>
+			        </div>
+			        <% end %>
+		        <% end %>
         </div>
     </div>
 
