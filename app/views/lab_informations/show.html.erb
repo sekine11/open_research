@@ -25,7 +25,7 @@
 				<div class="">
 					<% if user_signed_in? && @lab_information.user_id == current_user.id %>
 						<div class="flex justify-content-end mt-2">
-							<%= link_to "削除", laboratory_lab_information_path(@laboratory,@lab_information), method: :delete, class: "btn btn-secondary", data: {confirm: "削除しますか？"} %>
+							<%= link_to "削除", laboratory_lab_information_path(@laboratory,@lab_information), method: :delete, class: "btn btn-light", data: {confirm: "削除しますか？"} %>
 						</div>
 					<% end %>
 				</div>
@@ -46,12 +46,15 @@
 						</div>
 					<% end %>
 				</div>
-				<div class="">
-					<div class="border-bottom flex align-items-center justify-content-between">
+				<div class="border-bottom py-4">
+					<div class="flex align-items-center justify-content-between">
 						<p class="mb-0 font-weight-bold">内容の理解・確認できた場合、右の <i class="fas fa-check text-success"></i> をクリックして、確認済みにしましょう！</p>
-						<div class="my-4" id="check">
+						<div class="" id="check">
 							<%= render "lab_informations/check", laboratory: @laboratory, lab_information: @lab_information  %>
 						</div>
+					</div>
+					<div class="mt-2" id="checked-members">
+						<%= render "lab_informations/checked_members", lab_information: @lab_information  %>
 					</div>
 				</div>
 			</div>

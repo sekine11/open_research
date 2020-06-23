@@ -16,7 +16,7 @@
             <% if @lab_members.find_by(user_id: current_user.id).status == "admin" || @lab_members.find_by(user_id: current_user.id).status == "subadmin" %>
               <%= render "laboratories/lab_edit_form", laboratory: @laboratory %>
             <% elsif %>
-              <p><%= @laboratory.name %></p>
+              <p class="h3"><%= @laboratory.name %></p>
             <% end %>
           </div>
         </div>

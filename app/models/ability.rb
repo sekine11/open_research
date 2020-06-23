@@ -29,6 +29,7 @@ class Ability
       can [:create, :destroy], ProtocolFavorite, user_id: user.id
 
       can [:create], Laboratory
+      can [:join, :unjoin], LabMember, laboratory: { lab_members: { user_id: user.id, joined_at: nil } }
       can [:show, :edit], Laboratory, lab_members: { user_id: user.id }
       can [:update], Laboratory, lab_members: { user_id: user.id, status: 2 }
       can :manage, LabMember, laboratory: { lab_members: { user_id: user.id, status: 2 } }

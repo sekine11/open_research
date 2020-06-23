@@ -12,6 +12,7 @@ class LabInformationsController < ApplicationController
 
   def show
     @laboratory = Laboratory.find(params[:laboratory_id])
+    @lab_members = @laboratory.lab_members.includes([:user])
     @lab_information = LabInformation.find(params[:id])
     @comment = LabInformationComment.new
   end

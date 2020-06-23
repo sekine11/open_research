@@ -1,0 +1,4 @@
+<span>確認済みメンバー：</span>
+<% lab_information.lab_information_checks.includes(:user).each do |check| %>
+		<span class="ml-2"><%= check.user.private_name %></span>
+<% end %>
