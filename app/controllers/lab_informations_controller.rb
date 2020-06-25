@@ -27,8 +27,12 @@ class LabInformationsController < ApplicationController
   def create
     @laboratory = Laboratory.find(params[:laboratory_id])
     # 添付ファイルを含む場合の処理
-    if lab_information_params[:document].present?
-      lab_information_params[:document].open # cancancanと一緒にrefile使用で起こる不都合を修正
+    if lab_information_params[:information_documents_documents].present?
+      lab_information_params[:information_documents_documents].each do |document| # cancancanと一緒にrefile使用で起こる不都合を修正
+        if document != "[]"
+          document.open
+        end
+      end
     end
     @lab_information = LabInformation.new(lab_information_params)
     @lab_information.user_id = current_user.id
@@ -50,6 +54,6 @@ class LabInformationsController < ApplicationController
   private
 
   def lab_information_params
-    params.require(:lab_information).permit(:subject, :content, :document)
+    params.require(:lab_information).permit(:subject, :content, information_documents_documents: [])
   end
 end

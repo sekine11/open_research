@@ -4,7 +4,8 @@ class LabInformation < ApplicationRecord
   has_many :lab_information_checks, dependent: :destroy
   has_many :lab_information_comments, dependent: :destroy
 
-  attachment :document, extension: "pdf"
+  has_many :information_documents, dependent: :destroy
+  accepts_attachments_for :information_documents, attachment: :document
 
   validates :user_id, presence: true
   validates :laboratory_id, presence: true
@@ -17,7 +18,4 @@ class LabInformation < ApplicationRecord
     lab_information_checks.where(user_id: user.id).exists?
   end
 
-  def file_extension
-    document_content_type.split("/").last.to_sym
-  end
 end

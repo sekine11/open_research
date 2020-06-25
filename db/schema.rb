@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_084736) do
+ActiveRecord::Schema.define(version: 2020_06_24_130419) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2020_06_23_084736) do
     t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "commented_at", default: "2020-06-15 12:18:07", null: false
+    t.datetime "commented_at", default: "2020-06-25 14:21:46", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
   end
 
@@ -97,6 +97,17 @@ ActiveRecord::Schema.define(version: 2020_06_23_084736) do
     t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
     t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
     t.index ["user_id"], name: "index_impressions_on_user_id"
+  end
+
+  create_table "information_documents", force: :cascade do |t|
+    t.integer "lab_information_id", null: false
+    t.string "document_id", null: false
+    t.string "document_filename", null: false
+    t.string "document_size", null: false
+    t.string "document_content_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lab_information_id"], name: "index_information_documents_on_lab_information_id"
   end
 
   create_table "lab_information_checks", force: :cascade do |t|
@@ -213,8 +224,7 @@ ActiveRecord::Schema.define(version: 2020_06_23_084736) do
     t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "commented_at", default: "2020-06-15 12:18:07", null: false
-    t.datetime "joined_at"
+    t.datetime "commented_at", default: "2020-06-25 14:21:46", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 

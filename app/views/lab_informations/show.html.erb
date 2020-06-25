@@ -40,11 +40,13 @@
 			<div class="col-12">
 				<div class="border-bottom py-4">
 					<div class="m-0"><%= simple_format(@lab_information.content) %></div>
-					<% if @lab_information.document %>
 						<div class="text-right">
-							<%= link_to @lab_information.document_filename, attachment_url(@lab_information, :document, format: @lab_information.file_extension) %>
+							<% if @lab_information.information_documents.present? %>
+								<% @lab_information.information_documents.each do |document| %>
+									<%= link_to document.document_filename, attachment_url(document, :document, format: document.file_extension), class: "px-1" %>
+								<% end %>
+							<% end %>
 						</div>
-					<% end %>
 				</div>
 				<div class="border-bottom py-4">
 					<div class="flex align-items-center justify-content-between">
