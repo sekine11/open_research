@@ -32,9 +32,12 @@
 		<div class="col-12 col-md-9">
 			<div class="news overflow-auto mb-4">
 				<ul>
-					<% @science.each do |news| %>
+					<% @news_lists.each do |news| %>
 						<li class="news mb-1">
-							<%= link_to news.title, news.url %>
+							<%= link_to news.url do %>
+								<%= news.title %>
+								<span><%= news.published_at.gsub(/T|Z/){" "} %></span>
+							<% end %>
 						</li>
 					<% end %>
 				</ul>
