@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_130419) do
+ActiveRecord::Schema.define(version: 2020_06_26_171536) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_130419) do
     t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "commented_at", default: "2020-06-25 14:21:46", null: false
+    t.datetime "commented_at", default: "2020-06-26 17:16:49", null: false
     t.index ["user_id"], name: "index_discussions_on_user_id"
   end
 
@@ -176,6 +176,14 @@ ActiveRecord::Schema.define(version: 2020_06_24_130419) do
     t.index ["user_id"], name: "index_laboratories_on_user_id"
   end
 
+  create_table "news_lists", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.string "published_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "protocol_favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "protocol_id", null: false
@@ -224,7 +232,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_130419) do
     t.integer "impressions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "commented_at", default: "2020-06-25 14:21:46", null: false
+    t.datetime "commented_at", default: "2020-06-26 17:16:49", null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 

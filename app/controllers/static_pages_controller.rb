@@ -11,6 +11,8 @@ class StaticPagesController < ApplicationController
   end
 
   def home
+    news = News.new(ENV['NEWS_KEY'])
+    @news_lists = NewsList.all
     @protocols = Protocol.all.includes(
     :user, :protocols, :protocol_taggings, :protocol_favorites
     ).order(updated_at: "DESC").take(20)
